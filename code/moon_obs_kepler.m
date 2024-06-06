@@ -13,7 +13,7 @@ UA=149597870690;
 
 Dter=UA;
 
-alpha=0.1;
+alpha=0.05;
 
 DP1=Dter*Rlun/(Rsol-Rlun);
 
@@ -38,18 +38,22 @@ p1=HP2/(DP2-DP3);
 p2=HP2/(DP1-DP2);
 
 off2=HP2+(DP2-DP3)*p2;
-
+global ud;
+global ut;
 ud=al;
 ut=2*pi*sqrt(al^3/Muter);
 
-periodRatio=2;
+periodRatio=1;
 
 global param;
 param.DP3=DP3/ud;
+param.DP2=DP2/ud;
+param.HP2=HP2/ud;
 param.DP1=DP1/ud;
 param.p1=p1;
 param.p2=p2;
 param.off2=off2/ud;
+param.Dter=Dter/ud;
 param.Muter=Muter*ut*ut/ud/ud/ud;
 param.al=al/ud;
 param.wl=wl;
@@ -61,13 +65,10 @@ param.ns=sqrt(param.Muter/param.as^3);
 param.timeStep=300/ut;
 param.prec=1e-2/ut;
 
-
-Xtest=[4*pi/6,0.5,205/360*2*pi];
-%T=ObsTimeDE(Xtest)*ut
-%T=ObsTime(Xtest)*ut
-
-
-x0=[1.5*pi/3,0.5,206/360*2*pi];
+x0=[120/360*pi*2,0.5,205/360*2*pi];
+disp("ok");
+disp(ObsTimeDE(x0));
+disp("ok2");
 options = optimoptions('fminunc', 'Algorithm', 'quasi-newton',"Display","iter-detailed");
 fun = @(x) -ObsTimeDE(x); % Negate the function to find maximum
 
@@ -82,15 +83,30 @@ plotOrbit(x);
 
 saveas(fig, "D:\storage\CODE\matlab\orbit.png", "png");
 
+function P3=getXP3(Xl)
+    global param;
+    P3=(param.DP3/param.Dter)*[param.Dter+Xl(1),Xl(2),Xl(3)];%*sqrt(param.Dter*(param.Dter+2*Xl(1))))*[1,Xl(2)/(param.Dter+Xl(1)),0];%[1,X(2)/(X(1)+param.Dter),0];
+end
+
 function out=InObs(x)
     global param;
     d=sqrt(x(2)*x(2)+x(3)*x(3));
-    out=(d<param.p1*x(1) & -d<param.p1*x(1) & d<(param.off2-param.p2*x(1)) & -d<(param.off2-param.p2*x(1)));
+    out=all([d<param.p1*x(1) && -d<param.p1*x(1) && d<(param.off2-param.p2*x(1)) && -d<(param.off2-param.p2*x(1))]);
 end
 
 function [value, isterminal, direction]=inObsDE(t,X)
     global param;
-    value=InObs([X(1)-X(7)-param.DP3,X(2)-X(8),X(3)-X(9)])-0.5;
+    P3=(param.DP3/param.Dter)*[param.Dter+X(7),X(8),X(9)];%*sqrt(param.Dter*(param.Dter+2*Xl(1))))*[1,Xl(2)/(param.Dter+Xl(1)),0];%[1,X(2)/(X(1)+param.Dter),0];
+    %P1=(param.DP1/param.Dter)*[param.Dter+X(7),Xl(8),Xl(9)];
+
+    PX=dot(X(1:3)'-X(7:9)'-P3,P3)/norm(P3)^2*P3;
+    PY=X(1:3)'-X(7:9)'-P3-PX;
+    POS=[X(1)-X(7),X(2)-X(8),X(3)-X(9)]-P3;
+    d=norm(PY);%sqrt(POS(2)*POS(2)+POS(3)*POS(3));%norm(POS());
+    sx=norm(PX);%POS(1);
+    out=all([d<param.p1*sx && -d<param.p1*sx && d<(param.off2-param.p2*sx) && -d<(param.off2-param.p2*sx)]);
+
+    value=out-0.5;
     isterminal=1;
     direction = -1;
 end
@@ -111,14 +127,18 @@ end
 
 function out=plotOrbit(X)
     global param;
+    global ut;
     %after :
 
     Xl=toCart(param.al,param.el,param.wl,X(1));
-    XP3=[param.DP3,0,0];
-    XP1=[param.DP1,0,0];
+    %XP3=[param.DP3,0,0];
+    %XP1=[param.DP1,0,0];
     
+    XP3=(param.DP3/param.Dter)*[param.Dter+Xl(1),Xl(2),Xl(3)];
+    XP1=(param.DP1/param.Dter)*[param.Dter+Xl(1),Xl(2),Xl(3)];
+
     %radius:
-    R=Xl+XP3*(1-X(2))+XP1*X(2);
+    R=Xl+(1-X(2))*(XP3)+X(2)*XP1;
     Rn=norm(R);
     Vn=sqrt(param.Muter*(2/Rn-1/param.as));%norme de la vitesse fixé car demi grand axe fixé
     V=[cos(X(3))*Vn,sin(X(3))*Vn,0];
@@ -139,22 +159,60 @@ function out=plotOrbit(X)
     [t, Y] = ode45(@Df, tspan, x0, optionsODE);
     hold on;
     plot(Y(:,1),Y(:,2));
+    plot(Y(:,7),Y(:,8));
     grid on;
 
-    %real orbit :
-    f=0:0.1:(2*pi);
-
-    R=param.as*(1-e*e)./(1+e*cos(f));
-    plot(cos(f+w).*R,sin(f+w).*R);
-
-
-
-    plot(Y(:,7),Y(:,8));
-
-
-    R=param.al*(1-param.el*param.el)./(1+param.el*cos(f));
-    plot(cos(f+param.wl).*R,sin(f+param.wl).*R);
+    scatter([x0(1),x0(7)],[x0(2),x0(8)])
+    drawObs(x0(7:9));
     hold off;
+
+    optionsODE = odeset('RelTol', reltol, 'AbsTol', abstol,'Events', @inObsDE);
+    tspan = [0, 1];
+    [t1, Y1,TE,YE,IE] = ode45(@Df, tspan, x0, optionsODE);
+    T=TE;
+    tspan = [0, -1];
+    [t2, Y2,TE,YE,IE] = ode45(@Df, tspan, x0, optionsODE);
+    T=T-TE;
+
+    DifY=[flipud(Y2);Y1];
+    Dift=[flipud(t2);t1];
+    Dift=Dift-min(Dift);
+    
+    for i=1:length(DifY)
+        disp(["progress",i/length(DifY)]);
+        fig=figure('Visible', 'off');
+        hold on;
+        plot(Y(:,1),Y(:,2));
+        plot(Y(:,7),Y(:,8));
+        scatter([DifY(i,1),DifY(i,7)],[DifY(i,2),DifY(i,8)])
+        %scatter([DifY(i,1)],[DifY(i,2)])
+        drawObs(DifY(i,7:9)');
+        grid on;
+
+        title("T="+Dift(i)*ut/3600+"h");
+        hold off;
+        saveas(fig, "D:\storage\CODE\matlab\frames\sine_wave_"+i+".png","png");
+        close(fig);
+    end
+
+    
+    
+end
+
+function drawObs(Xl)
+    %on desine en 2D donc on neglige l'axe z pour l'instant
+    global param;
+    Xls=[param.Dter+Xl(1),Xl(2),Xl(3)];
+    XP3=(param.DP3/param.Dter)*Xls;
+    XP1=(param.DP1/param.Dter)*Xls;
+    XP2x=(param.DP2/param.Dter)*Xls;
+    XP2y=(XP2x/norm(XP2x))*[0,-1,0;1,0,0;0,0,1]*param.HP2;
+    poly=[XP1+Xl';Xl'+XP2x+XP2y;Xl'+XP3;Xl'+XP2x-XP2y;XP1+Xl'];
+    plot(poly(:,1),poly(:,2));
+
+
+    %xlim([min(poly(:,1)),max(poly(:,1))])
+    %ylim([min(poly(:,2)),max(poly(:,2))])
 end
 
 function T=ObsTimeDE(X)
@@ -162,11 +220,14 @@ function T=ObsTimeDE(X)
     %after :
 
     Xl=toCart(param.al,param.el,param.wl,X(1));
-    XP3=[param.DP3,0,0];
-    XP1=[param.DP1,0,0];
+    %XP3=[param.DP3,0,0];
+    %XP1=[param.DP1,0,0];
     
+    XP3=(param.DP3/param.Dter)*[param.Dter+Xl(1),Xl(2),Xl(3)];
+    XP1=(param.DP1/param.Dter)*[param.Dter+Xl(1),Xl(2),Xl(3)];
+
     %radius:
-    R=Xl+XP3*(1-X(2))+XP1*X(2);
+    R=Xl+(1-X(2))*(XP3)+X(2)*XP1;
     Rn=norm(R);
     Vn=sqrt(param.Muter*(2/Rn-1/param.as));%norme de la vitesse fixé car demi grand axe fixé
     V=[cos(X(3))*Vn,sin(X(3))*Vn,0];
@@ -177,10 +238,10 @@ function T=ObsTimeDE(X)
     abstol=1e-12;
     
     optionsODE = odeset('RelTol', reltol, 'AbsTol', abstol,'Events', @inObsDE);
-    tspan = [0, 0.5];
+    tspan = [0, 1];
     [t, Y,TE,YE,IE] = ode45(@Df, tspan, x0, optionsODE);
     T=TE;
-    tspan = [0, -0.5];
+    tspan = [0, -1];
     [t, Y,TE,YE,IE] = ode45(@Df, tspan, x0, optionsODE);
     T=T-TE;
 
@@ -272,102 +333,5 @@ function [e,w,f]=getDeviceOrbital(X)
     e=norm(E);
     w=atan2(E(2),E(1));
     f=acos(dot(E,R)/(e*Rn));
-
-end
-
-%
-% X : 
-%
-% position de la lune [0,2pi]
-% position du satellite dans la zone [0,1]
-% direction de la vitesse [0,2*pi]
-%
-function T=ObsTime(X)
-    %disp(X) 8.9777    0.4037   -6.7428
-    global param;
-    %finding orbital component of orbit :
-    %moonPos
-    Xl=toCart(param.al,param.el,param.wl,X(1));
-    XP3=[param.DP3,0,0];
-    XP1=[param.DP1,0,0];
-    Tl=perigeeTime(param.el,param.nl,X(1));
-    
-    %radius:
-    R=Xl+XP3*(1-X(2))+XP1*X(2);
-    Rn=norm(R);
-    Vn=sqrt(param.Muter*(2/Rn-1/param.as));%norme de la vitesse fixé car demi grand axe fixé
-    V=[cos(X(3))*Vn,sin(X(3))*Vn,0];
-    
-
-    h=cross(R,V);
-    direction=sign(h(3));%used to know if we are moving against or in the same direction as the moon
-    E=[(V(2)*h(3))/param.Muter-R(1)/Rn,(-V(1)*h(3))/param.Muter-R(2)/Rn,0];
-    e=norm(E);
-    w=atan2(E(2),E(1));
-    f=acos(dot(E,R)/(e*Rn));
-    Rangle=atan2(R(2),R(1));
-    if(sign(sin(X(3)-Rangle)*cos(X(3)-Rangle))<0)
-        f=-f;
-    end
-    
-    Ts=perigeeTime(e,param.ns,f);
-
-    Tup=0;
-    Tdown=0;
-
-
-    %initial Move (big step to find frontier with low precision) 
-    %this step is used because its possible to have have multiple encounter zone , 
-    %this way we avoid jumping between encouter zone in one step and having
-    %a wrong observation time very long (which would be a maximum)
-        %after:
-        posS=R;
-        posObs=Xl+XP3;
-        while InObs(posS-posObs);
-            Tup=Tup+param.timeStep;
-            %updating positions
-            posS=toCart(param.as,e,w,posInOrb(e,param.ns,direction*Tup+Ts));
-            posObs=toCart(param.al,param.el,param.wl,posInOrb(param.el,param.nl,Tup+Tl))+XP3;
-        end
-        %before:
-        posS=R;
-        posObs=Xl+XP3;
-        while InObs(posS-posObs);
-            Tdown=Tdown-param.timeStep;
-            %updating positions
-            posS=toCart(param.as,e,w,posInOrb(e,param.ns,direction*Tdown+Ts));
-            posObs=toCart(param.al,param.el,param.wl,posInOrb(param.el,param.nl,Tdown+Tl))+XP3;
-        end
-
-    %secondary Move (dichotomic search around frontier for high precision frontier)
-        step=param.timeStep;
-        while(step>param.prec)
-            step=step/2;
-            %after:
-            posS=toCart(param.as,e,w,posInOrb(e,param.ns,direction*Tup+Ts));
-            posObs=toCart(param.al,param.el,param.wl,posInOrb(param.el,param.nl,Tup+Tl))+XP3;
-            %disp(Tup);
-            %disp("pos")
-            %disp(Ts+Tup-Ts);
-            %disp(posInOrb(e,param.ns,direction*Tup+Ts));
-            %disp(posS-posObs);
-            %disp(R)
-            if(InObs(posS-posObs))
-                Tup=Tup+step;
-            else
-                Tup=Tup-step;
-            end
-
-            %before:
-            posS=toCart(param.as,e,w,posInOrb(e,param.ns,direction*Tdown+Ts));
-            posObs=toCart(param.al,param.el,param.wl,posInOrb(param.el,param.nl,Tdown+Tl))+XP3;
-            if(InObs(posS-posObs))
-                Tdown=Tdown-step;
-            else
-                Tdown=Tdown+step;
-            end
-        end
-    %add up final time
-    T=Tup-Tdown;
 
 end
