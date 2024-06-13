@@ -1,0 +1,365 @@
+% This is a simple sample document.  For more complicated documents take a look in the exercise tab. Note that everything that comes after a % symbol is treated as comment and ignored when the code is compiled.
+
+\documentclass{article} % \documentclass{} is the first command in any LaTeX code.  It is used to define what kind of document you are creating such as an article or a book, and begins the document preamble
+\usepackage{amssymb}
+\usepackage{amsmath} % \usepackage is a command that allows you to add functionality to your LaTeX code
+
+\title{Mission d'occulatation lunaire} % Sets article title
+\author{Vincent Callegari} % Sets authors name
+\date{\today} % Sets date for date compiled
+\usepackage{graphicx}
+\graphicspath{{./images/graph/}}
+% The preamble ends with the command \begin{document}
+	\begin{document}
+		\maketitle
+		\section{introduction}%flemme de faire cette partie pour l'instant
+		\section{zone d'observation}
+		\subsection{calcul de la zone exacte}
+		
+		during the study of these problems, we will take the earth as the orgin in cartesian coordinate. The axis Earth-Sun at time t0 will be defined as the X axis and the axis X and Y define the earth ecliptic plane. 
+		
+		for now we fix the time at (0,0)
+		
+		%durant l'étude de ces problèmes, on se place dans %le référentiel de la Terre avec des coordonnées %cartésienne, l'axe Terre-Soleil étant l'axe X avec
+		%l'axe Y colinéaire au plan écliptique de la Terre. 
+		
+		a point is in the observation zone if the sun is totally hidden and the crown is visible around the occulting body. This zone has the shape of a double cone that we can represent by the rotation of a triangle.
+		
+		%un point est dans la zone d'observation quand le %soleil est totalement masqué et que la couronne %est visible autour de l'astre occultant. Cette %zone à la forme d'un double cône que l'on peut %représenter comme la rotation d'un losange %mettre un schéma pour être plus clair.
+		
+		the triangle could be defined by its three points
+		$P_1$,$P_2$ et $P_3$, with as coordinates $(P_{1x},0,0)$ , $(P_{2x},P_{2y},0)$,$(P_{3x},0,0)$ 
+		
+		%le losange peut être définit par 3 points %$P_1$,$P_2$ et $P_3$, ayant pour coordonnée %$(P_{1x},0)$ , $(P_{2x},P_{2y})$,$(P_{3x},0)$ avec %$\hat{x}$ le long de l'axe lune soleil.
+		
+		the value of $P_{1x}$ and $P_{3x}$ can be easily computed usingt the Thales theorem.
+		
+		%les valeurs de $P_{1x}$ et $P_{3x}$ peuvent être %facilement calculée en utilisant le théorème de %Thalès :
+		
+		$$	
+			P_{1x}=\frac{\bar{D}R_l}{R_s-R_l}
+		$$ 
+		$$	
+			P_{3x}=\frac{\bar{D}R_l}{R_s(\alpha+1)-R_l}
+		$$ 
+		où $\bar{D}$ est la distance Soleil-lune, $R_s$ le rayon solaire ,$R_l$ le rayon lunaire et $\alpha$ est la taille supplémentaire de la couronne solaire par rapport au rayon solaire( plus $alpha$ est proche de 0 plus on observera des parties de la couronne proche de la surface du soleil).
+		
+		on peut ensuite calculer la position de $P_2$ en calculant l'intersection des lignes reliant la surface de la Lune au points $P_1$ et $P_3$ : 
+		
+		$$
+			P_{2x}=\frac{P_{1x}tan(\theta_1) + P_{3x}tan(\theta_3)}{tan(\theta_1) + tan(\theta_3)}
+		$$
+		$$
+			P_{2y}=tan(\theta_1)(P_{1x}-P_{2x})
+		$$
+		
+		avec
+		$$
+		\theta_1=\sin^{-1}\left(\frac{R_l}{P_{1x}}\right)
+		$$
+		
+		$$
+		\theta_3=\sin^{-1}\left(\frac{R_l}{P_{3x}}\right)
+		$$
+		
+		avec $\alpha=0.05$
+		
+		\subsection{approximation of the zone}
+		la position des points $P_1$,$P_2$ et $P_3$ par rapport à la Lune vont changer en fonction de sa position autour de la Terre. Cependant la forme de la zone en elle même varie assez peu (les dimensions variant de moins de 0.5\%).
+		
+		On peut donc obtenir une bonne approximation de la zone d'observation où que se trouve la Lune autours de la Terre en calculant la forme de la zone d'observation lorsque la Lune se trouve à la place de la Terre puis de la déformer pour se positionner là où se trouve la Lune.
+		
+		On nomme $\hat{P_1}$, $\hat{P_2}$ et $\hat{P_3}$ les points de la zone d'observation quand la Lune est à la place de La Terre. Les points $P_1$ et $P_3$ sont colinéaire avec le vecteur $R_{ls}$ qui représente la position de la Lune par rapport au Soleil.
+		De plus les points $\hat{P_1}$ $\hat{P_3}$ sont colinéaire avec l'axe X. On peut en déduire les formules suivantes de la position de $P_3$:
+		
+		$$
+		\begin{equation}
+			P_3=R_{lt}+\hat{P_{3x}}D^{-1}R_{ls} 
+		\end{equation}
+		$$
+		
+		vérifier si un point $S$ est dans la zone d'observation revient à vérifier les inégalités suivantes:
+		
+		
+		$$
+		\begin{equation}
+			\begin{align}
+				||a||&<||b||p_1\\
+				||a||&<O-||b||p_2
+			\end{align}	
+		\end{equation}
+		$$
+		
+		avec $b$ la projection de $S-P_3$ sur l'axe Lune- Soleil, $a=S-P_3-b$ et $p_1$, $p_2$ et $O$ sont des réel à déterminer. On remarque que si la Lune est à l'origine on a
+		
+		$$
+		\begin{align}
+			p_1&=\frac{P_2y}{P_2x-P_3x}\\
+			p_2&=\frac{P_2y}{P_1x-P_2x}\\
+			O&=P_2y+(P_2x-P_3x)p_2
+		\end{align}	
+		$$ 
+		
+		En supposant que la forme de la zone d'observation varie peu lorsque la lune se déplace, on peut utiliser les même coefficients où que se trouve la Lune.
+		
+		Si on souhaite avoir une approximation un peu plus précise on peu prendre en compte la variation la plus importante sur la forme de la zone d'observation étant la variation de la longueur de la zone.
+		
+		On peut prendre en compte cette variation en multipliant $b$ par $\frac{||\hat{P_1}-\hat{P_3}||}{||P_1-P_3||}$		
+		\subsection{application numérique}
+		on a les distances suivantes : 
+		$$
+		\begin{align}
+			R_l&=1.7374\times10^6 m \\
+			R_s&=6.955\times10^8 m \\ 
+			D_{sl}&=1.496\times10^{11} m \\
+			\Delta_D=2D_{tl}&= 7.69496\times10^8 m
+		\end{align}
+		$$
+		
+		on obtient les valeur suivantes pour les points de la zone pour $\alpha=0.05$
+		
+		$$
+		\begin{align}
+			P_{3x}&=3.577\times10^8 m \\
+			P_{1x}&=3.758\times10^8 m \\ 
+			P_{1x}-P_{3x}&=1.7928\times10^7 m \\ 
+			P_{2x}&=3.655\times10^8 m \\
+			P_{2y}&= 4.248\times10^4 m
+		\end{align}
+		$$
+		
+		avec
+		
+		$$
+		\begin{align}
+			\Delta_{P_{3x}}&=1.835\times10^6 m \\
+			\Delta_{P_{1x}}&=1.927\times10^6 m \\ 
+			\Delta_{P_{1x}-P_{3x}}&=9.198\times10^4 m \\ 
+			\Delta_{P_{2x}-P_{3x}}&=4.487\times10^4 m \\ 
+			\Delta_{P_{2x}}&=1.880\times10^6 m \\
+			\Delta_{P_{2y}}&= 4.935\times10^{-3} m
+		\end{align}
+		$$
+		
+		on observe qu'en utilisant l'approximation définie plus tôt, on néglige les variation de l'ordre du millier de kilomètres ($10^6 m$). et en ajoutant l'optimisation supplémentaire sur la valeur de $b$ on néglige également les variation de l'ordre de la dizaine de kilomètre ($10^4 m$) ne laissant que les erreurs de l'ordre de quelques kilomètre sur la position de $P_2x$ ce qui ne change pas grand chose compte tenu de la grande longueur de la zone par rapport à son épaisseur (environ $ 20000 km $ contre $100 km$)
+		
+		%la position de la zone d'observation va se déplacer avec la lune mais va aussi changer de direction et de forme.
+		
+		%on a $\bar{D}=\sqrt{D^2+2DX_l+r_l^2}$ où $D$ est la distance Terre-Soleil et $R_l=(X_l,Y_l,Z_l)$,$||R_l||=r_l$ la position de la lune relativement à la Terre. $||r_l||<<D$ donc on peut considérer que $\bar{D} \approx \sqrt{D(D+2X_l)}$
+		
+		%cette approximation crée une erreur sur les position de $X_1$ et $X_3$ de l'ordre $1000m$.
+		
+		%en prenant une valeur encore plus simplifié de $\bar{D}$ : $\bar{D}=D$ on obtient une erreur sur les positions de  $X_1$ et $X_3$ de l'ordre de $1000km$ mais on conserve une erreur assez faible sur la distance entre $X_1$ et $X_3$ (environ 0.25\% de la distance $X_1$$X_3$ ). Cela permet de considérer la zone d'observation comma ayant toujours la même forme (longueur et épaisseur).
+		
+		\section{problème}
+		
+		on va considérer le problème suivant:
+		
+		la lune suit une orbite circulaire autour de la Terre de rayon $a=384000km$.
+		
+		la forme de la zone d'observation de la Lune est considérée comme étant égale à la zone d'observation de la lune si elle se trouvait à l'origine (la position de la terre). La position du point $P_3$ est déterminé par la formule suivante:
+		avec 
+		$$
+			P_3(R_l)=R_{lt}+\hat{P_{3x}}D^{-1}R_{ls}
+		$$
+		avec $\hat{P_3}$ étant la position du point $P_3$ quand la lune est à l'origine
+		,$R_{lt}$ est la position de la lune relativement à la Terre.
+		et $R_{ls}$ est la position de la Lune relativement au Soleil.
+		
+		(on a $R_{ls} = R_{lt}+D\hat{x}$);
+		
+		le but est de trouver des orbites Kepleriennes qui effectue des observations répété et les plus longues possibles.
+		
+		Les temps d'observation peuvent beaucoup varier allant d'une durée de quelques minutes à plusieurs heures.	dans la suite on va donc se concentrer sur une seule observation.
+		
+		afin de pouvoir reproduire les observations, il vaut mieux prendre une période d'orbite qui est un multiple de celle de la Lune.
+		
+		de ce fait on peut déterminer le demi grand axe du satellite avec la formule suivante:
+		
+		$$
+		a_s=a_lk^{\frac{2}{3}}
+		$$
+		
+		avec
+		$$
+		P_s=kP_l
+		$$
+		
+		étant donné que l'objectif est de faire une observation, on peut faire partir le satellite directement de la zone d'observation.
+		
+		De plus la dimension de la zone étant très étirée (environ $10000km\times100km\times100km$) on peut considérer que le satellite coupera forcement le segment $[P_3,P_1]$, on peut donc décrire la position initiale du satellite à l'aide de l'anomalie vraie de la lune $\nu$ et un scalaire $\lambda$ entre 0 et 1. la position initiale du satellite devient : 
+		$$
+			S_0=\lambda(P_1-P_3)+P_3(R_l(\nu))
+		$$
+		
+		avec 
+		$$
+			R_l(\nu)=\begin{bmatrix}
+				r( \cos\Omega \cos\theta -\sin\Omega \sin\theta \cos\ i)\\
+				r( \sin\Omega \cos\theta -\cos\Omega \sin\theta \cos\ i)\\
+				r\sin\theta \sin\ i\ 
+			\end{bmatrix}
+		$$
+		avec $\theta = \nu+\omega$ \\
+		pour l'instant on est en 2D donc l'équation se simplifie par:
+		$$
+		X_l(\nu)=\begin{bmatrix}
+			r \cos\theta \\
+			r \sin\theta \\
+			0 
+		\end{bmatrix}
+		$$
+		
+		Maintenant que l'on connait la position du satellite on peut déterminer sa vitesse à l'aide de la formule suivante:
+		
+		$$
+			||\dot{S}(0)||=\sqrt{\frac{2\mu}{||S_0||}-\frac{\mu}{a_s}}
+		$$
+		
+		on peut ensuite determiner l'orientation de la vitesse initiale avec deux angles $\theta_s$ et $\phi_s$.
+		
+		la dynamique du satellite et de la lune doivent être calculé pour calculer le temps de l'observation.
+		
+		on à la dynamique suivante :
+		
+		$$
+		\begin{bmatrix}
+			\dot{\overrightarrow{R_{s}}}\\
+			\dot{\overrightarrow{V_{s}}}\\
+			\dot{\overrightarrow{R_{l}}}\\
+			\dot{\overrightarrow{V_{l}}}
+		\end{bmatrix} =\begin{bmatrix}
+			\overrightarrow{V_{s}}\\
+			\frac{-\mu }{||R_{s} ||^{3}}\overrightarrow{R_{s}}\\
+			\overrightarrow{V_{l}}\\
+			\frac{-\mu }{||R_{l} ||^{3}}\overrightarrow{R_{l}}
+		\end{bmatrix}
+		$$
+		
+		avec comme condition initiale :
+		
+		
+		$$
+		\begin{bmatrix}
+			\overrightarrow{R_{s0}}\\
+			\overrightarrow{V_{s0}}\\
+			\overrightarrow{R_{l0}}\\
+			\overrightarrow{V_{l0}}
+		\end{bmatrix} =\begin{bmatrix}
+			\lambda \left(\widehat{P_{1}} -\widehat{P_{3}}\right) +R_{lt} +\frac{\widehat{P_{3x}}}{D} R_{ls}\\
+			\sqrt{\mu \left(\frac{2}{||R_{s0} ||} -2\right)}\widehat{v_{0}}( \theta _{s} ,\phi _{s})\\
+			r( \nu )\begin{bmatrix}
+				( \cos\Omega \cos\theta -\sin\Omega \sin\theta \cos\ i)\\
+				( \sin\Omega \cos\theta +\cos\Omega \sin\theta \cos\ i)\\
+				\sin\theta \sin\ i
+			\end{bmatrix}\\
+			\sqrt{\frac{\mu }{p}}\begin{bmatrix}
+				-\cos\Omega ( \sin\theta +e\ \sin\omega ) -\sin\Omega ( \cos\theta +e\ \cos\omega ) \cos\ i\\
+				-\sin\Omega ( \sin\theta +e\ \sin\omega ) +\cos\Omega ( \cos\theta +e\ \cos\omega ) \cos\ i\\
+				( \cos\theta +e\ \cos\omega ) \sin\ i
+			\end{bmatrix}
+		\end{bmatrix}
+		$$
+		
+		la dynamique devra être simulée après et avant l'état initial pour trouver l'instant où l'objet entre et sort de la zone.
+		
+		la fonctions d'objectif est définit comme suit :
+		
+		$$
+		\int_{-\tau_d}^{\tau_u}dx=\tau_d+\tau_u
+		$$
+		
+		où $\tau_d$ est l'instant où l'objet rentre dans la zone d'observation et $\tau_u$ l'instant où l'objet en sort.
+		
+		l'équation utilisé pour vérifier si l'objet est dans la zone est l'équation (2).
+		
+		les paramètre de contrôle sont :
+		
+		\begin{itemize}
+			\item la position de la lune $\nu$ qui définit la position de la zone d'observation.
+			\item la position initiale $\lambda$ de l'objet dans la zone d'observation qui est simplifier par un segment allant de $P_3$ à $P_1$. 
+			\item les angles $\theta_s$ et $\phi_s$ qui définissent l'orientation de la vitesse de l'objet.
+		\end{itemize}
+		
+		on a donc un espace de dimension 4 :
+		 $(\nu,\lambda,\theta_s,\phi_s)=[0,2\pi]\times[0,1]\times[0,2\pi]\times[0,\pi]$
+		
+		l'espace est contraint mais étant donné que la plupart des dimension sont des angles et qu'il suffit de donner un score de 0 si $\lambda$ est en dehors du domaine on peut considéré que l'espace est égal à $\mathbb{R}^4$ pour avoir un problème sans contrainte.
+		
+		\section{Result}
+		
+		after studying the possible optimum it is shown that random initial condition tend to give obervation time of a few minutes, however observation that happen when the angle form by the Sun, Earth and Moon aproach 60° tend to be way higher .
+		
+		When we are working with a simple 2D problem with circular Moon orbit , there are an optimum near the value $(\2pi/3,0.5,38/45\pi,0)$ that give observation time of almost 20h.
+		
+		we managed to get observation time this long because the speed of the object and the Moon are equivalent. Meaning that the device can stay in the observation zone for a long time.
+		
+		The satellite describe a loop inside the observation zone, meaning that it is possible to get two fairly long observation very near to each other if the tip of the loop is outside of the observation zone. Even if there is a good chance that these solution are less efficient that a solution with the entire loop inside the observation zone, i could be usefull to improve the objective function to detect when the object reenter the observation zone after a short time.
+		
+		we can easily determine that there are two point in the lunar orbit where we can obtain very long observation time:
+		
+		The satellite can have the same speed vector as the moon only if the following equation is verified : 
+		
+		$$
+		\begin{align}
+			\sqrt{\frac{2\mu}{R_s}-\frac{\mu}{a_s}}&=\sqrt{\frac{2\mu}{R_l}-\frac{\mu}{a_l}}
+		\end{align}
+		$$
+		
+		Considering that the moon's speed is constant (because of its small eccentricity) and that the period of the device is the same as the moon (ie $a_s=a_l$), we get the relation :
+		
+		$$
+			R_s=R_l
+		$$
+		
+		as the satellite is in the obsevation zone, the region in which the satelite can cross the observation zone and at the same speed as the moon is the intersection between the possible observation zone space (which is in our case simplified by an ellipse) and a sphere of radius $R$ with $R=R_l$ in this case.
+		
+		There are two point in the orbit that satisfy these condition
+		
+		Using the solution that we found in 2D we can try to use it as an initial condition for 3D problems, the solution found with varying $\Omega$ value and considering the eccentricity of the Moon tend to show that there are always a solution near this point.
+		
+		\section{lambert transfer}
+		
+		now that we know that the best configuration to make observation are with no relative speed, it mean that we can compare the different $\Delta v$ needed to transfert from one observation to another.
+		
+		the goal of this computing is to get an idea of which subset of observations could be done (as it is very likely that we won't be able to make the device attend all the observations).
+		
+		For now we will consider the simulation over one year, with the earth at the origin, the sun moving around the earth along a perfect circle with a radius of one UA at a constant speed and. The moon moving allong a keplerian orbit with the following component :
+		
+		$$
+		\begin{align}
+			\Omega&=0\\
+			\omega&=0\\
+			i&=5\\
+			e&=0.054\\
+			\nu&=0\\
+		\end{align}
+		$$
+		
+		the value of $\nu$ correspond to the true anomaly of the moon at time $t=0$ .
+		
+		the value of $\omega$ and $\Omega$ are set at 0 for now but we will test other value later.
+		
+		as we can achieve zero velocity observation only if the distance of the Moon and the Earth and the distance between observation zone and the Earth are equal. Considering that the part where the observation is the more thickest is more likely to create long observation, we define the following payoff function to find optimum :
+		
+		$$
+			D_{obs}=(||R_l||-||P_{2x}||)^2
+		$$  
+		
+		ploting the value of this function over one year give the follwoing graph :
+		
+		%insert graph here
+		
+		we can see that we have a almost a symetric and a periodic function, this mean that we just need to find the first optimum and then we could compute good initial value to find the other optimum of the function using the follwoing formulas : 
+		
+		$$
+		\begin{align}
+			O_{2n}_i&=nT-O_1\\
+			O_{2n+1}_i&=nT+O_1
+		\end{align}
+		$$
+		
+		where $T$ is the synodic period of the Moon,
+		$O_k_i$ is the initial value used to find the k^{th} optimum of the function using a simple gradient descent method
+		$O_1$ is the value of the first optimum of the function find using
+	\end{document}
