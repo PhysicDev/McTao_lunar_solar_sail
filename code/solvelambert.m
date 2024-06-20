@@ -3,6 +3,8 @@
 function [V1, V2] = solvelambert(R1, R2, t, proRetro, mu)
 
 % This function solves Lambert’s problem.
+
+%code from lamberto dell'elce
 % 
 % mu         - gravitational parameter (kmˆ3/sˆ2)
 % R1, R2     - initial and final position vectors (km)

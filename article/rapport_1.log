@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.25 (MiKTeX 23.10) (preloaded format=pdflatex 2023.10.12)  13 JUN 2024 14:55
+This is pdfTeX, Version 3.141592653-2.6-1.40.25 (MiKTeX 23.10) (preloaded format=pdflatex 2023.10.12)  20 JUN 2024 10:15
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -150,8 +150,7 @@ File: pdftex.def 2022/09/22 v1.2b Graphics/color driver for pdftex
 File: l3backend-pdftex.def 2023-04-19 L3 backend support: PDF output (pdfTeX)
 \l__color_backend_stack_int=\count271
 \l__pdf_internal_box=\box53
-)
-No file rapport_1.aux.
+) (rapport_1.aux)
 \openout1 = `rapport_1.aux'.
 
 LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 13.
@@ -433,6 +432,17 @@ l.336 		\end{align}
 Try typing  <return>  to proceed.
 If that doesn't work, type  X <return>  to quit.
 
+! Missing } inserted.
+<inserted text> 
+                }
+l.343 ...($\sqrt{\frac{2\mu}{R_s}-\frac{\mu}{a_l}$
+                                                  ) is the same as the veloc...
+I've inserted something that you may have forgotten.
+(See the <inserted text> above.)
+With luck, this will get me unwedged. But if you
+really didn't forget anything, try typing `2' now; then
+my insertion and my current dilemma will both disappear.
+
 
 ! Package amsmath Error: Erroneous nesting of equation structures;
 (amsmath)                trying to recover with `aligned'.
@@ -441,57 +451,72 @@ See the amsmath package documentation for explanation.
 Type  H <return>  for immediate help.
  ...                                              
                                                   
-l.359 		\end{align}
-                   
+l.370 			\end{align}
+                    
 Try typing  <return>  to proceed.
 If that doesn't work, type  X <return>  to quit.
 
 ! Double subscript.
 <argument>  O_{2n}_
-                   i&=nT-O_1\\ O_{2n+1}_i&=nT+O_1 
-l.359 		\end{align}
-                   
+                   i&=nT-O_1+a\\ O_{2n+1}_i&=nT+O_1+a 
+l.370 			\end{align}
+                    
 I treat `x_1_2' essentially like `x_1{}_2'.
 
 ! Double subscript.
-<argument>  O_{2n}_i&=nT-O_1\\ O_{2n+1}_
-                                        i&=nT+O_1 
-l.359 		\end{align}
-                   
+<argument>  O_{2n}_i&=nT-O_1+a\\ O_{2n+1}_
+                                          i&=nT+O_1+a 
+l.370 			\end{align}
+                    
 I treat `x_1_2' essentially like `x_1{}_2'.
 
 ! Double subscript.
-l.363 		$O_k_
-             i$ is the initial value used to find the k^{th} optimum of the ...
+l.374 			$O_k_
+              i$ is the initial value used to find the $k^{th}$ optimum of t...
 I treat `x_1_2' essentially like `x_1{}_2'.
 
-! Missing $ inserted.
-<inserted text> 
-                $
-l.363 ... is the initial value used to find the k^
-                                                  {th} optimum of the functi...
-I've inserted a begin-math/end-math symbol since I think
-you left one out. Proceed, with fingers crossed.
+[7]
+Underfull \hbox (badness 10000) in paragraph at lines 398--399
 
-! Missing $ inserted.
-<inserted text> 
-                $
-l.364 		$O_
-           1$ is the value of the first optimum of the function find using
-I've inserted a begin-math/end-math symbol since I think
-you left one out. Proceed, with fingers crossed.
+ []
 
-[7] (rapport_1.aux)
+
+! Package amsmath Error: Erroneous nesting of equation structures;
+(amsmath)                trying to recover with `aligned'.
+
+See the amsmath package documentation for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.445 			\end{align}
+                    
+Try typing  <return>  to proceed.
+If that doesn't work, type  X <return>  to quit.
+
+
+! Package amsmath Error: Erroneous nesting of equation structures;
+(amsmath)                trying to recover with `aligned'.
+
+See the amsmath package documentation for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.453 			\end{align}
+                    
+Try typing  <return>  to proceed.
+If that doesn't work, type  X <return>  to quit.
+
+[8] [9] (rapport_1.aux)
  ***********
 LaTeX2e <2023-06-01> patch level 1
 L3 programming layer <2023-08-29>
  ***********
  ) 
 Here is how much of TeX's memory you used:
- 2547 strings out of 475247
- 37828 string characters out of 5752091
+ 2552 strings out of 475247
+ 37988 string characters out of 5752091
  1938785 words of memory out of 5000000
- 24074 multiletter control sequences out of 15000+600000
+ 24077 multiletter control sequences out of 15000+600000
  565959 words of font info for 67 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
  57i,21n,65p,565b,220s stack positions out of 10000i,1000n,20000p,200000b,200000s
@@ -514,9 +539,9 @@ cmr7.pfb><C:/Users/Vincent Callegari/AppData/Local/Programs/MiKTeX/fonts/type1/
 public/amsfonts/cm/cmsy10.pfb><C:/Users/Vincent Callegari/AppData/Local/Program
 s/MiKTeX/fonts/type1/public/amsfonts/cm/cmsy7.pfb><C:/Users/Vincent Callegari/A
 ppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/symbols/msbm10.pfb>
-Output written on rapport_1.pdf (7 pages, 183738 bytes).
+Output written on rapport_1.pdf (9 pages, 196495 bytes).
 PDF statistics:
- 102 PDF objects out of 1000 (max. 8388607)
+ 108 PDF objects out of 1000 (max. 8388607)
  0 named destinations out of 1000 (max. 500000)
  1 words of extra memory for PDF output out of 10000 (max. 10000000)
 

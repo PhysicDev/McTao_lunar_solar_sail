@@ -37,20 +37,20 @@
 		%les valeurs de $P_{1x}$ et $P_{3x}$ peuvent être %facilement calculée en utilisant le théorème de %Thalès :
 		
 		$$	
-			P_{1x}=\frac{\bar{D}R_l}{R_s-R_l}
+		P_{1x}=\frac{\bar{D}R_l}{R_s-R_l}
 		$$ 
 		$$	
-			P_{3x}=\frac{\bar{D}R_l}{R_s(\alpha+1)-R_l}
+		P_{3x}=\frac{\bar{D}R_l}{R_s(\alpha+1)-R_l}
 		$$ 
 		où $\bar{D}$ est la distance Soleil-lune, $R_s$ le rayon solaire ,$R_l$ le rayon lunaire et $\alpha$ est la taille supplémentaire de la couronne solaire par rapport au rayon solaire( plus $alpha$ est proche de 0 plus on observera des parties de la couronne proche de la surface du soleil).
 		
 		on peut ensuite calculer la position de $P_2$ en calculant l'intersection des lignes reliant la surface de la Lune au points $P_1$ et $P_3$ : 
 		
 		$$
-			P_{2x}=\frac{P_{1x}tan(\theta_1) + P_{3x}tan(\theta_3)}{tan(\theta_1) + tan(\theta_3)}
+		P_{2x}=\frac{P_{1x}tan(\theta_1) + P_{3x}tan(\theta_3)}{tan(\theta_1) + tan(\theta_3)}
 		$$
 		$$
-			P_{2y}=tan(\theta_1)(P_{1x}-P_{2x})
+		P_{2y}=tan(\theta_1)(P_{1x}-P_{2x})
 		$$
 		
 		avec
@@ -160,7 +160,7 @@
 		la forme de la zone d'observation de la Lune est considérée comme étant égale à la zone d'observation de la lune si elle se trouvait à l'origine (la position de la terre). La position du point $P_3$ est déterminé par la formule suivante:
 		avec 
 		$$
-			P_3(R_l)=R_{lt}+\hat{P_{3x}}D^{-1}R_{ls}
+		P_3(R_l)=R_{lt}+\hat{P_{3x}}D^{-1}R_{ls}
 		$$
 		avec $\hat{P_3}$ étant la position du point $P_3$ quand la lune est à l'origine
 		,$R_{lt}$ est la position de la lune relativement à la Terre.
@@ -189,16 +189,16 @@
 		
 		De plus la dimension de la zone étant très étirée (environ $10000km\times100km\times100km$) on peut considérer que le satellite coupera forcement le segment $[P_3,P_1]$, on peut donc décrire la position initiale du satellite à l'aide de l'anomalie vraie de la lune $\nu$ et un scalaire $\lambda$ entre 0 et 1. la position initiale du satellite devient : 
 		$$
-			S_0=\lambda(P_1-P_3)+P_3(R_l(\nu))
+		S_0=\lambda(P_1-P_3)+P_3(R_l(\nu))
 		$$
 		
 		avec 
 		$$
-			R_l(\nu)=\begin{bmatrix}
-				r( \cos\Omega \cos\theta -\sin\Omega \sin\theta \cos\ i)\\
-				r( \sin\Omega \cos\theta -\cos\Omega \sin\theta \cos\ i)\\
-				r\sin\theta \sin\ i\ 
-			\end{bmatrix}
+		R_l(\nu)=\begin{bmatrix}
+			r( \cos\Omega \cos\theta -\sin\Omega \sin\theta \cos\ i)\\
+			r( \sin\Omega \cos\theta -\cos\Omega \sin\theta \cos\ i)\\
+			r\sin\theta \sin\ i\ 
+		\end{bmatrix}
 		$$
 		avec $\theta = \nu+\omega$ \\
 		pour l'instant on est en 2D donc l'équation se simplifie par:
@@ -213,7 +213,7 @@
 		Maintenant que l'on connait la position du satellite on peut déterminer sa vitesse à l'aide de la formule suivante:
 		
 		$$
-			||\dot{S}(0)||=\sqrt{\frac{2\mu}{||S_0||}-\frac{\mu}{a_s}}
+		||\dot{S}(0)||=\sqrt{\frac{2\mu}{||S_0||}-\frac{\mu}{a_s}}
 		$$
 		
 		on peut ensuite determiner l'orientation de la vitesse initiale avec deux angles $\theta_s$ et $\phi_s$.
@@ -282,7 +282,7 @@
 		\end{itemize}
 		
 		on a donc un espace de dimension 4 :
-		 $(\nu,\lambda,\theta_s,\phi_s)=[0,2\pi]\times[0,1]\times[0,2\pi]\times[0,\pi]$
+		$(\nu,\lambda,\theta_s,\phi_s)=[0,2\pi]\times[0,1]\times[0,2\pi]\times[0,\pi]$
 		
 		l'espace est contraint mais étant donné que la plupart des dimension sont des angles et qu'il suffit de donner un score de 0 si $\lambda$ est en dehors du domaine on peut considéré que l'espace est égal à $\mathbb{R}^4$ pour avoir un problème sans contrainte.
 		
@@ -309,7 +309,7 @@
 		Considering that the moon's speed is constant (because of its small eccentricity) and that the period of the device is the same as the moon (ie $a_s=a_l$), we get the relation :
 		
 		$$
-			R_s=R_l
+		R_s=R_l
 		$$
 		
 		as the satellite is in the obsevation zone, the region in which the satelite can cross the observation zone and at the same speed as the moon is the intersection between the possible observation zone space (which is in our case simplified by an ellipse) and a sphere of radius $R$ with $R=R_l$ in this case.
@@ -318,7 +318,7 @@
 		
 		Using the solution that we found in 2D we can try to use it as an initial condition for 3D problems, the solution found with varying $\Omega$ value and considering the eccentricity of the Moon tend to show that there are always a solution near this point.
 		
-		\section{lambert transfer}
+		\section{low thrust transfert}
 		
 		now that we know that the best configuration to make observation are with no relative speed, it mean that we can compare the different $\Delta v$ needed to transfert from one observation to another.
 		
@@ -336,30 +336,139 @@
 		\end{align}
 		$$
 		
-		the value of $\nu$ correspond to the true anomaly of the moon at time $t=0$ .
+		The value of $\nu$ correspond to the true anomaly of the moon at time $t=0$ . the value of $\omega$ and $\Omega$ are set at 0 for now but we will test other value later.
 		
-		the value of $\omega$ and $\Omega$ are set at 0 for now but we will test other value later.
+		%as we can achieve zero velocity observation only if the distance of the Moon and the Earth and the distance between observation zone and the Earth are equal. Considering that the part where the observation is the more thickest is more likely to create long observation, we define the following payoff function to find optimum :
 		
-		as we can achieve zero velocity observation only if the distance of the Moon and the Earth and the distance between observation zone and the Earth are equal. Considering that the part where the observation is the more thickest is more likely to create long observation, we define the following payoff function to find optimum :
-		
-		$$
-			D_{obs}=(||R_l||-||P_{2x}||)^2
-		$$  
-		
-		ploting the value of this function over one year give the follwoing graph :
-		
-		%insert graph here
-		
-		we can see that we have a almost a symetric and a periodic function, this mean that we just need to find the first optimum and then we could compute good initial value to find the other optimum of the function using the follwoing formulas : 
-		
-		$$
-		\begin{align}
-			O_{2n}_i&=nT-O_1\\
-			O_{2n+1}_i&=nT+O_1
-		\end{align}
-		$$
-		
-		where $T$ is the synodic period of the Moon,
-		$O_k_i$ is the initial value used to find the k^{th} optimum of the function using a simple gradient descent method
-		$O_1$ is the value of the first optimum of the function find using
-	\end{document}
+		we can achieve zero velocity observation if the velocity of the device at the observation zone ($\sqrt{\frac{2\mu}{R_s}-\frac{\mu}{a_l}$) is the same as the velocity of the observation zone. As the position of the point $P_{2x}$ is given by the following formula : 
+			
+			$$
+			P_{2x}=R_l+\frac{D_{p2}}{D_{ts}}(R_s+R_s)
+			$$
+			where $D_{p2}$ is the distance between the moon and the point $P_{2x}$ where the moon is at the origin.
+			so we have:
+			$$
+			\dot{P_{2x}}=\dot{R_l}+\frac{D_{p2}}{D_{ts}}(\dot{R_s}+\dot{R_s})
+			$$
+			
+			we can get from this the following payoff formula :
+			
+			$$
+			D_{obs}=\left(||\dot{P_{2x}}||-\sqrt{\frac{2\mu}{P_{2x}}-\frac{\mu}{a_l}}\right)^2
+			$$  
+			
+			ploting the value of this function over one year give the follwoing graph :
+			
+			%insert graph here
+			
+			we can see that we have a almost a symetric and a periodic function, this mean that we just need to find the first optimum and then we could compute good initial value to find the other optimum of the function using the follwoing formulas : 
+			
+			$$
+			\begin{align}
+				O_{2n}_i&=nT-O_1+a\\
+				O_{2n+1}_i&=nT+O_1+a
+			\end{align}
+			$$
+			
+			where $T$ is the synodic period of the Moon,
+			$O_k_i$ is the initial value used to find the $k^{th}$ optimum of the function using a simple gradient descent method
+			$O_1$ is the value of the first optimum of the function relative to $a$.
+			
+			and $a$ is the first time the Sun-Earth-Moon system align (when projected on the ecliptic plane of earth) in this order, for now the value $a$ is equal to zero.
+			
+			\subsection{low thrust model}
+			
+			we want to move from a point $R_i$ at time $t_i$ to a point $R_f$ at time $t_f$ with initial velocity $V_i$ and final velocity $V_f$.
+			
+			the device can be control with a low thrust engine that can generate an acceleration of maximum magnitude $A_{max}$ in any direction, as the final objective is to use a solar sail, the variation of mass is neglected.
+			
+			the passive dynamic of the device is the following : 
+			$$
+			\begin{bmatrix}
+				\dot{r}\\
+				\dot{v}
+			\end{bmatrix} =\begin{bmatrix}
+				v\\
+				\sum\limits _{\beta \in B }\frac{\mu _{\beta }}{\| r_{\beta } -r\| ^{3}}( r_{\beta } -r)
+			\end{bmatrix}
+			$$
+			
+			where $B$ is the set of every bodies that attract the device (for now the two body are The Earth and the Moon). the dynamics of the bodies must be computed before (we suppose that the device does not influence the dynamics of the system).
+			
+			the acceleration of the thruster can be take in account by adding a vector the the equations of speed : \\
+			
+			$$
+			f(x,a)=\dot{x}=
+			\begin{bmatrix}
+				\dot{r}\\
+				\dot{v}
+			\end{bmatrix}
+			=\begin{bmatrix}
+				v\\
+				a+\sum\limits _{\beta \in B }\frac{\mu _{\beta }}{\| r_{\beta } -r\| ^{3}}( r_{\beta } -r)
+			\end{bmatrix}
+			$$
+			
+			we want to minimize the $\Delta_v$ of the transfert, so the running payoff is :
+			$$
+			r(x,a)=-\|a\|
+			$$ 
+			
+			we also want to be at the right position and velocity at the time $t_f$ so the terminal payoff is :
+			
+			$$
+			g(x(t_f))=-(r(t_f)-R_f)^2-(v(t_f)-V_f)^2
+			$$
+			
+			we get the following hamiltonian :
+			
+			$$
+			H(x,p,a)=\begin{bmatrix}
+				v\\
+				a+\sum\limits _{\beta \in B }\frac{\mu _{\beta }}{\| r_{\beta } -r\| ^{3}}( r_{\beta } -r)
+			\end{bmatrix}^t\cdot p-\|a\|
+			$$
+			
+			using the Pontryagin maximum principle theorem we can compute the differential of $p=\begin{bmatrix}p_r\\p_v\end{bmatrix}$
+			
+			$$
+			\begin{align}
+				\dot{p}=&-\nabla _{x}H\\
+				=&-\begin{bmatrix}
+					0 & I_3\\
+					\sum\limits _{\beta \in B }\frac{\mu _{\beta }}{\| r_{\beta } -r\| ^{3}}\left(\frac{3( r_{\beta } -r) \cdot ( r_{\beta } -r)^{t}}{\| r_{\beta } -r\| ^{2}} -I_3\right) & 0
+				\end{bmatrix}^{t} \cdot p\\
+				=&\begin{bmatrix}
+					\sum\limits _{\beta \in B }\frac{\mu _{\beta }}{\| r_{\beta } -r\| ^{3}}\left(I_3-\frac{3( r_{\beta } -r) \cdot ( r_{\beta } -r)^{t}}{\| r_{\beta } -r\| ^{2}} \right)\cdot p_v\\
+					-p_r
+				\end{bmatrix}
+			\end{align}
+			$$
+			
+			we know that $\forall t$ , $a=\arg\max_{a\in B(0,A_{max})}H(x,p,a)$. We can rewrite the hamiltonian as follow : 
+			$$
+			\begin{align}
+				H(x,p,a)=&C(x,p)+a\cdot p-\|a\| \\
+				=&C(x,p)+\|a\|(\|p_v\|\cos(\alpha_{\widehat{ap_v}})-1)
+			\end{align}
+			$$ 
+			
+			with this form we can easily conclude that 
+			$$
+			\begin{cases}
+				\| a\| =A_{max} & \text{if } \|p_v\|\cos(\alpha_{\widehat{ap_v}})\ge1\\
+				\| a\| =0 & \text{else}
+			\end{cases}
+			$$
+			
+			we can then observe that $\|p_v\|\cos(\alpha_{\widehat{ap_v}})$ cannot be greater than $1$ if $\|p_v\| < 1$. Also if $\|p_v\| \ge 1$, it is obvious that taking $\alpha_{\widehat{ap_v}}=0$ (i.e. $a$ and $p_v$ are collinear) maximize the factor $\|p_v\|\cos(\alpha_{\widehat{ap_v}})$. So we can conclude the following formula :
+			
+			$$
+			\begin{cases}
+				\| a\| =A_{max}\widehat{p_v} & \text{if }\|p_v\| \ge 1\\
+				\| a\| =0 & \text{else}
+			\end{cases}
+			$$
+			
+			to solve the problem numerically, we then just have to find the correct value $p_i$ so the terminal value of $x$ correspond to the target value.
+		\end{document}

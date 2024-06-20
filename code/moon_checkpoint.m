@@ -83,7 +83,7 @@ param.Rlun=Rlun/ud;
 
 %on opti !!!
 Synperiod=1.082;
-nbOpt=14;
+nbOpt=6;
 
 Opt=zeros(10,nbOpt);
 
@@ -119,11 +119,9 @@ DV=zeros(nbOpt,nbOpt);
 Opt
 
 DV;
-I=1
-J=3
 
 for I=1:(nbOpt-1)
-    for J=(I+1):min(nbOpt,I+5)
+    for J=(I+1):min(nbOpt,I+3)
         I
         J
         %creating mesh
@@ -132,7 +130,7 @@ for I=1:(nbOpt-1)
         S2 = Opt(1,I);
         E2 = Opt(1,J);
         
-        prec=2e-2;
+        prec=1e-1;
         
         Sdat = S1:prec:E1;
         Edat = S2:prec:E2;
@@ -170,15 +168,15 @@ for I=1:(nbOpt-1)
         dt=[];
         Ps1=[];
         Ps2=[];
+        Vs1=[];
         Vs2=[];
-        Vs3=[];
         Px=[];
         Py=[];
-        for pci = 1:(num_departure_dates-3)
+        for pci = 1:(num_departure_dates-1)
             departure_date = Sdat(pci);
-            int=pci+3:num_departure_dates;
+            int=pci+1:num_departure_dates;
 
-            Py=[Py,int];
+            Py=[Py;int'];
             Px=[Px;repmat(pci,length(int),1)];
         
             subEdat=Edat(int);
@@ -200,29 +198,79 @@ for I=1:(nbOpt-1)
 
         [Vi,Vf]=solvelambert(Ps1,Ps2,dt,ones(length(dt), 1),param.Muter);%= compute_delta_v(departure_date, arrival_date, departure_body, arrival_body, mu_sun);
         
-        
-
+        Pxmin=-1;
+        Pymin=-1;
+        minval=1e100;
+        delta_v(delta_v==0)=1000;
         for pos = 1:length(Px)
-            delta_v(Px(pos),Py(pos))=vecnorm((Vi(pos,:)-Vs1(pos,:))')+vecnorm((Vf(pos,:)-Vs2(pos,:))');
+            delta_v(Px(pos),Py(pos))=norm((Vi(pos,:)-Vs1(pos,:))')+norm((Vf(pos,:)-Vs2(pos,:))');
+            if(delta_v(Px(pos),Py(pos))<=minval)
+                minval=delta_v(Px(pos),Py(pos));
+                Pxmin=Px(pos);
+                Pymin=Py(pos);
+            end
         end
         
         delta_v=delta_v*ud/ut/1000;
-        
+        minval
+        min(delta_v(:))
         f=figure("Visible","off");
         contourf(Sgrid,Egrid, delta_v,(1:50)/10, 'LineColor', 'none');
         colorbar;
         xlabel('Arrival Date');
         ylabel('Departure Date');
         title('Porkchop Plot');
-        saveas(f, "D:\storage\CODE\github\McTao_lunar_solar_sail\images\porkchop\porkchop2_"+I+"_"+J+".png", "png");
+        %saveas(f, "D:\storage\CODE\github\McTao_lunar_solar_sail\images\porkchop2\porkchop_"+I+"_"+J+".png", "png");
         close(f);
         delta_v(delta_v==0)=1000;
-        DV(I,J)=min(delta_v(:));
+
+        options = optimoptions('fminunc', 'Algorithm', 'quasi-newton',"Display","iter-detailed","MaxFunctionEvaluations",1e3);
+        x0=[Edat(Pxmin),Sdat(Pymin)];
+        deltaVtime(Sdat(Pxmin),Edat(Pymin),sol1,sol2,Opt(1,I),Opt(1,J));
+        fun = @(T) deltaVtime(T(1),T(2),sol1,sol2,Opt(1,I),Opt(1,J)); % Negate the function to find maximum 
+        [x, y] = fminunc(fun, x0, options);
+        DV(I,J)=y*ud/ut/1000;
+        %DV(I,J)=min(delta_v(:));
         %plot(Y(:,1),Y(:,2));
         %hold on;
         %scatter([Opt(5,I),Opt(5,J)],[Opt(6,I),Opt(6,J)])
         %hold off;
     end
+end
+
+function dvt=deltaVtime(t1,t2,sol1,sol2,Stime,Etime)
+    global param;
+    t1;
+    t2;
+    Stime;
+    Etime;
+    if((t2-Etime)>0)
+        dvt=1000;
+        return;
+    end
+    if(t1-Stime<0)
+        dvt=2000;
+        return;
+    end
+    if(t1>t2)
+        dvt=3000;
+        return;
+    end
+
+    Ys1=deval(sol1,t1-Stime)';
+    Ys2=deval(sol2,t2-Etime)';
+    
+    Ps1=Ys1(:,1:3);
+    Vs1=Ys1(:,4:6);
+           
+    Ps2=Ys2(:,1:3);
+    Vs2=Ys2(:,4:6);
+
+
+    dt=(t2-t1)';
+
+    [Vi,Vf]=solvelambert(Ps1,Ps2,dt,ones(length(dt), 1),param.Muter);
+    dvt=vecnorm((Vi-Vs1)')+vecnorm((Vf-Vs2)');
 end
 
 function T=perigeeTime(e,n,f)
