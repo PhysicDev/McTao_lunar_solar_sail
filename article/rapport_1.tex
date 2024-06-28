@@ -395,23 +395,23 @@
 			
 			where $B$ is the set of every bodies that attract the device (for now the two body are The Earth and the Moon). the dynamics of the bodies must be computed before (we suppose that the device does not influence the dynamics of the system).
 			
-			the acceleration of the thruster can be take in account by adding a vector the the equations of speed : \\
+			the acceleration of the thruster can be take in account by adding a vector the equations of speed : \\
 			
 			$$
-			f(x,a)=\dot{x}=
+			f(x,u)=\dot{x}=
 			\begin{bmatrix}
 				\dot{r}\\
 				\dot{v}
 			\end{bmatrix}
 			=\begin{bmatrix}
 				v\\
-				a+\sum\limits _{\beta \in B }\frac{\mu _{\beta }}{\| r_{\beta } -r\| ^{3}}( r_{\beta } -r)
+				u+\sum\limits _{\beta \in B }\frac{\mu _{\beta }}{\| r_{\beta } -r\| ^{3}}( r_{\beta } -r)
 			\end{bmatrix}
 			$$
 			
 			we want to minimize the $\Delta_v$ of the transfert, so the running payoff is :
 			$$
-			r(x,a)=-\|a\|
+			r(x,u)=-\|u\|
 			$$ 
 			
 			we also want to be at the right position and velocity at the time $t_f$ so the terminal payoff is :
@@ -423,10 +423,10 @@
 			we get the following hamiltonian :
 			
 			$$
-			H(x,p,a)=\begin{bmatrix}
+			H(x,p,u)=\begin{bmatrix}
 				v\\
-				a+\sum\limits _{\beta \in B }\frac{\mu _{\beta }}{\| r_{\beta } -r\| ^{3}}( r_{\beta } -r)
-			\end{bmatrix}^t\cdot p-\|a\|
+				u+\sum\limits _{\beta \in B }\frac{\mu _{\beta }}{\| r_{\beta } -r\| ^{3}}( r_{\beta } -r)
+			\end{bmatrix}^t\cdot p-\|u\|
 			$$
 			
 			using the Pontryagin maximum principle theorem we can compute the differential of $p=\begin{bmatrix}p_r\\p_v\end{bmatrix}$
@@ -445,30 +445,32 @@
 			\end{align}
 			$$
 			
-			we know that $\forall t$ , $a=\arg\max_{a\in B(0,A_{max})}H(x,p,a)$. We can rewrite the hamiltonian as follow : 
+			we know that $\forall t$ , $u=\arg\max_{u\in B(0,A_{max})}H(x,p,u)$. We can rewrite the hamiltonian as follow : 
 			$$
 			\begin{align}
-				H(x,p,a)=&C(x,p)+a\cdot p-\|a\| \\
-				=&C(x,p)+\|a\|(\|p_v\|\cos(\alpha_{\widehat{ap_v}})-1)
+				H(x,p,u)=&C(x,p)+u\cdot p-\|u\| \\
+				=&C(x,p)+\|u\|(\|p_v\|\cos(\alpha_{\widehat{up_v}})-1)
 			\end{align}
 			$$ 
 			
 			with this form we can easily conclude that 
 			$$
 			\begin{cases}
-				\| a\| =A_{max} & \text{if } \|p_v\|\cos(\alpha_{\widehat{ap_v}})\ge1\\
-				\| a\| =0 & \text{else}
+				\| u\| =A_{max} & \text{if } \|p_v\|\cos(\alpha_{\widehat{up_v}})\ge1\\
+				\| u\| =0 & \text{else}
 			\end{cases}
 			$$
 			
-			we can then observe that $\|p_v\|\cos(\alpha_{\widehat{ap_v}})$ cannot be greater than $1$ if $\|p_v\| < 1$. Also if $\|p_v\| \ge 1$, it is obvious that taking $\alpha_{\widehat{ap_v}}=0$ (i.e. $a$ and $p_v$ are collinear) maximize the factor $\|p_v\|\cos(\alpha_{\widehat{ap_v}})$. So we can conclude the following formula :
+			we can then observe that $\|p_v\|\cos(\alpha_{\widehat{ap_v}})$ cannot be greater than $1$ if $\|p_v\| < 1$. Also if $\|p_v\| \ge 1$, it is obvious that taking $\alpha_{\widehat{up_v}}=0$ (i.e. $u$ and $p_v$ are collinear) maximize the factor $\|p_v\|\cos(\alpha_{\widehat{uap_v}})$. So we can conclude the following formula :
 			
 			$$
 			\begin{cases}
-				\| a\| =A_{max}\widehat{p_v} & \text{if }\|p_v\| \ge 1\\
-				\| a\| =0 & \text{else}
+				 u =A_{max}\widehat{p_v} & \text{if }\|p_v\| \ge 1\\
+				 u =0 & \text{else}
 			\end{cases}
 			$$
 			
 			to solve the problem numerically, we then just have to find the correct value $p_i$ so the terminal value of $x$ correspond to the target value.
+			
+	
 		\end{document}

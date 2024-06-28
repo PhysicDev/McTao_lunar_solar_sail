@@ -149,6 +149,7 @@ end
 
 Opt
 
+optiNorm=zeros(3,nbOpt);
 optimum=zeros(3,nbOpt);
 startOBS=zeros(6,nbOpt);
 endOBS=zeros(6,nbOpt);
@@ -161,6 +162,10 @@ for i=1:nbOpt
     X0=OptiConvert(Opt(:,i));
     [X,Y]=solveProblem(X0);
     [T,TS,TF,YS,YF]=infoObsDE(X);
+
+    optiNorm(1,i)=-Y;
+    optiNorm(2,i)=TS;
+    optiNorm(3,i)=TF;
     optimum(1,i)=-Y*ut;
     optimum(2,i)=TS*ut;
     optimum(3,i)=TF*ut;
@@ -172,6 +177,18 @@ for i=1:nbOpt
     X0;
     X;
 end
+Xoptimum(:,1);
+hold off;
+
+HSVvec=hsv(nbOpt+1);
+
+%zoneMove(Xoptimum(:,1),150);
+
+%for i=1:nbOpt
+%    if(mod(i,2)==1)
+%        visu3D(Xoptimum(:,i),HSVvec(i,:));
+%    end
+%end
 %f=figure();
 %hold on;
 
@@ -180,6 +197,158 @@ end
 %end
 %grid on;
 %legend(1:nbOpt)
+
+function out=zoneMove(X,N)
+    global param;
+    global ut;
+    %after :
+
+    [Xl,Vl]=MoonPos(X(1));%toCart(param.al,param.el,param.wl,param.Wl,param.Il,X(1));
+    %XP3=[param.DP3,0,0];
+    %XP1=[param.DP1,0,0];
+    Xts=SolPos(X(1));
+    XP3=(param.DP3/param.Dter)*([Xl(1),Xl(2),Xl(3)]-Xts);
+    XP1=(param.DP1/param.Dter)*([Xl(1),Xl(2),Xl(3)]-Xts);
+
+    %radius:
+    R=Xl+(1-X(2))*(XP3)+X(2)*XP1;
+    Rn=norm(R);
+    Vn=sqrt(param.Muter*(2/Rn-1/param.as));%norme de la vitesse fixé car demi grand axe fixé
+    V=[cos(X(3))*sin(X(4)),sin(X(4))*sin(X(3)),cos(X(4))]*Vn;
+
+    x0=[R,V,Xl,Vl]';
+    
+    if(inObsDE(X(1),x0)<0)
+        disp("probleme");
+        T=0;
+        return;
+    end
+    %options = odeset('Events', @inObsDE);
+    reltol=1e-12;
+    abstol=1e-12;
+    
+    optionsODE = odeset('RelTol', reltol, 'AbsTol', abstol,'Events', @inObsDE);
+    tspan = [X(1), X(1)+1];
+    [t, Y,TE,YE,IE] = ode45(@Dfl, tspan, x0, optionsODE);
+    T=TE;
+    TS=TE;
+    tspan = [X(1), X(1)-1];
+    [t, Y,TE,YE,IE] = ode45(@Dfl, tspan, x0, optionsODE);
+    T=T-TE;
+
+
+    optionsODE = odeset('RelTol', reltol, 'AbsTol',abstol);
+    X0=YE;
+    tspan = [TE,TS];
+    Sol = ode45(@Dfl, tspan, X0, optionsODE);
+    tspan = [X(1),TS];
+    Sol2 = ode45(@Dfl, tspan, x0, optionsODE);
+
+    timeVec=(0:(N-1))/(N-1)*(TE-TS)+TS;
+    Yint=deval(Sol,timeVec);
+    Psol=SolPos(timeVec');
+    Rl=[Yint(7,:)',Yint(8,:)',Yint(9,:)'];
+    for i=1:(N-1)
+        disp(i);
+        f=figure("Visible","off");
+        drawObs(Rl(i,:)',Psol(i,:));
+        hold on;
+        scatter([Yint(1,i)],[Yint(2,i)]);
+        plot(Yint(1,:),Yint(2,:));
+        title("time "+(timeVec(i)-TE)*ut/3600+" h");
+        hold off;
+
+        saveas(f, "D:\storage\CODE\matlab\framesXY\frame_"+(10000+i), "png");
+        close(f);
+        f=figure("Visible","off");
+        drawObsXZ(Rl(i,:)',Psol(i,:));
+        hold on;
+        scatter([Yint(1,i)],[Yint(3,i)]);
+        plot(Yint(1,:),Yint(3,:));
+        title("time "+(timeVec(i)-TE)*ut/3600+" h");
+        hold off;
+
+        saveas(f, "D:\storage\CODE\matlab\framesXZ\frame_"+(10000+i), "png");
+        close(f);
+    end
+end
+
+%==========================================================================
+function out=visu3D(X,col)
+    global param;
+    %after :
+
+    [Xl,Vl]=MoonPos(X(1));%toCart(param.al,param.el,param.wl,param.Wl,param.Il,X(1));
+    %XP3=[param.DP3,0,0];
+    %XP1=[param.DP1,0,0];
+    Xts=SolPos(X(1));
+    XP3=(param.DP3/param.Dter)*([Xl(1),Xl(2),Xl(3)]-Xts);
+    XP1=(param.DP1/param.Dter)*([Xl(1),Xl(2),Xl(3)]-Xts);
+
+    %radius:
+    R=Xl+(1-X(2))*(XP3)+X(2)*XP1;
+    Rn=norm(R);
+    Vn=sqrt(param.Muter*(2/Rn-1/param.as));%norme de la vitesse fixé car demi grand axe fixé
+    V=[cos(X(3))*sin(X(4)),sin(X(4))*sin(X(3)),cos(X(4))]*Vn;
+
+    x0=[R,V,Xl,Vl]';
+    
+    if(inObsDE(X(1),x0)<0)
+        disp("probleme");
+        T=0;
+        return;
+    end
+    %options = odeset('Events', @inObsDE);
+    reltol=1e-12;
+    abstol=1e-12;
+    
+    optionsODE = odeset('RelTol', reltol, 'AbsTol', abstol,'Events', @inObsDE);
+    tspan = [X(1), X(1)+1];
+    [t, Y,TE,YE,IE] = ode45(@Dfl, tspan, x0, optionsODE);
+    T=TE;
+    TS=TE;
+    tspan = [X(1), X(1)-1];
+    [t, Y,TE,YE,IE] = ode45(@Dfl, tspan, x0, optionsODE);
+    T=T-TE;
+
+
+    optionsODE = odeset('RelTol', reltol, 'AbsTol',abstol);
+    X0=YE;
+    tspan = [TE,TS];
+    Sol = ode45(@Dfl, tspan, X0, optionsODE);
+    tspan = [X(1),TS];
+    Sol2 = ode45(@Dfl, tspan, x0, optionsODE);
+
+    %print moon orbit;
+    %disp("okok");
+    %hold off;
+    plotMoon3D(1);
+    hold on;
+    scatter3([0],[0],[0]);
+    %scatter3([],[],[]);
+    n=100;
+
+    timeVec=(0:(n-1))/(n-1)*(TE-TS)+TS;
+    Yint=deval(Sol,timeVec);
+    Psol=SolPos(timeVec');
+    Rl=[Yint(7,:)',Yint(8,:)',Yint(9,:)'];
+    %size([Yint(7,:)',Yint(8,:)',Yint(9,:)'])
+    %size(Yint)
+    %size(Psol)
+    P3=Rl+(param.DP3/param.Dter)*(Rl-Psol);
+    P1=Rl+(param.DP1/param.Dter)*(Rl-Psol);
+    P2=Rl+(param.DP2/param.Dter)*(Rl-Psol);
+    %disp("are you ploting ?")
+    %ax = gca;
+    %ax.ColorOrder = HSVvec;
+    %ax.ColorOrderIndex=1;
+    plot3([P1(:,1),P3(:,1)]',[P1(:,2),P3(:,2)]',[P1(:,3),P3(:,3)]',"Color","black");
+
+    plot3(Yint(1,:)',Yint(2,:)',Yint(3,:)',"-o","Color",col,'MarkerSize',5);
+    plot3(Yint(7,:)',Yint(8,:)',Yint(9,:)',"-x","Color",col,'MarkerSize',5);
+    %plot3(Y(1,:)',Y(2,:)',Y(3,:)',"Color","blue")
+    %hold off;
+end
 
 %==========================================================================
 function X=OptiConvert(vec)
@@ -311,6 +480,10 @@ function drawObsXZ(Xl,Xst)
     plot(poly(:,1),poly(:,3));
 
 
+    xlim([min(poly(:,1)),max(poly(:,1))])
+    ylim([min(poly(:,3)),max(poly(:,3))])
+
+
 end
 
 %==========================================================================
@@ -325,6 +498,8 @@ function drawObs(Xl,Xst)
     poly=[XP1+Xl';Xl'+XP2x+XP2y;Xl'+XP3;Xl'+XP2x-XP2y;XP1+Xl'];
     plot(poly(:,1),poly(:,2));
 
+    xlim([min(poly(:,1)),max(poly(:,1))])
+    ylim([min(poly(:,2)),max(poly(:,2))])
 end
 
 %==========================================================================
@@ -340,7 +515,7 @@ end
 function Xst=SolPos(t)
     global param;
     A=t/1/param.periodSol*2*pi+pi;
-    Xst=[cos(A),sin(A),0]*param.Dter;
+    Xst=[cos(A),sin(A),zeros(size(A))]*param.Dter;
 end
 
 %==========================================================================
@@ -398,6 +573,19 @@ function plotMoon(t)
     timeV=(0:100)/100*2*pi;
     plot(cos(timeV)*param.Rter,sin(timeV)*param.Rter)
     plot(cos(timeV)*param.Rter+posLun(1),sin(timeV)*param.Rter+posLun(2))
+end 
+
+%==========================================================================
+function plotMoon3D(t)
+    global param;
+    Xl=toCart(param.al,param.el,param.wl,param.Wl,param.Il,param.fl);
+    Vl=getSpeed(param.al,param.el,param.wl,param.Wl,param.Il,param.fl);
+    x0=[Xl,Vl];
+    tspan=[0,t];
+    [time, Y] = ode45(@Df, tspan, x0);
+    plot3( Y(:,1), Y(:,2),Y(:,3));
+    grid on;
+    grid minor;
 end 
 
 %==========================================================================
@@ -550,14 +738,19 @@ end
 %==========================================================================
 function [value, isterminal, direction]=inObsDE(t,X)
     global param;
-    P3=(param.DP3/param.Dter)*([X(7),X(8),X(9)]-SolPos(t));%*sqrt(param.Dter*(param.Dter+2*Xl(1))))*[1,Xl(2)/(param.Dter+Xl(1)),0];%[1,X(2)/(X(1)+param.Dter),0];
-    %P1=(param.DP1/param.Dter)*[param.Dter+X(7),Xl(8),Xl(9)];
+    Ps=SolPos(t);
+    Xl=X(7:9)';
+    P3=Xl+(param.DP3/param.Dter)*(Xl-Ps);%*sqrt(param.Dter*(param.Dter+2*Xl(1))))*[1,Xl(2)/(param.Dter+Xl(1)),0];%[1,X(2)/(X(1)+param.Dter),0];
+    P1=Xl+(param.DP1/param.Dter)*(Xl-Ps);
+    
+    Dir=P1-P3;
 
-    PX=dot(X(1:3)'-X(7:9)'-P3,P3)/norm(P3)^2*P3;
-    PY=X(1:3)'-X(7:9)'-P3-PX;
-    POS=[X(1)-X(7),X(2)-X(8),X(3)-X(9)]-P3;
+    PX=dot(X(1:3)'-P3,Dir)/norm(Dir)^2*Dir;
+    PY=X(1:3)'-P3-PX;
+    %POS=[X(1)-X(7),X(2)-X(8),X(3)-X(9)]-P3;
     d=norm(PY);%sqrt(POS(2)*POS(2)+POS(3)*POS(3));%norm(POS());
     sx=norm(PX);%POS(1);
+    sx=sx*(param.DP1-param.DP3)/norm(Dir);
     out=d<param.p1*sx && -d<param.p1*sx && d<(param.off2-param.p2*sx) && -d<(param.off2-param.p2*sx);
 
     value=out-0.5;
