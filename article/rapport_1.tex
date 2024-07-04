@@ -472,5 +472,17 @@
 			
 			to solve the problem numerically, we then just have to find the correct value $p_i$ so the terminal value of $x$ correspond to the target value.
 			
+			\section{result low thrust}
+				\\
+			to compute the solution, i've used the julia library : OptimalControl,
+			
+			the starting point of the device is the point where the starting observation end and the ending point is the point where the ending observation start.
+			
+			To simplify the next explication i will separate the observations into two category : the even observations and the odd observation. The odd observations are the first observation that happen on the moon orbit and the even one are the second one.
+			
+			The algorithm had a lot of struggle to find an optimum for moving to two adjacent observations, which was excpected as the two orbit of adjacent optimum are very different and the time interval is small meaning that important $\Delta_v$ are needed to move from the starting point to the ending point. hovewer the algorithm find solution for transition between even observation and between odd observation. This was also excpected as the orbit are generally very similar and the device as a time of around one synodic period (around 29,5 days) to change its trajectory.
+			
+			About the trajectiory in itself, the maximum alowed acceleration was around $5\times 10^{-4}$ m/s.
+			
 	
 		\end{document}
