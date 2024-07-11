@@ -181,16 +181,16 @@ for i=1:nbOpt
 end
 Xoptimum(:,1);
 hold off;
-
+%f=figure();
 HSVvec=hsv(nbOpt+1);
 
 %zoneMove(Xoptimum(:,1),150);
-
-%for i=1:nbOpt
-%    if(mod(i,2)==1)
-%        visu3D(Xoptimum(:,i),HSVvec(i,:));
-%    end
-%end
+%hold on;
+for i=1:nbOpt
+    if(mod(i,2)==1)
+        visu3D(Xoptimum(:,i),HSVvec(i,:));
+    end
+end
 %f=figure();
 %hold on;
 
