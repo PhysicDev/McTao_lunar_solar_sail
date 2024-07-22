@@ -21,6 +21,7 @@ using OptimalControl
 using Plots
 using CSV
 using DataFrames
+using NLPModelsIpopt
 
 #
 # gravity function : compute the graviational acceleration of an object
@@ -99,183 +100,278 @@ tstart=times[!,startPoint][3]#0.353883781037970
 tend=times[!,endPoint][2]#1.409239769931626
 
 
-#objective value of the problem (0 mean not computed)
-objective_output=zeros(24,24)
+if(resolve)
+    #objective value of the problem (0 mean not computed)
+    objective_output=zeros(24,24)
+    
+    sols=Array{Any}(undef, 24,24)
+    for j in range(1,23,step=1)
+        for i in range(j+2,min(j+7,24),step=1)
 
+            #start and end point of observation
+            startPoint=j;
+            endPoint=i;
+            println(string("startP : ",startPoint," endP : ",endPoint));
+            
+            #gathering starting and end condition
+            ENDOBS=startObservation[!,endPoint]
+            STARTOBS=endObservation[!,startPoint]
+            tstart=times[!,startPoint][3]
+            tend=times[!,endPoint][2]
+            
+            #defining the problem
+            @def ocp begin
+                #tf ∈ R, variable
+                maxia ∈ R, variable
+                tf=tend-tstart
+                ts=tstart-tstart
+                #tend=0.728470473745049
+                t ∈ [ ts, tf ], time
+                x ∈ R^6, state
+                u ∈ R^3, control
+                #tf ≥ 0
+                sum(u(t).^2)≤1
+                10 ≥ maxia ≥ 0
 
-for j in range(1,22,step=1)
-    for i in range(j+4,min(j+5,24),step=1)
+                qx = x[1]
+                qy = x[2]
+                qz = x[3]
+                vx = x[4]
+                vy = x[5]
+                vz = x[6]
+            
+                qx(ts) == STARTOBS[1]
+                qy(ts) == STARTOBS[2]
+                qz(ts) == STARTOBS[3]
+            
+                vx(ts) == STARTOBS[4]
+                vy(ts) == STARTOBS[5]
+                vz(ts) == STARTOBS[6]
+            
+                qx(tf) == ENDOBS[1]
+                qy(tf) == ENDOBS[2]
+                qz(tf) == ENDOBS[3]
+            
+                vx(tf) == ENDOBS[4]
+                vy(tf) == ENDOBS[5]
+                vz(tf) == ENDOBS[6]
+            
+                -10 ≤ qx(t) ≤ 10,      (1)
+                -100 ≤ vx(t) ≤ 100,      (2)
+                -10 ≤ qy(t) ≤ 10,      (3)
+                -100 ≤ vy(t) ≤ 100,      (4)
+                -10 ≤ qy(t) ≤ 10,      (5)
+                -100 ≤ vy(t) ≤ 100,      (6)
+                ẋ(t) == vcat([vx(t),vy(t),vz(t)],u(t)*maxia+gravity([qx(t),qy(t),qz(t)],[0,0,0],muTer)+ gravity(x(t)[1:3],odeMoon3(t+tstart)[1:3],muLun))
+                #tf → min
+                maxia → min
+            end
 
-        #start and end point of observation
-        startPoint=j;
-        endPoint=i;
-        println(string("SP : ",startPoint," endP : ",endPoint));
-        
-        #gathering starting and end condition
-        ENDOBS=startObservation[!,endPoint]
-        STARTOBS=endObservation[!,startPoint]
-        tstart=times[!,startPoint][3]
-        tend=times[!,endPoint][2]
-        
-        #defining the problem
-        @def ocp begin
-            #tf ∈ R, variable
-            maxia ∈ R, variable
-            tf=tend-tstart
-            ts=tstart-tstart
-            #tend=0.728470473745049
-            t ∈ [ ts, tf ], time
-            x ∈ R^6, state
-            u ∈ R^3, control
-            #tf ≥ 0
-            sum(u(t).^2)≤1
-            10 ≥ maxia ≥ 0
+            #sampling range
+            sampling=[50,100,200,300,400];
 
-            qx = x[1]
-            qy = x[2]
-            qz = x[3]
-            vx = x[4]
-            vy = x[5]
-            vz = x[6]
-        
-            qx(ts) == STARTOBS[1]
-            qy(ts) == STARTOBS[2]
-            qz(ts) == STARTOBS[3]
-        
-            vx(ts) == STARTOBS[4]
-            vy(ts) == STARTOBS[5]
-            vz(ts) == STARTOBS[6]
-        
-            qx(tf) == ENDOBS[1]
-            qy(tf) == ENDOBS[2]
-            qz(tf) == ENDOBS[3]
-        
-            vx(tf) == ENDOBS[4]
-            vy(tf) == ENDOBS[5]
-            vz(tf) == ENDOBS[6]
-        
-            -10 ≤ qx(t) ≤ 10,      (1)
-            -100 ≤ vx(t) ≤ 100,      (2)
-            -10 ≤ qy(t) ≤ 10,      (3)
-            -100 ≤ vy(t) ≤ 100,      (4)
-            -10 ≤ qy(t) ≤ 10,      (5)
-            -100 ≤ vy(t) ≤ 100,      (6)
-            ẋ(t) == vcat([vx(t),vy(t),vz(t)],u(t)*maxia+gravity([qx(t),qy(t),qz(t)],[0,0,0],muTer)+ gravity(x(t)[1:3],odeMoon3(t+tstart)[1:3],muLun))
-            #tf → min
-            maxia → min
-        end
+            #solution and initial condition
+            sol=nothing
+            initg=nothing
 
-        #sampling range
-        sampling=[50,100,200,300];
+            #ok 
+            println("compute x0")
+            tspan=[tstart,tend]
+            u0(t)=[0,0,0];
+            P=(u0,odeMoon3)
 
-        #solution and initial condition
-        sol=nothing
-        initg=nothing
+            #compute keplerian orbit
+            tspan=[tstart,tend]
+            pbtemp = OrdinaryDiffEq.ODEProblem(lorenzVide!,STARTOBS,tspan,P)
+            sat1=OrdinaryDiffEq.solve(pbtemp,OrdinaryDiffEq.Tsit5(), reltol=1e-15, abstol=1e-15)
+            
+            tspan=[tend,tstart]
+            pbtemp = OrdinaryDiffEq.ODEProblem(lorenzVide!,ENDOBS,tspan,P)
+            sat2=OrdinaryDiffEq.solve(pbtemp,OrdinaryDiffEq.Tsit5(), reltol=1e-15, abstol=1e-15)
 
-        #ok 
-        println("compute x0")
-        tspan=[tstart,tend]
-        u0(t)=[0,0,0];
-        P=(u0,odeMoon3)
+            # computing initial condition 
+            # for now only computing dynamics without control 
+            #
+            probSat = OrdinaryDiffEq.ODEProblem(lorenz!,STARTOBS,tspan,P)
+            x0=OrdinaryDiffEq.solve(probSat,OrdinaryDiffEq.Tsit5(), reltol=1e-15, abstol=1e-15)
+            trueX0(t)=x0(t);
 
-        #compute keplerian orbit
-        tspan=[tstart,tend]
-        pbtemp = OrdinaryDiffEq.ODEProblem(lorenzVide!,STARTOBS,tspan,P)
-        sat1=OrdinaryDiffEq.solve(pbtemp,OrdinaryDiffEq.Tsit5(), reltol=1e-15, abstol=1e-15)
-        
-        tspan=[tend,tstart]
-        pbtemp = OrdinaryDiffEq.ODEProblem(lorenzVide!,ENDOBS,tspan,P)
-        sat2=OrdinaryDiffEq.solve(pbtemp,OrdinaryDiffEq.Tsit5(), reltol=1e-15, abstol=1e-15)
+            trueX0(t)=(sat1(t)*(tend-t)+sat2(t)*(t-tstart))/(tend-tstart)
+            initg = (state=trueX0, control=u0, variable=0)
+            #initg=nothing
 
-        # computing initial condition 
-        # for now only computing dynamics without control 
-        #
-        probSat = OrdinaryDiffEq.ODEProblem(lorenz!,STARTOBS,tspan,P)
-        x0=OrdinaryDiffEq.solve(probSat,OrdinaryDiffEq.Tsit5(), reltol=1e-15, abstol=1e-15)
-        trueX0(t)=x0(t);
-
-        trueX0(t)=(sat1(t)*(tend-t)+sat2(t)*(t-tstart))/(tend-tstart)
-        initg = (state=trueX0, control=u0, variable=0)
-
-
-        println("solve pb");#solving problem
-        for samp in sampling 
-            println(string("grid size : ",samp));
-            if(resolve)
-                if(isnothing(initg))#if there are no initial condition do nothing
-                    sol = solve(ocp,display=false,grid_size=samp)
-                else
-                    sol = solve(ocp,display=false,grid_size=samp,init=initg)
+            println("solve pb");#solving problem
+            for samp in sampling 
+                println(string("grid size : ",samp));
+                if(resolve)
+                    if(isnothing(initg))#if there are no initial condition do nothing
+                        sol = solve(ocp,display=false,grid_size=samp)
+                    else
+                        sol = solve(ocp,display=false,grid_size=samp,init=initg)
+                    end
+                end
+                if(0==cmp(sol.message,"Solve_Succeeded"))#if we solve we set the new intitial solution then we continue
+                    println(string("solved  in ",sol.iterations," iterations || ",sol.objective))
+                    initg=(state=sol.state, control=sol.control, variable=sol.variable)
+                else#if we don't solve we do nothing
+                    println("not solved :(")
                 end
             end
-            if(0==cmp(sol.message,"Solve_Succeeded"))#if we solve we set the new intitial solution then we continue
-                println(string("solved  in ",sol.iterations," iterations || ",sol.objective))
-                initg=(state=sol.state, control=sol.control, variable=sol.variable)
-            else#if we don't solve we do nothing
-                println("not solved :(")
-            end
+            println(string("plot sol ... optimum : ",sol.objective));
+
+            #plot(sol, size=(1200, 1800))
+            objective_output[i,j]=sol.objective;#setting objective output variable
+            #gui()
+
+            sols[j,i]=sol;
+
+            #ploting solutions
+            Tvec=[i for i in range(1,1000)]/1000*(tend-tstart);
+            Tvec=[i for i in Tvec]
+
+            states=[sol.state(x) for x in Tvec]
+            sols[j,i]=states;
+
+            X=[x[1] for x in states]
+            Y=[x[2] for x in states]
+            Z=[x[3] for x in states]
+
+            mini=min(minimum(X),minimum(Y),minimum(Z))-0.1
+            maxi=max(maximum(X),maximum(Y),maximum(Z))+0.1
+
+
+            plot(X,Y,Z,label="trajectory",title=string("transfert from observation ",startPoint," to observation ",endPoint),xlim=(mini, maxi),ylim=(mini, maxi),zlim=(mini, maxi));
+            scatter!([STARTOBS[1]],[STARTOBS[2]],[STARTOBS[3]],label="starting point")
+            scatter!([ENDOBS[1]],[ENDOBS[2]],[ENDOBS[3]],label="final point")
+            scatter!([0],[0],[0],label="Earth")
+
+            #ploting start and end orbit:
+            plot!(sat1,vars=(1,2,3),label="starting obrit")
+            plot!(sat2,vars=(1,2,3),label="ending obrit")
+            
+
+
+
+            #title("transfert from observation "+startPoint+" to observation "+endPoint)
+            savefig(string("images/Transfert_Amax_",Amax,"_",startPoint,"_",endPoint,".png"));
+
+            plot(sol, size=(1200, 1800))
+            savefig(string("solGraph/Transfert_Amax_",Amax,"_",startPoint,"_",endPoint,".png"));
+
+            controlVal=[sol.control(t)*sol.objective for t in Tvec];
+            
+            Xc=[x[1] for x in controlVal]
+            Yc=[x[2] for x in controlVal]
+            Zc=[x[3] for x in controlVal]
+
+            newX=[states[i][4]*Xc[i]+states[i][5]*Yc[i]+states[i][6]*Zc[i]/sqrt(sum(states[i][4:6].^2)) for i in range(1,length(states))];
+            Xax=[x[2]*x[6]-x[3]*x[5] for x in states]
+            Yax=[x[3]*x[4]-x[1]*x[6] for x in states]
+            Zax=[x[1]*x[5]-x[2]*x[4] for x in states]
+            newZ=[Xax[i]*Xc[i]+Yax[i]*Yc[i]+Zax[6]*Zc[i]/sqrt(Xax[i]^2+Yax[i]^2+Zax[i]^2) for i in range(1,length(states))];
+            newY=[sqrt(sum( ([Xc[i],Yc[i],Zc[i]] - newZ[i]*[Xax[i],Xax[i],Yax[i]] - newX[i]*states[i][4:6]).^2 )) for i in range(1,length(states))];
+            mini=-sol.objective*1.1;
+            maxi=-mini;
+            println(newX)
+            println(X)
+            println(typeof(X))
+            println(typeof(newX))
+            println(typeof(newY))
+            println(typeof(newZ))
+            println(length(states))
+            println(length(controlVal))
+            plot(newX,newY,newZ,label="control trajectory",xlim=(mini, maxi),ylim=(mini, maxi),zlim=(mini, maxi))
+            scatter!([newX[1][1]],[newY[1][2]],[newZ[1][3]],label="initial point")
+            scatter!([newX[end][1]],[newY[end][2]],[newZ[end][3]],label="end point")
+            savefig(string("control/Transfert_Amax_",Amax,"_",startPoint,"_",endPoint,".png"));
+
+            
+            controlVal=[sqrt(sum(sol.control(t).^2))*sol.objective for t in sol.times];
+            plot(controlVal,ylim=(0,sol.objective*1.1));
+            savefig(string("control/NORM_Transfert_Amax_",Amax,"_",startPoint,"_",endPoint,".png"));
+
+            
         end
-        println(string("plot sol ... optimum : ",sol.objective));
-
-        #plot(sol, size=(1200, 1800))
-        objective_output[i,j]=sol.objective;#setting objective output variable
-        #gui()
-
-
-
-        #ploting solutions
-        Tvec=[i for i in range(1,200)]/200*(tend-tstart);
-        Tvec=[i for i in Tvec]
-
-        states=[sol.state(x) for x in Tvec]
-
-        X=[x[1] for x in states]
-        Y=[x[2] for x in states]
-        Z=[x[3] for x in states]
-
-        mini=min(minimum(X),minimum(Y),minimum(Z))-0.1
-        maxi=max(maximum(X),maximum(Y),maximum(Z))+0.1
-
-
-        plot(X,Y,Z,label="trajectory",title=string("transfert from observation ",startPoint," to observation ",endPoint),xlim=(mini, maxi),ylim=(mini, maxi),zlim=(mini, maxi));
-        scatter!([STARTOBS[1]],[STARTOBS[2]],[STARTOBS[3]],label="starting point")
-        scatter!([ENDOBS[1]],[ENDOBS[2]],[ENDOBS[3]],label="final point")
-        scatter!([0],[0],[0],label="Earth")
-
-        #ploting start and end orbit:
-        plot!(sat1,vars=(1,2,3),label="starting obrit")
-        plot!(sat2,vars=(1,2,3),label="ending obrit")
-        
-
-
-
-        #title("transfert from observation "+startPoint+" to observation "+endPoint)
-        savefig(string("images/Transfert_Amax_",Amax,"_",startPoint,"_",endPoint,".png"));
-
-        plot(sol, size=(1200, 1800))
-        savefig(string("solGraph/Transfert_Amax_",Amax,"_",startPoint,"_",endPoint,".png"));
-
-        controlVal=[sol.control(t)*sol.objective for t in sol.times];
-        X=[x[1] for x in controlVal]
-        Y=[x[2] for x in controlVal]
-        Z=[x[3] for x in controlVal]
-        mini=-sol.objective*1.1;
-        maxi=-mini;
-        plot(X,Y,Z,label="control trajectory",xlim=(mini, maxi),ylim=(mini, maxi),zlim=(mini, maxi))
-        scatter!([controlVal[1][1]],[controlVal[1][2]],[controlVal[1][3]],label="initial point")
-        scatter!([controlVal[end][1]],[controlVal[end][2]],[controlVal[end][3]],label="end point")
-        savefig(string("control/Transfert_Amax_",Amax,"_",startPoint,"_",endPoint,".png"));
-
-        
-        controlVal=[sqrt(sum(sol.control(t).^2))*sol.objective for t in sol.times];
-        plot(controlVal,ylim=(0,sol.objective*1.1));
-        savefig(string("control/NORM_Transfert_Amax_",Amax,"_",startPoint,"_",endPoint,".png"));
-
-        
-    end
-end  
+    end  
+end
 println("finished !!");
 CSV.write("result.csv",  Tables.table(objective_output), writeheader=false)
+
+mini=0
+maxi=0
+scatter([0],[0],[0],label="Earth",size=(1920, 1080))
+for j in range(1,21,step=2)
+    states=sols[j,j+2]
+    
+    X=[x[1] for x in states]
+    Y=[x[2] for x in states]
+    Z=[x[3] for x in states]
+    
+
+    global maxi,mini;
+
+    mini=min(mini,min(minimum(X),minimum(Y),minimum(Z))-0.1)
+    maxi=max(maxi,max(maximum(X),maximum(Y),maximum(Z))+0.1)
+    plot!(X,Y,Z,label=string(j, " to ",(j+2)),title=string("transfert total ",endPoint),xlim=(mini, maxi),ylim=(mini, maxi),zlim=(mini, maxi));
+end
+savefig(string("All_transfert_odd_",Amax,"_",startPoint,"_",endPoint,".png"));
+
+mini=0
+maxi=0
+scatter([0],[0],[0],label="Earth",size=(1920, 1080))
+for j in range(2,22,step=2)
+    states=sols[j,j+2]
+    
+    X=[x[1] for x in states]
+    Y=[x[2] for x in states]
+    Z=[x[3] for x in states]
+    
+
+    global maxi,mini;
+
+    mini=min(mini,min(minimum(X),minimum(Y),minimum(Z))-0.1)
+    maxi=max(maxi,max(maximum(X),maximum(Y),maximum(Z))+0.1)
+    plot!(X,Y,Z,label=string(j, " to ",(j+2)),title=string("transfert total ",endPoint),xlim=(mini, maxi),ylim=(mini, maxi),zlim=(mini, maxi));
+end
+savefig(string("All_transfert_even_",Amax,"_",startPoint,"_",endPoint,".png"));
+
+mini=0
+maxi=0
+scatter([0],[0],[0],label="Earth",size=(1920, 1080))
+for j in range(1,19,step=3)
+    states=sols[j,j+3]
+    
+    X=[x[1] for x in states]
+    Y=[x[2] for x in states]
+    Z=[x[3] for x in states]
+    
+
+    global maxi,mini;
+
+    mini=min(mini,min(minimum(X),minimum(Y),minimum(Z))-0.1)
+    maxi=max(maxi,max(maximum(X),maximum(Y),maximum(Z))+0.1)
+    plot!(X,Y,Z,label=string(j, " to ",(j+2)),title=string("transfert total ",endPoint),xlim=(mini, maxi),ylim=(mini, maxi),zlim=(mini, maxi));
+end
+savefig(string("All_transfert_1_on_3_",Amax,"_",startPoint,"_",endPoint,".png"));
+
+mini=0
+maxi=0
+scatter([0],[0],[0],label="Earth",size=(1920, 1080))
+for j in range(1,17,step=4)
+    states=sols[j,j+4]
+    
+    X=[x[1] for x in states]
+    Y=[x[2] for x in states]
+    Z=[x[3] for x in states]
+    
+
+    global maxi,mini;
+
+    mini=min(mini,min(minimum(X),minimum(Y),minimum(Z))-0.1)
+    maxi=max(maxi,max(maximum(X),maximum(Y),maximum(Z))+0.1)
+    plot!(X,Y,Z,label=string(j, " to ",(j+2)),title=string("transfert total ",endPoint),xlim=(mini, maxi),ylim=(mini, maxi),zlim=(mini, maxi));
+end
+savefig(string("All_transfert_1_on_4.png"));
 
 gui()
 while true
