@@ -106,7 +106,7 @@ if(resolve)
     
     sols=Array{Any}(undef, 24,24)
     for j in range(1,23,step=1)
-        for i in range(j+2,min(j+7,24),step=1)
+        for i in range(j+2,min(j+8,24),step=1)
 
             #start and end point of observation
             startPoint=j;
@@ -168,7 +168,7 @@ if(resolve)
             end
 
             #sampling range
-            sampling=[50,100,200,300,400];
+            sampling=[50,100,200,400,600];
 
             #solution and initial condition
             sol=nothing
@@ -227,6 +227,7 @@ if(resolve)
 
             #ploting solutions
             Tvec=[i for i in range(1,1000)]/1000*(tend-tstart);
+            LowTvec=[i for i in range(1,100)]/100*(tend-tstart);
             Tvec=[i for i in Tvec]
 
             states=[sol.state(x) for x in Tvec]
@@ -240,14 +241,21 @@ if(resolve)
             maxi=max(maximum(X),maximum(Y),maximum(Z))+0.1
 
 
-            plot(X,Y,Z,label="trajectory",title=string("transfert from observation ",startPoint," to observation ",endPoint),xlim=(mini, maxi),ylim=(mini, maxi),zlim=(mini, maxi));
+            plot(X,Y,Z,label="trajectory",title=string("transfert from observation ",startPoint," to observation ",endPoint),xlim=(mini, maxi),ylim=(mini, maxi),zlim=(mini, maxi),size=(1920/2,1080/2));
+            
+            for t in LowTvec
+                St=sol.state(t);
+                Ct=sol.control(t)*sol.objective;
+                plot!([St[1],St[1]+Ct[1]*0.1],[St[2],St[2]+Ct[2]*0.1],[St[3],St[3]+Ct[3]*0.1],label=false,color=:red)
+            end
             scatter!([STARTOBS[1]],[STARTOBS[2]],[STARTOBS[3]],label="starting point")
             scatter!([ENDOBS[1]],[ENDOBS[2]],[ENDOBS[3]],label="final point")
             scatter!([0],[0],[0],label="Earth")
 
+
             #ploting start and end orbit:
-            plot!(sat1,vars=(1,2,3),label="starting obrit")
-            plot!(sat2,vars=(1,2,3),label="ending obrit")
+            plot!(sat1,vars=(1,2,3),label="starting obrit",color=:green)
+            plot!(sat2,vars=(1,2,3),label="ending obrit",color=:orange)
             
 
 
@@ -264,26 +272,38 @@ if(resolve)
             Yc=[x[2] for x in controlVal]
             Zc=[x[3] for x in controlVal]
 
-            newX=[states[i][4]*Xc[i]+states[i][5]*Yc[i]+states[i][6]*Zc[i]/sqrt(sum(states[i][4:6].^2)) for i in range(1,length(states))];
+            newX=[(states[i][4]*Xc[i]+states[i][5]*Yc[i]+states[i][6]*Zc[i])/sqrt(sum(states[i][4:6].^2)) for i in range(1,length(states))];
             Xax=[x[2]*x[6]-x[3]*x[5] for x in states]
             Yax=[x[3]*x[4]-x[1]*x[6] for x in states]
             Zax=[x[1]*x[5]-x[2]*x[4] for x in states]
-            newZ=[Xax[i]*Xc[i]+Yax[i]*Yc[i]+Zax[6]*Zc[i]/sqrt(Xax[i]^2+Yax[i]^2+Zax[i]^2) for i in range(1,length(states))];
-            newY=[sqrt(sum( ([Xc[i],Yc[i],Zc[i]] - newZ[i]*[Xax[i],Xax[i],Yax[i]] - newX[i]*states[i][4:6]).^2 )) for i in range(1,length(states))];
+            newZ=[(Xax[i]*Xc[i]+Yax[i]*Yc[i]+Zax[6]*Zc[i])/sqrt(Xax[i]^2+Yax[i]^2+Zax[i]^2) for i in range(1,length(states))];
+
+            Xaxy=[Yax[i]*states[i][6]-Zax[i]*states[i][5]  for i in range(1,length(states))]
+            Yaxy=[Zax[i]*states[i][4]-Xax[i]*states[i][6]  for i in range(1,length(states))]
+            Zaxy=[Xax[i]*states[i][5]-Yax[i]*states[i][2]  for i in range(1,length(states))]
+            
+            newY=[(Xaxy[i]*Xc[i]+Yaxy[i]*Yc[i]+Zaxy[6]*Zc[i])/sqrt(Xaxy[i]^2+Yaxy[i]^2+Zaxy[i]^2) for i in range(1,length(states))];
+            #newY=[sqrt(sum( ([Xc[i],Yc[i],Zc[i]] - newZ[i]*[Xax[i],Xax[i],Yax[i]]/sqrt(Xax[i]^2+Yax[i]^2+Zax[i]^2) - newX[i]*states[i][4:6]/sqrt(sum(states[i][4:6].^2))).^2 )) for i in range(1,length(states))];
             mini=-sol.objective*1.1;
             maxi=-mini;
-            println(newX)
-            println(X)
-            println(typeof(X))
-            println(typeof(newX))
-            println(typeof(newY))
-            println(typeof(newZ))
-            println(length(states))
-            println(length(controlVal))
+            #println(newY)
             plot(newX,newY,newZ,label="control trajectory",xlim=(mini, maxi),ylim=(mini, maxi),zlim=(mini, maxi))
-            scatter!([newX[1][1]],[newY[1][2]],[newZ[1][3]],label="initial point")
-            scatter!([newX[end][1]],[newY[end][2]],[newZ[end][3]],label="end point")
+            #println([newX[1]],[newY[1]],[newZ[1]])
+            scatter!([newX[1]],[newY[1]],[newZ[1]],label="initial point")
+            scatter!([newX[end]],[newY[end]],[newZ[end]],label="end point")
             savefig(string("control/Transfert_Amax_",Amax,"_",startPoint,"_",endPoint,".png"));
+
+            # Create a 3-row, 1-column layout
+            plot_layout = @layout [a; b; c]
+
+            # Create the plots
+            p1 = plot(Tvec, newX, title="tangent speed", xlabel="T", ylabel="X", legend=false)
+            p2 = plot(Tvec, newY, title="orthogonal speed on ecliptic plane of device", xlabel="T", ylabel="Y", legend=false)
+            p3 = plot(Tvec, newZ, title="orthogonal speed", xlabel="T", ylabel="Z", legend=false)
+
+            # Combine the plots into a single window
+            plot(p1, p2, p3, layout=plot_layout)
+            savefig(string("control/Transfert_2D_",startPoint,"_",endPoint,".png"));
 
             
             controlVal=[sqrt(sum(sol.control(t).^2))*sol.objective for t in sol.times];
