@@ -81,6 +81,15 @@ Amax=5 #maximum acceleration (unused when minimizing Amax)
 muTer=1.0*39.478417604357425 #acceleration constant of earth
 muLun=1*0.483520433963301 #acceleration constant of moon
 
+#device related variable :
+Isp=8000
+Mass=107
+FuelMass=260
+Thrust=0
+
+#ESA smart-1, données à verifier obtenu avec gemini
+#Amax ~= 222 µm/s²    6.5 km/s DV
+
 #compute the trajectory of the moon over 20 revolution (increase if needed)
 println("compute moon trajectory")
 if(reloadMoon)
@@ -103,6 +112,7 @@ tend=times[!,endPoint][2]#1.409239769931626
 if(resolve)
     #objective value of the problem (0 mean not computed)
     objective_output=zeros(24,24)
+    deltas_V=zeros(24,24)
     
     sols=Array{Any}(undef, 24,24)
     for j in range(1,23,step=1)
@@ -221,6 +231,7 @@ if(resolve)
 
             #plot(sol, size=(1200, 1800))
             objective_output[i,j]=sol.objective;#setting objective output variable
+            deltas_V[i,j]=sol.objective*tend-tstart;#we suppose that we have maximum thrust during the whole transfert
             #gui()
 
             sols[j,i]=sol;
@@ -316,6 +327,7 @@ if(resolve)
 end
 println("finished !!");
 CSV.write("result.csv",  Tables.table(objective_output), writeheader=false)
+CSV.write("delta_v.csv",  Tables.table(objective_output), writeheader=false)
 
 mini=0
 maxi=0

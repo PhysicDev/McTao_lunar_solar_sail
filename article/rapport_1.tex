@@ -41,10 +41,14 @@
 		$$ 
 		$$	
 		P_{3x}=\frac{\bar{D}R_l}{R_s(\alpha+1)-R_l}
-		$$ 
-		où $\bar{D}$ est la distance Soleil-lune, $R_s$ le rayon solaire ,$R_l$ le rayon lunaire et $\alpha$ est la taille supplémentaire de la couronne solaire par rapport au rayon solaire( plus $alpha$ est proche de 0 plus on observera des parties de la couronne proche de la surface du soleil).
+		$$
 		
-		on peut ensuite calculer la position de $P_2$ en calculant l'intersection des lignes reliant la surface de la Lune au points $P_1$ et $P_3$ : 
+		where $\bar{D}$ is the Solar-Moon distance, $R_s$ the Solar Radius ,$R_l$ the Lunar radius and $\alpha$ is the solar crown's added size in solar radius (the more $alpha$ is near of zero the more the solar crown's radius is near of the solar raidus meaning that we will observe part of the crown near of the solar surface)
+		%où $\bar{D}$ est la distance Soleil-lune, $R_s$ le rayon solaire ,$R_l$ le rayon lunaire et $\alpha$ est la taille supplémentaire de la couronne solaire par rapport au rayon solaire( plus $alpha$ est proche de 0 plus on observera des parties de la couronne proche de la surface du soleil).
+		
+		we can then compute the position of $P_2$ by computing the intersection of the lines linking the surface of the Moon and the points $P_1$ and $P_3$
+		
+		%on peut ensuite calculer la position de $P_2$ en calculant l'intersection des lignes reliant la surface de la Lune au points $P_1$ et $P_3$ : 
 		
 		$$
 		P_{2x}=\frac{P_{1x}tan(\theta_1) + P_{3x}tan(\theta_3)}{tan(\theta_1) + tan(\theta_3)}
@@ -53,7 +57,7 @@
 		P_{2y}=tan(\theta_1)(P_{1x}-P_{2x})
 		$$
 		
-		avec
+		with
 		$$
 		\theta_1=\sin^{-1}\left(\frac{R_l}{P_{1x}}\right)
 		$$
@@ -62,24 +66,38 @@
 		\theta_3=\sin^{-1}\left(\frac{R_l}{P_{3x}}\right)
 		$$
 		
-		avec $\alpha=0.05$
+		with $\alpha=0.05$
 		
 		\subsection{approximation of the zone}
-		la position des points $P_1$,$P_2$ et $P_3$ par rapport à la Lune vont changer en fonction de sa position autour de la Terre. Cependant la forme de la zone en elle même varie assez peu (les dimensions variant de moins de 0.5\%).
+		the Position of the points $P_1$,$P_2$ and $P_3$ relative to the moon will change depending of the moon position around the earth, hovewer the shape of the the zone in itself will not change much (with a dimension error smaller than 0.5\%)
 		
-		On peut donc obtenir une bonne approximation de la zone d'observation où que se trouve la Lune autours de la Terre en calculant la forme de la zone d'observation lorsque la Lune se trouve à la place de la Terre puis de la déformer pour se positionner là où se trouve la Lune.
+		%la position des points $P_1$,$P_2$ et $P_3$ par rapport à la Lune vont changer en fonction de sa position autour de la Terre. Cependant la forme de la zone en elle même varie assez peu (les dimensions variant de moins de 0.5\%).
 		
-		On nomme $\hat{P_1}$, $\hat{P_2}$ et $\hat{P_3}$ les points de la zone d'observation quand la Lune est à la place de La Terre. Les points $P_1$ et $P_3$ sont colinéaire avec le vecteur $R_{ls}$ qui représente la position de la Lune par rapport au Soleil.
-		De plus les points $\hat{P_1}$ $\hat{P_3}$ sont colinéaire avec l'axe X. On peut en déduire les formules suivantes de la position de $P_3$:
+		we can obtain a good approximation of the observation zone at any position of the moon around the Earth by computing the shape of the observation zone with the moon at the origin and then move it and rotate it to place it at the right position.
+		%On peut donc obtenir une bonne approximation de la zone d'observation où que se trouve la Lune autours de la Terre en calculant la forme de la zone d'observation lorsque la Lune se trouve à la place de la Terre puis de la déformer pour se positionner là où se trouve la Lune.
+		
+		
+		
+		We name $\hat{P_1}$, $\hat{P_2}$ and $\hat{P_3}$ the points of the observation zone when the moon is at the origin. the points $P_1$ and $P_3$ are collinear with the vector $R_{ls}$ witch are the position of the Moon relative to the Sun.
+		
+		Also the points $\hat{P_1}$ $\hat{P_3}$ are colinear with the X axis. We can conclude of the following formula of the points $P_3$ and $P_1$
+		
+		%On nomme $\hat{P_1}$, $\hat{P_2}$ et $\hat{P_3}$ les points de la zone d'observation quand la Lune est à la place de La Terre. Les points $P_1$ et $P_3$ sont colinéaire avec le vecteur $R_{ls}$ qui représente la position de la Lune par rapport au Soleil.
+		%De plus les points $\hat{P_1}$ $\hat{P_3}$ sont colinéaire avec l'axe X. On peut en déduire les formules suivantes de la position de $P_3$:
 		
 		$$
 		\begin{equation}
 			P_3=R_{lt}+\hat{P_{3x}}D^{-1}R_{ls} 
 		\end{equation}
 		$$
+		$$
+		\begin{equation}
+			P_1=R_{lt}+\hat{P_{1x}}D^{-1}R_{ls} 
+		\end{equation}
+		$$
 		
-		vérifier si un point $S$ est dans la zone d'observation revient à vérifier les inégalités suivantes:
-		
+		%vérifier si un point $S$ est dans la zone d'observation revient à vérifier les inégalités suivantes:
+		a point $D$ is consider in the observation zone if the following inequality are verified : 
 		
 		$$
 		\begin{equation}
@@ -90,7 +108,9 @@
 		\end{equation}
 		$$
 		
-		avec $b$ la projection de $S-P_3$ sur l'axe Lune- Soleil, $a=S-P_3-b$ et $p_1$, $p_2$ et $O$ sont des réel à déterminer. On remarque que si la Lune est à l'origine on a
+		with $b$ being the projection of $S-P_3$ on the axis Sun_Moon, $a=S-P_3-b$. $p_1$, $p_2$ and $O$ are real value: here this parameter will be approximated by their value when the Moon is at the origin :
+		
+		%avec $b$ la projection de $S-P_3$ sur l'axe Lune- Soleil, $a=S-P_3-b$ et $p_1$, $p_2$ et $O$ sont des réel à déterminer. On remarque que si la Lune est à l'origine on a
 		
 		$$
 		\begin{align}
@@ -100,13 +120,17 @@
 		\end{align}	
 		$$ 
 		
-		En supposant que la forme de la zone d'observation varie peu lorsque la lune se déplace, on peut utiliser les même coefficients où que se trouve la Lune.
+		%En supposant que la forme de la zone d'observation varie peu lorsque la lune se déplace, on peut utiliser les même coefficients où que se trouve la Lune.
 		
-		Si on souhaite avoir une approximation un peu plus précise on peu prendre en compte la variation la plus importante sur la forme de la zone d'observation étant la variation de la longueur de la zone.
+		%Si on souhaite avoir une approximation un peu plus précise on peu prendre en compte la variation la plus importante sur la forme de la zone d'observation étant la variation de la longueur de la zone.
 		
-		On peut prendre en compte cette variation en multipliant $b$ par $\frac{||\hat{P_1}-\hat{P_3}||}{||P_1-P_3||}$		
-		\subsection{application numérique}
-		on a les distances suivantes : 
+		if we want to increase the precision of the observation zone we can take in account the variation in length of the observation zone by scaling the parameter $b$ by 
+		
+		%On peut prendre en compte cette variation en multipliant $b$ par
+		
+		$\frac{||\hat{P_1}-\hat{P_3}||}{||P_1-P_3||}$		
+		\subsection{numeric application}
+		we have the following distances : 
 		$$
 		\begin{align}
 			R_l&=1.7374\times10^6 m \\
@@ -482,7 +506,11 @@
 			
 			The algorithm had a lot of struggle to find an optimum for moving to two adjacent observations, which was excpected as the two orbit of adjacent optimum are very different and the time interval is small meaning that important $\Delta_v$ are needed to move from the starting point to the ending point. hovewer the algorithm find solution for transition between even observation and between odd observation. This was also excpected as the orbit are generally very similar and the device as a time of around one synodic period (around 29,5 days) to change its trajectory.
 			
-			About the trajectiory in itself, the maximum alowed acceleration was around $5\times 10^{-4}$ m/s.
+			the maximum acceleration found in such transition are around $180\mu m \cdot s^{-2} $. 
+			
+			About the trajectiory in itself, the maximum alowed acceleration was around $5\times 10^{-4}$.
+			
+			there where also 
 			
 	
 		\end{document}

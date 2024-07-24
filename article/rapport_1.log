@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.25 (MiKTeX 23.10) (preloaded format=pdflatex 2023.10.12)  5 JUL 2024 11:18
+This is pdfTeX, Version 3.141592653-2.6-1.40.25 (MiKTeX 23.10) (preloaded format=pdflatex 2023.10.12)  24 JUL 2024 12:05
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -216,7 +216,7 @@ See the LaTeX manual or LaTeX Companion for explanation.
 Type  H <return>  for immediate help.
  ...                                              
                                                   
-l.76 		\begin{equation}
+l.89 		\begin{equation}
                        
 Your command was ignored.
 Type  I <command> <return>  to replace it with another command,
@@ -225,7 +225,7 @@ or  <return>  to continue without it.
 ! Missing \endgroup inserted.
 <inserted text> 
                 \endgroup 
-l.78 		\end{equation}
+l.91 		\end{equation}
                      
 I've inserted something that you may have forgotten.
 (See the <inserted text> above.)
@@ -240,7 +240,7 @@ See the LaTeX manual or LaTeX Companion for explanation.
 Type  H <return>  for immediate help.
  ...                                              
                                                   
-l.78 		\end{equation}
+l.91 		\end{equation}
                      
 Your command was ignored.
 Type  I <command> <return>  to replace it with another command,
@@ -249,14 +249,14 @@ or  <return>  to continue without it.
 ! Extra \endgroup.
 <recently read> \endgroup 
                           
-l.78 		\end{equation}
+l.91 		\end{equation}
                      
 Things are pretty mixed up, but I think the worst is over.
 
 ! Missing $ inserted.
 <inserted text> 
                 $
-l.80 		
+l.98 		
        
 I've inserted a begin-math/end-math symbol since I think
 you left one out. Proceed, with fingers crossed.
@@ -264,7 +264,7 @@ you left one out. Proceed, with fingers crossed.
 ! Display math should end with $$.
 <to be read again> 
                    \tex_par:D 
-l.80 		
+l.98 		
        
 The `$' that I just saw supposedly matches a previous `$$'.
 So I shall assume that you typed `$$' both times.
@@ -276,8 +276,8 @@ See the LaTeX manual or LaTeX Companion for explanation.
 Type  H <return>  for immediate help.
  ...                                              
                                                   
-l.85 		\begin{equation}
-                       
+l.103 		\begin{equation}
+                        
 Your command was ignored.
 Type  I <command> <return>  to replace it with another command,
 or  <return>  to continue without it.
@@ -290,16 +290,16 @@ See the amsmath package documentation for explanation.
 Type  H <return>  for immediate help.
  ...                                              
                                                   
-l.89 			\end{align}
-                   	
+l.107 			\end{align}
+                    	
 Try typing  <return>  to proceed.
 If that doesn't work, type  X <return>  to quit.
 
 ! Missing \endgroup inserted.
 <inserted text> 
                 \endgroup 
-l.90 		\end{equation}
-                     
+l.108 		\end{equation}
+                      
 I've inserted something that you may have forgotten.
 (See the <inserted text> above.)
 With luck, this will get me unwedged. But if you
@@ -313,8 +313,8 @@ See the LaTeX manual or LaTeX Companion for explanation.
 Type  H <return>  for immediate help.
  ...                                              
                                                   
-l.90 		\end{equation}
-                     
+l.108 		\end{equation}
+                      
 Your command was ignored.
 Type  I <command> <return>  to replace it with another command,
 or  <return>  to continue without it.
@@ -322,25 +322,41 @@ or  <return>  to continue without it.
 ! Extra \endgroup.
 <recently read> \endgroup 
                           
-l.90 		\end{equation}
-                     
+l.108 		\end{equation}
+                      
 Things are pretty mixed up, but I think the worst is over.
 
 ! Missing $ inserted.
 <inserted text> 
                 $
-l.92 		
-       
+l.110 		
+        
 I've inserted a begin-math/end-math symbol since I think
 you left one out. Proceed, with fingers crossed.
 
 ! Display math should end with $$.
 <to be read again> 
                    \tex_par:D 
-l.92 		
-       
+l.110 		
+        
 The `$' that I just saw supposedly matches a previous `$$'.
 So I shall assume that you typed `$$' both times.
+
+! Missing $ inserted.
+<inserted text> 
+                $
+l.111 ...he projection of $S-P_3$ on the axis Sun_
+                                                  Moon, $a=S-P_3-b$. $p_1$, ...
+I've inserted a begin-math/end-math symbol since I think
+you left one out. Proceed, with fingers crossed.
+
+! Missing $ inserted.
+<inserted text> 
+                $
+l.111 ... of $S-P_3$ on the axis Sun_Moon, $a=S-P_
+                                                  3-b$. $p_1$, $p_2$ and $O$...
+I've inserted a begin-math/end-math symbol since I think
+you left one out. Proceed, with fingers crossed.
 
 
 ! Package amsmath Error: Erroneous nesting of equation structures;
@@ -350,7 +366,7 @@ See the amsmath package documentation for explanation.
 Type  H <return>  for immediate help.
  ...                                              
                                                   
-l.100 		\end{align}
+l.120 		\end{align}
                    	
 Try typing  <return>  to proceed.
 If that doesn't work, type  X <return>  to quit.
@@ -363,7 +379,7 @@ See the amsmath package documentation for explanation.
 Type  H <return>  for immediate help.
  ...                                              
                                                   
-l.116 		\end{align}
+l.140 		\end{align}
                    
 Try typing  <return>  to proceed.
 If that doesn't work, type  X <return>  to quit.
@@ -377,7 +393,7 @@ See the amsmath package documentation for explanation.
 Type  H <return>  for immediate help.
  ...                                              
                                                   
-l.128 		\end{align}
+l.152 		\end{align}
                    
 Try typing  <return>  to proceed.
 If that doesn't work, type  X <return>  to quit.
@@ -390,14 +406,14 @@ See the amsmath package documentation for explanation.
 Type  H <return>  for immediate help.
  ...                                              
                                                   
-l.141 		\end{align}
+l.165 		\end{align}
                    
 Try typing  <return>  to proceed.
 If that doesn't work, type  X <return>  to quit.
 
 [3] [4] [5]
 ! Undefined control sequence.
-l.293 ... there are an optimum near the value $(\2
+l.317 ... there are an optimum near the value $(\2
                                                   pi/3,0.5,38/45\pi,0)$ that...
 The control sequence at the end of the top line
 of your error message was never \def'ed. If you have
@@ -413,7 +429,7 @@ See the amsmath package documentation for explanation.
 Type  H <return>  for immediate help.
  ...                                              
                                                   
-l.306 		\end{align}
+l.330 		\end{align}
                    
 Try typing  <return>  to proceed.
 If that doesn't work, type  X <return>  to quit.
@@ -427,7 +443,7 @@ See the amsmath package documentation for explanation.
 Type  H <return>  for immediate help.
  ...                                              
                                                   
-l.336 		\end{align}
+l.360 		\end{align}
                    
 Try typing  <return>  to proceed.
 If that doesn't work, type  X <return>  to quit.
@@ -435,7 +451,7 @@ If that doesn't work, type  X <return>  to quit.
 ! Missing } inserted.
 <inserted text> 
                 }
-l.343 ...($\sqrt{\frac{2\mu}{R_s}-\frac{\mu}{a_l}$
+l.367 ...($\sqrt{\frac{2\mu}{R_s}-\frac{\mu}{a_l}$
                                                   ) is the same as the veloc...
 I've inserted something that you may have forgotten.
 (See the <inserted text> above.)
@@ -451,7 +467,7 @@ See the amsmath package documentation for explanation.
 Type  H <return>  for immediate help.
  ...                                              
                                                   
-l.370 			\end{align}
+l.394 			\end{align}
                     
 Try typing  <return>  to proceed.
 If that doesn't work, type  X <return>  to quit.
@@ -459,24 +475,24 @@ If that doesn't work, type  X <return>  to quit.
 ! Double subscript.
 <argument>  O_{2n}_
                    i&=nT-O_1+a\\ O_{2n+1}_i&=nT+O_1+a 
-l.370 			\end{align}
+l.394 			\end{align}
                     
 I treat `x_1_2' essentially like `x_1{}_2'.
 
 ! Double subscript.
 <argument>  O_{2n}_i&=nT-O_1+a\\ O_{2n+1}_
                                           i&=nT+O_1+a 
-l.370 			\end{align}
+l.394 			\end{align}
                     
 I treat `x_1_2' essentially like `x_1{}_2'.
 
 ! Double subscript.
-l.374 			$O_k_
+l.398 			$O_k_
               i$ is the initial value used to find the $k^{th}$ optimum of t...
 I treat `x_1_2' essentially like `x_1{}_2'.
 
 [7]
-Underfull \hbox (badness 10000) in paragraph at lines 398--399
+Underfull \hbox (badness 10000) in paragraph at lines 422--423
 
  []
 
@@ -488,7 +504,7 @@ See the amsmath package documentation for explanation.
 Type  H <return>  for immediate help.
  ...                                              
                                                   
-l.445 			\end{align}
+l.469 			\end{align}
                     
 Try typing  <return>  to proceed.
 If that doesn't work, type  X <return>  to quit.
@@ -501,7 +517,7 @@ See the amsmath package documentation for explanation.
 Type  H <return>  for immediate help.
  ...                                              
                                                   
-l.453 			\end{align}
+l.477 			\end{align}
                     
 Try typing  <return>  to proceed.
 If that doesn't work, type  X <return>  to quit.
@@ -514,7 +530,7 @@ See the LaTeX manual or LaTeX Companion for explanation.
 Type  H <return>  for immediate help.
  ...                                              
                                                   
-l.477 			t
+l.501 			t
           o compute the solution, i've used the julia library : OptimalControl,
 
 Your command was ignored.
@@ -556,7 +572,7 @@ s/MiKTeX/fonts/type1/public/amsfonts/cm/cmsy7.pfb><C:/Users/Vincent Callegari/A
 ppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/symbols/msbm10.pfb><C:
 /Users/Vincent Callegari/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfo
 nts/symbols/msbm7.pfb>
-Output written on rapport_1.pdf (9 pages, 202135 bytes).
+Output written on rapport_1.pdf (9 pages, 202336 bytes).
 PDF statistics:
  113 PDF objects out of 1000 (max. 8388607)
  0 named destinations out of 1000 (max. 500000)
