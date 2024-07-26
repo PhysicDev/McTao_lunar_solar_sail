@@ -99,55 +99,32 @@ tspan = [0,-1];
 
 x0=[table2array(dat(1,:))]
 
+global SunSys
+
 %simulate Sun movement : 
 [x,y]=ode45(@DfSun, tspan, x0, optionsODE);
 x0=y(end,:);
-[T,Y]=ode45(@Df, tspan1, x0, optionsODE);
-
-plot3(Y(:,1),Y(:,2),Y(:,3))
-
-input("press enter to continue")
+SunSys=ode45(@DfSun, tspan1, x0, optionsODE);
 
 
 
-global sysMoon;
+%computing moon and earth movement : 
+
+global sysMoonEarth;
 [x,y]=ode45(@Df, tspan, x0, optionsODE);
 x0=y(end,:);
-sysMoon1=ode45(@Df, [0,2], x0, optionsODE);
+sysMoonEarth=ode45(@Df, [0,2], x0, optionsODE);
 
 [T,Y]=ode45(@Df, [0,2], x0, optionsODE);
 
 %plot()
 
 ratio=param.Mulun/param.Muter;
-moonVec2=[X0*(1-ratio),V0*(1-ratio),-X0*ratio,-V0*ratio]
+moonVec2=[table2array(dat(2,:)),table2array(dat(3,:))]
 
 [T2,Y2]=ode45(@DfTb, [0,2], moonVec2, optionsODE);
 sysMoon2=ode45(@DfTb, [0,2], moonVec2, optionsODE);
 
-Df(0,moonVec)
-DfTb(0,moonVec2)
-
-t=0:0.01:2;
-
-Ydev1=deval(sysMoon1,t);
-Ydev2=deval(sysMoon2,t);
-
-err=sqrt(sum((Ydev1(1:3,:)-Ydev2(1:3,:)).^2,1));
-
-hold off;
-plot3(Ydev1(1,:),Ydev1(2,:),Ydev1(3,:))
-plot3(Y(:,1),Y(:,2),Y(:,3))
-hold on;
-scatter3([0],[0],[0])
-plot3(Ydev2(1,:),Ydev2(2,:),Ydev2(3,:))
-%plot3(Y2(:,1),Y2(:,2),Y2(:,3))
-plot3(Y2(:,7),Y2(:,8),Y2(:,9))
-%show()
-
-
-
-hold off;
 %plot(err)
 %hold on;
 input("press enter to continue")
