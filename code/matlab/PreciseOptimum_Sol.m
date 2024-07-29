@@ -54,7 +54,9 @@ ut=2*pi*sqrt(al^3/Muter);
 
 periodRatio=1;
 
-maxT=365*2*86400;
+Synperiod=1.078;%synodic period of the Moon ( rough approximation )
+nbOpt=50;
+maxT=365*nbOpt/20*86400;
 
 global param;
 param.DP3=DP3/ud;
@@ -97,41 +99,42 @@ optionsODE = odeset('RelTol', reltol, 'AbsTol', abstol);
 tspan1 = [-1, param.maxT];
 tspan = [0,-1];
 
-x0=[table2array(dat(1,:))]
 
-global SunSys
+%global SunSys
 
 %simulate Sun movement : 
-[x,y]=ode45(@DfSun, tspan, x0, optionsODE);
-x0=y(end,:);
-SunSys=ode45(@DfSun, tspan1, x0, optionsODE);
-
-
+%sunVec=[table2array(dat(1,:))]
+%[x,y]=ode45(@DfSun, tspan, sunVec, optionsODE);
+%x0=y(end,:);
+%SunSys=ode45(@DfSun, tspan1, x0, optionsODE);
 
 %computing moon and earth movement : 
 
-global sysMoonEarth;
-[x,y]=ode45(@Df, tspan, x0, optionsODE);
+global MainSys;
+moonVec=[table2array(dat(2,:)),table2array(dat(3,:))]
+[x,y]=ode45(@DfTb, tspan, moonVec, optionsODE);
+DfTb(0,moonVec)
 x0=y(end,:);
-sysMoonEarth=ode45(@Df, [0,2], x0, optionsODE);
+MainSys=ode45(@DfTb, tspan1, x0, optionsODE);
 
-[T,Y]=ode45(@Df, [0,2], x0, optionsODE);
+t=1:0.01:param.maxT;
+val=deval(MainSys,t);
+X0=Origin(val);
 
-%plot()
+Pe=val(7:9,:)-X0;
+Pl=val(1:3,:)-X0;
+hold off;
+plot3(Pl(1,:),Pl(2,:),Pl(3,:))
+hold on
+plot3(Pe(1,:),Pe(2,:),Pe(3,:))
+grid on;
 
-ratio=param.Mulun/param.Muter;
-moonVec2=[table2array(dat(2,:)),table2array(dat(3,:))]
+xlim([-1.5,1.5])
+ylim([-1.5,1.5])
+zlim([-1.5,1.5])
 
-[T2,Y2]=ode45(@DfTb, [0,2], moonVec2, optionsODE);
-sysMoon2=ode45(@DfTb, [0,2], moonVec2, optionsODE);
-
-%plot(err)
-%hold on;
-input("press enter to continue")
 
 %on opti !!!
-Synperiod=1.078;
-nbOpt=24;
 
 Opt=zeros(10,nbOpt);
 
@@ -140,25 +143,41 @@ precOpt=zeros(5,nbOpt);
 options = optimoptions('fminunc', 'Algorithm', 'quasi-newton',"Display","off","MaxFunctionEvaluations",1e5);
 x0=0.1;
 fun=@(x) BestVal(x);
-[t1, y1] = fminunc(@(x) BestVal(x), x0, options);
-pos=0;
+%[t1, y1] = fminunc(@(x) BestVal(x), x0, options);
+
+
+options_fsolve = optimoptions('fsolve', ...
+                            'Display','off', ...
+                            'FunctionTolerance',1e-8);
+%BestVal(0.31)
+[t1,y1] = fsolve(@(x) BestVal(x)-100,[0],options_fsolve);
+if(t1<0)
+    [t1,y1] = fsolve(@(x) BestVal(x)-100,[0.5],options_fsolve);
+end
+[t1,y1] = fminunc(@(x) -BestVal(x), [t1], options);
 
 N=10000;
 payoff=zeros(1,(N+1));
 time=(0:N)*param.maxT/N;
-
+disp("computing trajectory")
 for i=1:(N+1)
     payoff(i)=fun(time(i));
 end
+hold off
 plot(time*ut/86400,payoff);
-
 grid on
 set(gca, 'YScale', 'log')
 xlim([0,maxT/86400])
+
+
+%finding dephasage:
+
+
 %return;
+pos=t1;
 for i=1:(nbOpt/2)
     %opt1
-    x0=pos+t1;
+    x0=pos-Synperiod/6;
     [tn, yn] = fminunc(fun, x0, options);
     [out,Pm,Pz,V]=BestVal(tn);
     Opt(1,2*i-1)=tn;
@@ -166,16 +185,18 @@ for i=1:(nbOpt/2)
     Opt(5:7,2*i-1)=Pz;
     Opt(8:10,2*i-1)=V;
 
-    pos=pos+Synperiod;
 
     %opt2
-    x0=pos-t1;
+    x0=pos+Synperiod/6;
     [tn, yn] = fminunc(fun, x0, options);
     [out,Pm,Pz,V]=BestVal(tn);
     Opt(1,2*i)=tn;
     Opt(2:4,2*i)=Pm;
     Opt(5:7,2*i)=Pz;
     Opt(8:10,2*i)=V;
+
+    pos=pos+Synperiod;
+    [pos,y]=fminunc(@(x) -BestVal(x), [pos], options);%reoptimyze to recenter the value
 end
 
 Opt
@@ -215,11 +236,11 @@ HSVvec=hsv(nbOpt+1);
 
 %zoneMove(Xoptimum(:,1),150);
 %hold on;
-for i=1:nbOpt
-    if(mod(i,2)==1)
-        visu3D(Xoptimum(:,i),HSVvec(i,:));
-    end
-end
+%for i=1:nbOpt
+%    if(mod(i,2)==1)
+%        visu3D(Xoptimum(:,i),HSVvec(i,:));
+%    end
+%end
 %f=figure();
 %hold on;
 
@@ -393,7 +414,7 @@ function [X,Y]=solveProblem(x0)
     disp("o");
     %disp(["pos : ",val/S*360]);
     options = optimoptions('fminunc', 'Algorithm', 'quasi-newton',"Display","off","MaxFunctionEvaluations",1e3);
-
+    ObsTimeDE(x0)
     fun = @(x) -ObsTimeDE(x); % Negate the function to find maximum
     [X, Y] = fminunc(fun, x0, options);
 end
@@ -466,11 +487,36 @@ function Y=Df(t,X)
 end
 
 %==========================================================================
+function X=Origin(vec)
+    global param
+    Xe=vec(7:9,:);
+    Xl=vec(1:3,:);
+    X=(param.Muter*Xe+param.Mulun*Xl)/(param.Muter+param.Mulun);
+end
+
+%==========================================================================
+function V=SpeedOrigin(vec)
+    global param
+    Xe=vec(10:12,:);
+    Xl=vec(4:6,:);
+    V=(param.Muter*Xe+param.Mulun*Xl)/(param.Muter+param.Mulun);
+end
+
+%==========================================================================
 function Y=DfTb(t,X)
     global param;
+    %global SunSys;
+
+    %Si=deval(SunSys,t);
+    %Sp=Si(1:3);
+    %acc0S=param.MuSun/norm(Sp)^3;
+    accLS=param.MuSun/norm(X(1:3))^3;
+    accES=param.MuSun/norm(X(7:9))^3;
+
     accL=param.Muter/norm(X(1:3)-X(7:9))^3;
     accT=param.Mulun/norm(X(7:9)-X(1:3))^3;
-    Y=[X(4:6);-accL*(X(1:3)-X(7:9));X(10:12);-accT*(X(7:9)-X(1:3))];
+
+    Y=[X(4:6);-accL*(X(1:3)-X(7:9))-accLS*X(1:3);X(10:12);-accT*(X(7:9)-X(1:3))-accES*X(7:9)];
 end
 
 %==========================================================================
@@ -549,37 +595,45 @@ function drawObs(Xl,Xst)
 end
 
 %==========================================================================
-function [X,V]=MoonPos(t)
-    global sysMoon;
+function [X,V,Xe,Ve]=EarthMoonPos(t)
+    global MainSys;
     
-    Y=deval(sysMoon,t)';
-    X=Y(:,1:3);
-    V=Y(:,4:6);
+    Y=deval(MainSys,t);
+    X0=Origin(Y);
+    V0=SpeedOrigin(Y);
+    X=Y(1:3,:)-X0;
+    V=Y(4:6,:)-V0;
+    Xe=Y(7:9,:)-X0;
+    Ve=Y(10:12,:)-V0;
 end
 
 %==========================================================================
 function Xst=SolPos(t)
-    global param;
-    A=t/1/param.periodSol*2*pi+pi;
-    Xst=[cos(A),sin(A),zeros(size(A))]*param.Dter;
+    global MainSys;
+    
+    Y=deval(MainSys,t);
+    X0=Origin(Y);
+    Xst=-X0;
 end
 
 %==========================================================================
 function Vst=SolSpeed(t)
-    global param;
-    A=t/1/param.periodSol*2*pi+pi;
-    Vst=[-sin(A),cos(A),0]*param.Dter/param.periodSol*2*pi;
+    global MainSys;
+    Y=deval(MainSys,t);
+    V0=SpeedOrigin(Y);
+    Vst=-V0;
 end
 
 %==========================================================================
 function [out,Pm,Pz,V]=BestVal(t)
     global param;
     %pos du soleil
+    
     Xst=SolPos(t);
     Vst=SolSpeed(t);
 
     %pos de la lune
-    [posLun,Vl]=MoonPos(t);
+    [posLun,Vl,posEarth,Ve]=EarthMoonPos(t);
     %step 2: calculer la position de la zone d'observation (facile)
     P2=posLun+param.DP2/param.Dter*(posLun-Xst);
 
@@ -784,15 +838,18 @@ end
 %==========================================================================
 function [value, isterminal, direction]=inObsDE(t,X)
     global param;
+    global sysMoonEarth;
+    [Xl,Vl,Xe,Ve]=EarthMoonPos(t);
     Ps=SolPos(t);
-    Xl=X(7:9)';
+    %Xl=X(7:9)';
     P3=Xl+(param.DP3/param.Dter)*(Xl-Ps);%*sqrt(param.Dter*(param.Dter+2*Xl(1))))*[1,Xl(2)/(param.Dter+Xl(1)),0];%[1,X(2)/(X(1)+param.Dter),0];
     P1=Xl+(param.DP1/param.Dter)*(Xl-Ps);
     
+
     Dir=P1-P3;
 
-    PX=dot(X(1:3)'-P3,Dir)/norm(Dir)^2*Dir;
-    PY=X(1:3)'-P3-PX;
+    PX=dot(X(1:3)'-P3',Dir)/norm(Dir)^2*Dir;
+    PY=X(1:3)-P3-PX;
     %POS=[X(1)-X(7),X(2)-X(8),X(3)-X(9)]-P3;
     d=norm(PY);%sqrt(POS(2)*POS(2)+POS(3)*POS(3));%norm(POS());
     sx=norm(PX);%POS(1);
@@ -875,13 +932,17 @@ end
 %==========================================================================
 function Y=Dfl(t,X)
     global param;
-    accS=param.Muter/norm(X(1:3))^3;
+    global sysMoonEarth;
+
+    [Xl,Vl,Xe,Ve]=EarthMoonPos(t);
+
+    accS=param.Muter/norm(X(1:3)-Xe)^3;
     
     %gravité de la lune sur l'objet
-    accSl=param.Mulun/norm(X(1:3)-X(7:9));
+    accSl=param.Mulun/norm(X(1:3)-Xl)^3;
 
-    accL=param.Muter/norm(X(7:9))^3;
-    Y=[X(4:6);-accS*X(1:3)-accSl*(X(1:3)-X(7:9));X(10:12);-accL*X(7:9)];
+    %accL=param.Muter/norm(X(7:9))^3;
+    Y=[X(4:6);-accS*(X(1:3)-Xe)-accSl*(X(1:3)-Xl)];
 end
 
 %==========================================================================
@@ -926,21 +987,22 @@ function T=ObsTimeDE(X)
     global param;
     %after :
 
-    [Xl,Vl]=MoonPos(X(1));%toCart(param.al,param.el,param.wl,param.Wl,param.Il,X(1));
+    [Xl,Vl,Xe,Ve]=EarthMoonPos(X(1));%toCart(param.al,param.el,param.wl,param.Wl,param.Il,X(1));
     %XP3=[param.DP3,0,0];
     %XP1=[param.DP1,0,0];
     Xts=SolPos(X(1));
-    XP3=(param.DP3/param.Dter)*([Xl(1),Xl(2),Xl(3)]-Xts);
-    XP1=(param.DP1/param.Dter)*([Xl(1),Xl(2),Xl(3)]-Xts);
+    XP3=Xl'+(param.DP3/param.Dter)*(Xl'-Xts');
+    XP1=Xl'+(param.DP1/param.Dter)*(Xl'-Xts');
 
     %radius:
-    R=Xl+(1-X(2))*(XP3)+X(2)*XP1;
+    R=(1-X(2))*(XP3)+X(2)*XP1;
     Rn=norm(R);
     Vn=sqrt(param.Muter*(2/Rn-1/param.as));%norme de la vitesse fixé car demi grand axe fixé
     V=[cos(X(3))*sin(X(4)),sin(X(4))*sin(X(3)),cos(X(4))]*Vn;
 
-    x0=[R,V,Xl,Vl]';
+    x0=[R,V]';
     
+    x0;
     if(inObsDE(X(1),x0)<0)
         disp("probleme");
         T=0;
@@ -963,22 +1025,23 @@ end
 %==========================================================================
 function [T,TS,TF,YS,YF]=infoObsDE(X)
     global param;
+    global sysMoonEarth;
     %after :
 
-    [Xl,Vl]=MoonPos(X(1));%toCart(param.al,param.el,param.wl,param.Wl,param.Il,X(1));
+    [Xl,Vl,Xe,Ve]=EarthMoonPos(X(1));%toCart(param.al,param.el,param.wl,param.Wl,param.Il,X(1));
     %XP3=[param.DP3,0,0];
     %XP1=[param.DP1,0,0];
     Xts=SolPos(X(1));
-    XP3=(param.DP3/param.Dter)*([Xl(1),Xl(2),Xl(3)]-Xts);
-    XP1=(param.DP1/param.Dter)*([Xl(1),Xl(2),Xl(3)]-Xts);
+    XP3=(param.DP3/param.Dter)*([Xl(1),Xl(2),Xl(3)]-Xts');
+    XP1=(param.DP1/param.Dter)*([Xl(1),Xl(2),Xl(3)]-Xts');
 
     %radius:
-    R=Xl+(1-X(2))*(XP3)+X(2)*XP1;
+    R=Xl'+(1-X(2))*(XP3)+X(2)*XP1;
     Rn=norm(R);
     Vn=sqrt(param.Muter*(2/Rn-1/param.as));%norme de la vitesse fixé car demi grand axe fixé
     V=[cos(X(3))*sin(X(4)),sin(X(4))*sin(X(3)),cos(X(4))]*Vn;
 
-    x0=[R,V,Xl,Vl]';
+    x0=[R,V]';
     
     if(inObsDE(X(1),x0)<0)
         disp("probleme");
@@ -1000,7 +1063,6 @@ function [T,TS,TF,YS,YF]=infoObsDE(X)
     T=T-TE;
     TS=TE;
     YS=YE;
-
 end
 
 %==========================================================================
