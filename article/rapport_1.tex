@@ -140,7 +140,8 @@
 		\end{align}
 		$$
 		
-		on obtient les valeur suivantes pour les points de la zone pour $\alpha=0.05$
+		we get the following value for the point of the Zone for $\alpha=0.05$
+		%on obtient les valeur suivantes pour les points de la zone pour $\alpha=0.05$
 		
 		$$
 		\begin{align}
@@ -152,7 +153,7 @@
 		\end{align}
 		$$
 		
-		avec
+		with
 		
 		$$
 		\begin{align}
@@ -165,7 +166,12 @@
 		\end{align}
 		$$
 		
-		on observe qu'en utilisant l'approximation définie plus tôt, on néglige les variation de l'ordre du millier de kilomètres ($10^6 m$). et en ajoutant l'optimisation supplémentaire sur la valeur de $b$ on néglige également les variation de l'ordre de la dizaine de kilomètre ($10^4 m$) ne laissant que les erreurs de l'ordre de quelques kilomètre sur la position de $P_2x$ ce qui ne change pas grand chose compte tenu de la grande longueur de la zone par rapport à son épaisseur (environ $ 20000 km $ contre $100 km$)
+		
+		we can see that by using the approximation defined earlier, we are neglecting variation of order lower than thousand of killometer ($10^6 m$).If we add the optimisation on the value of $b$ we are now neglecting variation of order lower than ten killometerss ($10^4 m$) leaving only error of a couple killometers on the  posisiton of $P_{2x}$ which is not a lot against the size of the observation zone : (around $ 20000 km $ by $100 km$).
+		
+		about the error on $P_{2y}$ the error is of the order of a millimeter and can clearly be neglected.
+		
+		%on observe qu'en utilisant l'approximation définie plus tôt, on néglige les variation de l'ordre du millier de kilomètres ($10^6 m$). et en ajoutant l'optimisation supplémentaire sur la valeur de $b$ on néglige également les variation de l'ordre de la dizaine de kilomètre ($10^4 m$) ne laissant que les erreurs de l'ordre de quelques kilomètre sur la position de $P_2x$ ce qui ne change pas grand chose compte tenu de la grande longueur de la zone par rapport à son épaisseur (environ $ 20000 km $ contre $100 km$)
 		
 		%la position de la zone d'observation va se déplacer avec la lune mais va aussi changer de direction et de forme.
 		
@@ -500,17 +506,19 @@
 				\\
 			to compute the solution, i've used the julia library : OptimalControl,
 			
-			the starting point of the device is the point where the starting observation end and the ending point is the point where the ending observation start.
+			the starting point of the device is the exting point where of starting observation and the ending point is the enter point of the ending observation.
 			
-			To simplify the next explication i will separate the observations into two category : the even observations and the odd observation. The odd observations are the first observation that happen on the moon orbit and the even one are the second one.
+			To simplify the next explication i will separate the observations into two category : the even observations and the odd observation. The odd observations are the first observation that happen on the moon orbit and the even one are the second one. another way to see this is to consider that the odd observations are the observation occuring when the device is aproaching earth and the odd observation is when the device is moving away from earth
 			
-			The algorithm had a lot of struggle to find an optimum for moving to two adjacent observations, which was excpected as the two orbit of adjacent optimum are very different and the time interval is small meaning that important $\Delta_v$ are needed to move from the starting point to the ending point. hovewer the algorithm find solution for transition between even observation and between odd observation. This was also excpected as the orbit are generally very similar and the device as a time of around one synodic period (around 29,5 days) to change its trajectory.
-			
-			the maximum acceleration found in such transition are around $180\mu m \cdot s^{-2} $. 
-			
-			About the trajectiory in itself, the maximum alowed acceleration was around $5\times 10^{-4}$.
-			
-			there where also 
+			The algorithm had a lot of struggle to find an optimum for moving to two adjacent observations, which was excpected as the two orbit of adjacent optimum are very different and the time interval is small meaning that important $\Delta_v$ are needed to move from the starting point to the ending point. hovewer the algorithm find solution for transition between even observation and between odd observation. This was also excpected as the starting and objective orbit are very similar with the main difference being only a rotation of $\frac{P_{moon}}{P_{sol}}2\pi $ rad caused by the movement of the sun.
+			\\ \\
+			for 1 in 2 transfert, the maximum acceleration found was betweeen $170 \mu{N}\cdot\text{Kg}$ and $200 \mu{N}\cdot\text{Kg}$ which is around the acceleration we can get from electric engine but not from solar sail.
+		
+			there are also another type of transfert that caught my interest, it is transfert from odd observation to even observation (1 in 3 transfert starting from odd observation) which seem to be very easy to do with maximum acceleration ranging from  $50 \mu{N}\cdot\text{Kg}$ to $95 \mu{N}\cdot\text{Kg}$. It truned out that the angle between an odd orbit and a even orbit orbit is around the same length of the angle describe by the movement of the sun in $\frac{4}{3}$ of the moon synodic period, this mean that the starting and ending orbit in such transfert are almost the same with the only main task being to change the true anomaly. This transferts could look like they are a good alternative to reduce maximum acceleration during transfert but the problem is that once we reached the odd observation, we have to make a transfert from even to odd and in this case the situation is reverse with the angles being added and not substracted, causing high maximum acceleration.
+			\\ \\
+			In fact making fewer observation doesn't seem to reduce the maximum acceleration needed or even the $\Delta_{V}$ which could look counter intuitive at first glance but is not when we think aboout the fact that orbits become increasingly different from each other with time. This mean that there are some kind of minimum power needed for making observations which must be around the amount of power needed to rotate the observation orbit by $360^\circ$ every year. Though it is possible to jump a lot of observations to the point that we don't need to rotate the orbit all around the Earth. Like with the obvious example of making an observation every year, when the sun is roughly at the same place relative to the Earth-Moon system. But the counter part is that we will be making way less observations ... at most one every 6 mouths. 
+			\\ \\
+			What look like the best scenario at this point would be to put two devices capable of delivering acceleration of the order of $200\mu{m}\cdot\text{s}^2$, one for the odd observation and one for the even observation. This would allow to attends every observations which mean that we will be able to observe the solar corona around $3\%$ of the mission time with even the possibility of observing the sun at the same time.
 			
 	
 		\end{document}

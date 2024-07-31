@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.25 (MiKTeX 23.10) (preloaded format=pdflatex 2023.10.12)  24 JUL 2024 12:05
+This is pdfTeX, Version 3.141592653-2.6-1.40.25 (MiKTeX 23.10) (preloaded format=pdflatex 2023.10.12)  31 JUL 2024 15:18
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -393,7 +393,7 @@ See the amsmath package documentation for explanation.
 Type  H <return>  for immediate help.
  ...                                              
                                                   
-l.152 		\end{align}
+l.153 		\end{align}
                    
 Try typing  <return>  to proceed.
 If that doesn't work, type  X <return>  to quit.
@@ -406,14 +406,14 @@ See the amsmath package documentation for explanation.
 Type  H <return>  for immediate help.
  ...                                              
                                                   
-l.165 		\end{align}
+l.166 		\end{align}
                    
 Try typing  <return>  to proceed.
 If that doesn't work, type  X <return>  to quit.
 
 [3] [4] [5]
 ! Undefined control sequence.
-l.317 ... there are an optimum near the value $(\2
+l.323 ... there are an optimum near the value $(\2
                                                   pi/3,0.5,38/45\pi,0)$ that...
 The control sequence at the end of the top line
 of your error message was never \def'ed. If you have
@@ -429,7 +429,7 @@ See the amsmath package documentation for explanation.
 Type  H <return>  for immediate help.
  ...                                              
                                                   
-l.330 		\end{align}
+l.336 		\end{align}
                    
 Try typing  <return>  to proceed.
 If that doesn't work, type  X <return>  to quit.
@@ -443,7 +443,7 @@ See the amsmath package documentation for explanation.
 Type  H <return>  for immediate help.
  ...                                              
                                                   
-l.360 		\end{align}
+l.366 		\end{align}
                    
 Try typing  <return>  to proceed.
 If that doesn't work, type  X <return>  to quit.
@@ -451,7 +451,7 @@ If that doesn't work, type  X <return>  to quit.
 ! Missing } inserted.
 <inserted text> 
                 }
-l.367 ...($\sqrt{\frac{2\mu}{R_s}-\frac{\mu}{a_l}$
+l.373 ...($\sqrt{\frac{2\mu}{R_s}-\frac{\mu}{a_l}$
                                                   ) is the same as the veloc...
 I've inserted something that you may have forgotten.
 (See the <inserted text> above.)
@@ -467,7 +467,7 @@ See the amsmath package documentation for explanation.
 Type  H <return>  for immediate help.
  ...                                              
                                                   
-l.394 			\end{align}
+l.400 			\end{align}
                     
 Try typing  <return>  to proceed.
 If that doesn't work, type  X <return>  to quit.
@@ -475,24 +475,24 @@ If that doesn't work, type  X <return>  to quit.
 ! Double subscript.
 <argument>  O_{2n}_
                    i&=nT-O_1+a\\ O_{2n+1}_i&=nT+O_1+a 
-l.394 			\end{align}
+l.400 			\end{align}
                     
 I treat `x_1_2' essentially like `x_1{}_2'.
 
 ! Double subscript.
 <argument>  O_{2n}_i&=nT-O_1+a\\ O_{2n+1}_
                                           i&=nT+O_1+a 
-l.394 			\end{align}
+l.400 			\end{align}
                     
 I treat `x_1_2' essentially like `x_1{}_2'.
 
 ! Double subscript.
-l.398 			$O_k_
+l.404 			$O_k_
               i$ is the initial value used to find the $k^{th}$ optimum of t...
 I treat `x_1_2' essentially like `x_1{}_2'.
 
 [7]
-Underfull \hbox (badness 10000) in paragraph at lines 422--423
+Underfull \hbox (badness 10000) in paragraph at lines 428--429
 
  []
 
@@ -504,7 +504,7 @@ See the amsmath package documentation for explanation.
 Type  H <return>  for immediate help.
  ...                                              
                                                   
-l.469 			\end{align}
+l.475 			\end{align}
                     
 Try typing  <return>  to proceed.
 If that doesn't work, type  X <return>  to quit.
@@ -517,7 +517,7 @@ See the amsmath package documentation for explanation.
 Type  H <return>  for immediate help.
  ...                                              
                                                   
-l.477 			\end{align}
+l.483 			\end{align}
                     
 Try typing  <return>  to proceed.
 If that doesn't work, type  X <return>  to quit.
@@ -530,14 +530,29 @@ See the LaTeX manual or LaTeX Companion for explanation.
 Type  H <return>  for immediate help.
  ...                                              
                                                   
-l.501 			t
+l.507 			t
           o compute the solution, i've used the julia library : OptimalControl,
 
 Your command was ignored.
 Type  I <command> <return>  to replace it with another command,
 or  <return>  to continue without it.
 
-[9] (rapport_1.aux)
+
+Underfull \hbox (badness 10000) in paragraph at lines 513--516
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 517--522
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 517--522
+
+ []
+
+[9] [10] (rapport_1.aux)
  ***********
 LaTeX2e <2023-06-01> patch level 1
 L3 programming layer <2023-08-29>
@@ -550,7 +565,7 @@ Here is how much of TeX's memory you used:
  24077 multiletter control sequences out of 15000+600000
  565959 words of font info for 67 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
- 57i,21n,65p,608b,220s stack positions out of 10000i,1000n,20000p,200000b,200000s
+ 57i,21n,65p,1014b,220s stack positions out of 10000i,1000n,20000p,200000b,200000s
  <C:\Users\Vincent Callegari\AppData\Local\MiKTeX\fonts/pk/ljfour/jknappen/ec
 /dpi600\tcrm1000.pk><C:/Users/Vincent Callegari/AppData/Local/Programs/MiKTeX/f
 onts/type1/public/amsfonts/cm/cmbx12.pfb><C:/Users/Vincent Callegari/AppData/Lo
@@ -572,9 +587,9 @@ s/MiKTeX/fonts/type1/public/amsfonts/cm/cmsy7.pfb><C:/Users/Vincent Callegari/A
 ppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/symbols/msbm10.pfb><C:
 /Users/Vincent Callegari/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfo
 nts/symbols/msbm7.pfb>
-Output written on rapport_1.pdf (9 pages, 202336 bytes).
+Output written on rapport_1.pdf (10 pages, 206951 bytes).
 PDF statistics:
- 113 PDF objects out of 1000 (max. 8388607)
+ 116 PDF objects out of 1000 (max. 8388607)
  0 named destinations out of 1000 (max. 500000)
  1 words of extra memory for PDF output out of 10000 (max. 10000000)
 
