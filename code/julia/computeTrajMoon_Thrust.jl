@@ -51,6 +51,16 @@ AddFolder("images")
 AddFolder("control")
 AddFolder("solGraph")
 
+
+function integral(f,t0,tf,N)
+    h=(tf-t0)/N
+    Tvec=[i-0.5 for i in range(1,N)]*h;
+    Tvec=[t+t0 for t in Tvec]
+
+    val=[f(t)*h for t in Tvec]
+    return sum(val)
+end
+
 #
 # gravity function : compute the graviational acceleration of an object
 # X: pos object
@@ -85,6 +95,11 @@ function lorenz!(du,u,p,t)
     du[4:6] = gravity(u[1:3],[0,0,0],muTer)+p[1](t) + gravity(u[1:3],p[2](t)[1:3],muLun)
 end
 
+function massDer(u)
+    Norm=sqrt(sum(u.^2))
+    return Norm
+end
+
 #constant
 #make this true if you want to solve the problem
 resolve=true;
@@ -111,9 +126,24 @@ muLun=1*0.483520433963301 #acceleration constant of moon
 
 #device related variable :
 Isp=3000
-Mass=24
-FuelMass=33
-Thrust=0.02
+Mass=60
+FuelMass=20
+Thrust=0.025
+
+ud=384399000
+ut=2.371834349258416e+06
+
+g0=9.80665;
+Q=Thrust/Isp/g0;
+
+NormThrust=0.02/ud*ut*ut;
+println("norm Thrust")
+println(NormThrust)
+println("débit : ")
+println(Q)
+println("norm débit : ")
+NormQ=Q*ut;
+println(NormQ)
 
 #ESA smart-1, données à verifier obtenu avec gemini
 #Amax ~= 222 µm/s²    6.5 km/s DV
@@ -142,16 +172,26 @@ if(resolve)
     #objective value of the problem (0 mean not computed)
     objective_output=zeros(24,24)
     deltas_V=zeros(24,24)
+    mass=zeros(2,24)
     
     sols=Array{Any}(undef, 24,24)
-    for j in range(1,23,step=1)
-        for i in range(j+2,min(j+4,24),step=1)
+for j in range(1,22,step=1)
+    for k in [2]
 
             global ENDOBS,STARTOBS,startPoint,endPoint,tstart,fun,tend,Tvec,mini,maxi,tspan
 
             #start and end point of observation
             startPoint=j;
+            i=j+k;
             endPoint=i;
+            Mi=FuelMass+Mass;
+            
+            Pi=j%2+1;
+
+            if(j>2)
+                Mi=mass[Pi,j-2];
+            end
+
             println("    ")
             println(string("startP : ",startPoint," endP : ",endPoint));
             
@@ -171,11 +211,11 @@ if(resolve)
                 ts=time0
                 #tend=0.728470473745049
                 t ∈ [ ts, tf ], time
-                x ∈ R^6, state
+                x ∈ R^7, state
                 u ∈ R^3, control
                 #tf ≥ 0
                 sum(u(t).^2)≤1
-                10 ≥ maxia ≥ 0
+                1 ≥ maxia ≥ 0
 
                 qx = x[1]
                 qy = x[2]
@@ -183,10 +223,13 @@ if(resolve)
                 vx = x[4]
                 vy = x[5]
                 vz = x[6]
+                m = x[7]
             
                 qx(ts) == STARTOBS[1]
                 qy(ts) == STARTOBS[2]
                 qz(ts) == STARTOBS[3]
+
+                m(ts) == Mi;
             
                 vx(ts) == STARTOBS[4]
                 vy(ts) == STARTOBS[5]
@@ -206,15 +249,16 @@ if(resolve)
                 -100 ≤ vy(t) ≤ 100,      (4)
                 -10 ≤ qy(t) ≤ 10,      (5)
                 -100 ≤ vy(t) ≤ 100,      (6)
-                ẋ(t) == vcat([vx(t),vy(t),vz(t)],u(t)*maxia+gravity([qx(t),qy(t),qz(t)],[0,0,0],muTer)+ gravity(x(t)[1:3],odeMoon3(t+tstart-time0)[1:3],muLun))
+                Mass ≤ m(t) ≤ 100,      (7)
+                ẋ(t) == vcat([vx(t),vy(t),vz(t)],u(t)*maxia*NormThrust/m(t)+gravity([qx(t),qy(t),qz(t)],[0,0,0],muTer)+ gravity(x(t)[1:3],odeMoon3(t+tstart-time0)[1:3],muLun),[-1*NormQ*maxia*(FuelMass+Mass)/NormThrust*(max(0,(sum(u(t).^2))))^(1/2)])
                 #tf → min
-                maxia → min
+                ∫( 0.5*(sum(u(t).^2)) ) → min
             end
 
 
             
             #sampling range
-            sampling=[50,100,200,400,600];
+            sampling=[50,100,200];
 
             #solution and initial condition
             sol=nothing
@@ -242,8 +286,8 @@ if(resolve)
             x0=OrdinaryDiffEq.solve(probSat,OrdinaryDiffEq.Tsit5(), reltol=1e-15, abstol=1e-15)
             trueX0(t)=x0(t);
 
-            trueX0(t)=(sat1(t+tstart-time0)*(tend-t+tstart-time0)+sat2(t+tstart-time0)*(t-time0))/(tend-tstart)
-            initg = (state=trueX0, control=u0, variable=0)
+            trueX0(t)=vcat((sat1(t+tstart-time0)*(tend-t+tstart-time0)+sat2(t+tstart-time0)*(t-time0))/(tend-tstart),[Mi])
+            initg = (state=trueX0, control=u0, variable=0.5)
             #initg=nothing
             println("    ");
             println("solve time pb");#solving problem
@@ -257,7 +301,7 @@ if(resolve)
                     end
                 end
                 if(0==cmp(sol.message,"Solve_Succeeded"))#if we solve we set the new intitial solution then we continue
-                    println(string("solved  in ",sol.iterations," iterations || ",sol.objective))
+                    println(string("solved  in ",sol.iterations," iterations || fuel used : ",Mi-sol.state(tend)[7] , "Kg : ",(Mi-sol.state(tend)[7])/FuelMass*100," %"))
                     initg=(state=sol.state, control=sol.control, variable=sol.variable)
                 else#if we don't solve we do nothing
                     println("not solved :(")
@@ -267,131 +311,19 @@ if(resolve)
             println(string("founded solution max acceleration ",sol.objective));
 
             
-            fun(t)=sqrt(sum((sol.control(t)).^2));
-            tempDV=integral(fun,time0,timef,10000)*sol.objective;
+            fun(t)=sqrt(sum((sol.control(t)).^2))/sol.state(t)[7];
+            tempDV=integral(fun,time0,timef,10000)*sol.variable*NormThrust;
             println(string("temporary delta V :",tempDV))
             println(string("alternative method : ",sol.objective*(tend-tstart)))
+            deltas_V[i,j]=tempDV;
+            println(string("plot sol ... optimum : ",sol.objective));
 
-
-
-
-            println("    ")
-
-            println("defining cinetic Pb")
-            #defining the problem
-            @def ocp begin
-                #tf ∈ R, variable
-                #maxia = 10
-                #useless= 10 , variable
-
-                tf=timef
-                ts=time0
-                #tend=0.728470473745049
-                t ∈ [ ts, tf ], time
-                x ∈ R^6, state
-                u ∈ R^3, control
-                #tf ≥ 0
-                sum(u(t).^2)≤10
-                #10 ≥ maxia ≥ 0
-
-                qx = x[1]
-                qy = x[2]
-                qz = x[3]
-                vx = x[4]
-                vy = x[5]
-                vz = x[6]
-            
-                qx(ts) == STARTOBS[1]
-                qy(ts) == STARTOBS[2]
-                qz(ts) == STARTOBS[3]
-            
-                vx(ts) == STARTOBS[4]
-                vy(ts) == STARTOBS[5]
-                vz(ts) == STARTOBS[6]
-            
-                qx(tf) == ENDOBS[1]
-                qy(tf) == ENDOBS[2]
-                qz(tf) == ENDOBS[3]
-            
-                vx(tf) == ENDOBS[4]
-                vy(tf) == ENDOBS[5]
-                vz(tf) == ENDOBS[6]
-            
-                -10 ≤ qx(t) ≤ 10,      (1)
-                -100 ≤ vx(t) ≤ 100,      (2)
-                -10 ≤ qy(t) ≤ 10,      (3)
-                -100 ≤ vy(t) ≤ 100,      (4)
-                -10 ≤ qy(t) ≤ 10,      (5)
-                -100 ≤ vy(t) ≤ 100,      (6)
-                ẋ(t) == vcat([vx(t),vy(t),vz(t)],u(t)+gravity([qx(t),qy(t),qz(t)],[0,0,0],muTer)+ gravity(x(t)[1:3],odeMoon3(t+tstart-time0)[1:3],muLun))
-                #tf → min
-                #maxia → min
-                ∫( 0.5*(sum(u(t).^2)) ) → min
-            end
-            cont(t)=sol.control(t)*sol.variable
-            initg=(state=sol.state, control=cont)
-            println("solving cinetic pb : ")
-            sol2=nothing
-            #initg=nothing
-            
-            #sampling range
-            sampling=[200,400,600];
-            for samp in sampling 
-                println(string("grid size : ",samp));
-                if(resolve)
-                    if(isnothing(initg))#if there are no initial condition do nothing
-                        sol2 = solve(ocp,display=false,grid_size=samp)
-                    else
-                        sol2 = solve(ocp,display=false,grid_size=samp,init=initg)
-                    end
-                end
-                if(0==cmp(sol2.message,"Solve_Succeeded"))#if we solve we set the new intitial solution then we continue
-                    println(string("solved  in ",sol2.iterations," iterations || ",sol2.objective))
-                    initg=(state=sol.state, control=sol2.control, variable=sol2.variable)
-                else#if we don't solve we do nothing
-                    println("not solved :(")
-                end
-            end
-            #sol2 = solve(ocp,display=false,grid_size=400,init=initg) #storing solution in another variable in case of convergence failled
-
-            ltpSol=false;            
-
-            fun(t)=sqrt(sum(sol.control(t).^2))
-            deltas_V[i,j]=integral(fun,time0,timef,10000)
-
-            if(0==cmp(sol2.message,"Solve_Succeeded"))#if we solve we set use the low fuel solution
-                if(deltas_V[i,j]>tempDV)
-                    println(string( "DV of low fuel : ",deltas_V[i,j], " greater than DV of low thrust : ",tempDV," ... keeping solution low thrust."))
-                    ltpSol=true
-                else
-                    println(string( "DV of low fuel : ",deltas_V[i,j], " smaller than DV of low thrust : ",tempDV," ... taking solution low fuel."))
-                    sol=sol2
-                end
-                println(string(""))
-            else#if we don't solve we keep the low thrust solution
-                println("low fuel method failled ... using solution of low thrust problem")
-                println(sol2.variable)
-                ltpSol=true
-            end
-            println("   ")
-
-            println(string("plot sol ... optimum : ",sol2.objective));
+            mass[Pi,j]=sol.state(tend)[7];
 
             #plot(sol, size=(1200, 1800))
-            objective_output[i,j]=sol2.objective;#setting objective output variable
+            objective_output[i,j]=sol.variable*NormThrust;#setting objective output variable
 
-            #compute deltaV : 
-            if(ltpSol)
-                deltas_V[i,j]=deltas_V[i,j]*sol.objective;
-            end
-            println(string("deltas_V : ",deltas_V[i,j]))
-
-            #now assigning sol to sol2 for plotting and debuging : 
-            #sol=sol2
-
-            #deltas_V[i,j]=sol.objective*tend-tstart;#we suppose that we have maximum thrust during the whole transfert
-            #gui()
-
+           
             sols[j,i]=sol;
 
             #ploting solutions
@@ -410,16 +342,18 @@ if(resolve)
             mini=min(minimum(X),minimum(Y),minimum(Z))-0.1
             maxi=max(maximum(X),maximum(Y),maximum(Z))+0.1
 
+            massDat=[x[7] for x in states]
+            plot(Tvec,massDat,title="fuel tank");
+            savefig(string("images/mass_progress_",startPoint,"_",endPoint,".png"));
+            #gui();
+            #wait = readline()
 
             plot(X,Y,Z,label="trajectory",title=string("transfert from observation ",startPoint," to observation ",endPoint),xlim=(mini, maxi),ylim=(mini, maxi),zlim=(mini, maxi),size=(1920/2,1080/2));
             
             for t in LowTvec
                 St=sol.state(t);
-                Ct=sol.control(t)
-                if(ltpSol)
-                    Ct*=sol.objective;
-                end
-                plot!([St[1],St[1]+Ct[1]*0.1],[St[2],St[2]+Ct[2]*0.1],[St[3],St[3]+Ct[3]*0.1],label=false,color=:red)
+                Ct=sol.control(t);
+                plot!([St[1],St[1]+Ct[1]],[St[2],St[2]+Ct[2]],[St[3],St[3]+Ct[3]],label=false,color=:red)
             end
             scatter!([STARTOBS[1]],[STARTOBS[2]],[STARTOBS[3]],label="starting point")
             scatter!([ENDOBS[1]],[ENDOBS[2]],[ENDOBS[3]],label="final point")
@@ -430,7 +364,6 @@ if(resolve)
             plot!(sat1,vars=(1,2,3),label="starting obrit",color=:green)
             plot!(sat2,vars=(1,2,3),label="ending obrit",color=:orange)
             
-
 
 
             #title("transfert from observation "+startPoint+" to observation "+endPoint)
@@ -485,11 +418,12 @@ if(resolve)
 
             
         end
-    end  
+    end
 end
 println("finished !!");
 CSV.write("result.csv",  Tables.table(objective_output), writeheader=false)
 CSV.write("delta_v.csv",  Tables.table(deltas_V), writeheader=false)
+CSV.write("mass.csv",  Tables.table(mass), writeheader=false)
 
 mini=0
 maxi=0
@@ -532,6 +466,7 @@ savefig(string("All_transfert_even_",Amax,"_",startPoint,"_",endPoint,".png"));
 mini=0
 maxi=0
 scatter([0],[0],[0],label="Earth",size=(1920, 1080))
+#=
 for j in range(1,19,step=3)
     states=sols[j,j+3]
     
@@ -546,7 +481,7 @@ for j in range(1,19,step=3)
     maxi=max(maxi,max(maximum(X),maximum(Y),maximum(Z))+0.1)
     plot!(X,Y,Z,label=string(j, " to ",(j+2)),title=string("transfert total ",endPoint),xlim=(mini, maxi),ylim=(mini, maxi),zlim=(mini, maxi));
 end
-savefig(string("All_transfert_1_on_3_",Amax,"_",startPoint,"_",endPoint,".png"));
+#savefig(string("All_transfert_1_on_3_",Amax,"_",startPoint,"_",endPoint,".png"));
 
 mini=0
 maxi=0
@@ -567,6 +502,7 @@ for j in range(1,17,step=4)
 end
 savefig(string("All_transfert_1_on_4.png"));
 
+=#
 gui()
 while true
     sleep(0.1)
