@@ -52,9 +52,9 @@ global ut;
 ud=al;
 ut=2*pi*sqrt(al^3/Muter);
 
-periodRatio=1;
 
 Synperiod=1.078;%synodic period of the Moon ( rough approximation )
+periodRatio=1.078;
 nbOpt=50;
 maxT=365*nbOpt/20*86400;
 

@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.25 (MiKTeX 23.10) (preloaded format=pdflatex 2023.10.12)  31 JUL 2024 15:18
+This is pdfTeX, Version 3.141592653-2.6-1.40.25 (MiKTeX 23.10) (preloaded format=pdflatex 2023.10.12)  2 AUG 2024 10:52
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -290,7 +290,7 @@ See the amsmath package documentation for explanation.
 Type  H <return>  for immediate help.
  ...                                              
                                                   
-l.107 			\end{align}
+l.108 			\end{align}
                     	
 Try typing  <return>  to proceed.
 If that doesn't work, type  X <return>  to quit.
@@ -298,7 +298,7 @@ If that doesn't work, type  X <return>  to quit.
 ! Missing \endgroup inserted.
 <inserted text> 
                 \endgroup 
-l.108 		\end{equation}
+l.109 		\end{equation}
                       
 I've inserted something that you may have forgotten.
 (See the <inserted text> above.)
@@ -313,7 +313,7 @@ See the LaTeX manual or LaTeX Companion for explanation.
 Type  H <return>  for immediate help.
  ...                                              
                                                   
-l.108 		\end{equation}
+l.109 		\end{equation}
                       
 Your command was ignored.
 Type  I <command> <return>  to replace it with another command,
@@ -322,14 +322,14 @@ or  <return>  to continue without it.
 ! Extra \endgroup.
 <recently read> \endgroup 
                           
-l.108 		\end{equation}
+l.109 		\end{equation}
                       
 Things are pretty mixed up, but I think the worst is over.
 
 ! Missing $ inserted.
 <inserted text> 
                 $
-l.110 		
+l.111 		
         
 I've inserted a begin-math/end-math symbol since I think
 you left one out. Proceed, with fingers crossed.
@@ -337,27 +337,11 @@ you left one out. Proceed, with fingers crossed.
 ! Display math should end with $$.
 <to be read again> 
                    \tex_par:D 
-l.110 		
+l.111 		
         
 The `$' that I just saw supposedly matches a previous `$$'.
 So I shall assume that you typed `$$' both times.
 
-! Missing $ inserted.
-<inserted text> 
-                $
-l.111 ...he projection of $S-P_3$ on the axis Sun_
-                                                  Moon, $a=S-P_3-b$. $p_1$, ...
-I've inserted a begin-math/end-math symbol since I think
-you left one out. Proceed, with fingers crossed.
-
-! Missing $ inserted.
-<inserted text> 
-                $
-l.111 ... of $S-P_3$ on the axis Sun_Moon, $a=S-P_
-                                                  3-b$. $p_1$, $p_2$ and $O$...
-I've inserted a begin-math/end-math symbol since I think
-you left one out. Proceed, with fingers crossed.
-
 
 ! Package amsmath Error: Erroneous nesting of equation structures;
 (amsmath)                trying to recover with `aligned'.
@@ -366,21 +350,8 @@ See the amsmath package documentation for explanation.
 Type  H <return>  for immediate help.
  ...                                              
                                                   
-l.120 		\end{align}
+l.123 		\end{align}
                    	
-Try typing  <return>  to proceed.
-If that doesn't work, type  X <return>  to quit.
-
-
-! Package amsmath Error: Erroneous nesting of equation structures;
-(amsmath)                trying to recover with `aligned'.
-
-See the amsmath package documentation for explanation.
-Type  H <return>  for immediate help.
- ...                                              
-                                                  
-l.140 		\end{align}
-                   
 Try typing  <return>  to proceed.
 If that doesn't work, type  X <return>  to quit.
 
@@ -393,7 +364,7 @@ See the amsmath package documentation for explanation.
 Type  H <return>  for immediate help.
  ...                                              
                                                   
-l.153 		\end{align}
+l.143 		\end{align}
                    
 Try typing  <return>  to proceed.
 If that doesn't work, type  X <return>  to quit.
@@ -406,21 +377,25 @@ See the amsmath package documentation for explanation.
 Type  H <return>  for immediate help.
  ...                                              
                                                   
-l.166 		\end{align}
+l.156 		\end{align}
+                   
+Try typing  <return>  to proceed.
+If that doesn't work, type  X <return>  to quit.
+
+
+! Package amsmath Error: Erroneous nesting of equation structures;
+(amsmath)                trying to recover with `aligned'.
+
+See the amsmath package documentation for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.169 		\end{align}
                    
 Try typing  <return>  to proceed.
 If that doesn't work, type  X <return>  to quit.
 
 [3] [4] [5]
-! Undefined control sequence.
-l.323 ... there are an optimum near the value $(\2
-                                                  pi/3,0.5,38/45\pi,0)$ that...
-The control sequence at the end of the top line
-of your error message was never \def'ed. If you have
-misspelled it (e.g., `\hobx'), type `I' and the correct
-spelling (e.g., `I\hbox'). Otherwise just continue,
-and I'll forget about whatever was undefined.
-
 
 ! Package amsmath Error: Erroneous nesting of equation structures;
 (amsmath)                trying to recover with `aligned'.
@@ -429,7 +404,7 @@ See the amsmath package documentation for explanation.
 Type  H <return>  for immediate help.
  ...                                              
                                                   
-l.336 		\end{align}
+l.342 		\end{align}
                    
 Try typing  <return>  to proceed.
 If that doesn't work, type  X <return>  to quit.
@@ -443,7 +418,7 @@ See the amsmath package documentation for explanation.
 Type  H <return>  for immediate help.
  ...                                              
                                                   
-l.366 		\end{align}
+l.382 		\end{align}
                    
 Try typing  <return>  to proceed.
 If that doesn't work, type  X <return>  to quit.
@@ -451,7 +426,7 @@ If that doesn't work, type  X <return>  to quit.
 ! Missing } inserted.
 <inserted text> 
                 }
-l.373 ...($\sqrt{\frac{2\mu}{R_s}-\frac{\mu}{a_l}$
+l.389 ...($\sqrt{\frac{2\mu}{R_s}-\frac{\mu}{a_l}$
                                                   ) is the same as the veloc...
 I've inserted something that you may have forgotten.
 (See the <inserted text> above.)
@@ -459,6 +434,7 @@ With luck, this will get me unwedged. But if you
 really didn't forget anything, try typing `2' now; then
 my insertion and my current dilemma will both disappear.
 
+[7]
 
 ! Package amsmath Error: Erroneous nesting of equation structures;
 (amsmath)                trying to recover with `aligned'.
@@ -467,7 +443,7 @@ See the amsmath package documentation for explanation.
 Type  H <return>  for immediate help.
  ...                                              
                                                   
-l.400 			\end{align}
+l.416 			\end{align}
                     
 Try typing  <return>  to proceed.
 If that doesn't work, type  X <return>  to quit.
@@ -475,54 +451,55 @@ If that doesn't work, type  X <return>  to quit.
 ! Double subscript.
 <argument>  O_{2n}_
                    i&=nT-O_1+a\\ O_{2n+1}_i&=nT+O_1+a 
-l.400 			\end{align}
+l.416 			\end{align}
                     
 I treat `x_1_2' essentially like `x_1{}_2'.
 
 ! Double subscript.
 <argument>  O_{2n}_i&=nT-O_1+a\\ O_{2n+1}_
                                           i&=nT+O_1+a 
-l.400 			\end{align}
+l.416 			\end{align}
                     
 I treat `x_1_2' essentially like `x_1{}_2'.
 
 ! Double subscript.
-l.404 			$O_k_
+l.420 			$O_k_
               i$ is the initial value used to find the $k^{th}$ optimum of t...
 I treat `x_1_2' essentially like `x_1{}_2'.
 
-[7]
-Underfull \hbox (badness 10000) in paragraph at lines 428--429
+
+Underfull \hbox (badness 10000) in paragraph at lines 444--445
 
  []
 
-
-! Package amsmath Error: Erroneous nesting of equation structures;
-(amsmath)                trying to recover with `aligned'.
-
-See the amsmath package documentation for explanation.
-Type  H <return>  for immediate help.
- ...                                              
-                                                  
-l.475 			\end{align}
-                    
-Try typing  <return>  to proceed.
-If that doesn't work, type  X <return>  to quit.
-
-
-! Package amsmath Error: Erroneous nesting of equation structures;
-(amsmath)                trying to recover with `aligned'.
-
-See the amsmath package documentation for explanation.
-Type  H <return>  for immediate help.
- ...                                              
-                                                  
-l.483 			\end{align}
-                    
-Try typing  <return>  to proceed.
-If that doesn't work, type  X <return>  to quit.
-
 [8]
+
+! Package amsmath Error: Erroneous nesting of equation structures;
+(amsmath)                trying to recover with `aligned'.
+
+See the amsmath package documentation for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.491 			\end{align}
+                    
+Try typing  <return>  to proceed.
+If that doesn't work, type  X <return>  to quit.
+
+
+! Package amsmath Error: Erroneous nesting of equation structures;
+(amsmath)                trying to recover with `aligned'.
+
+See the amsmath package documentation for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.499 			\end{align}
+                    
+Try typing  <return>  to proceed.
+If that doesn't work, type  X <return>  to quit.
+
+[9]
 
 ! LaTeX Error: There's no line here to end.
 
@@ -530,7 +507,7 @@ See the LaTeX manual or LaTeX Companion for explanation.
 Type  H <return>  for immediate help.
  ...                                              
                                                   
-l.507 			t
+l.523 			t
           o compute the solution, i've used the julia library : OptimalControl,
 
 Your command was ignored.
@@ -538,31 +515,54 @@ Type  I <command> <return>  to replace it with another command,
 or  <return>  to continue without it.
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 513--516
+Underfull \hbox (badness 10000) in paragraph at lines 530--533
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 517--522
+Underfull \hbox (badness 10000) in paragraph at lines 534--537
 
  []
 
+[10]
 
-Underfull \hbox (badness 10000) in paragraph at lines 517--522
+! LaTeX Error: There's no line here to end.
 
- []
+See the LaTeX manual or LaTeX Companion for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.544 			\\ \\
+              
+Your command was ignored.
+Type  I <command> <return>  to replace it with another command,
+or  <return>  to continue without it.
 
-[9] [10] (rapport_1.aux)
+
+! LaTeX Error: There's no line here to end.
+
+See the LaTeX manual or LaTeX Companion for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.545 			W
+          hat look like the best scenario at this point would be to put two ...
+
+Your command was ignored.
+Type  I <command> <return>  to replace it with another command,
+or  <return>  to continue without it.
+
+[11] (rapport_1.aux)
  ***********
 LaTeX2e <2023-06-01> patch level 1
 L3 programming layer <2023-08-29>
  ***********
  ) 
 Here is how much of TeX's memory you used:
- 2552 strings out of 475247
- 37988 string characters out of 5752091
+ 2551 strings out of 475247
+ 37974 string characters out of 5752091
  1938785 words of memory out of 5000000
- 24077 multiletter control sequences out of 15000+600000
+ 24076 multiletter control sequences out of 15000+600000
  565959 words of font info for 67 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
  57i,21n,65p,1014b,220s stack positions out of 10000i,1000n,20000p,200000b,200000s
@@ -587,9 +587,9 @@ s/MiKTeX/fonts/type1/public/amsfonts/cm/cmsy7.pfb><C:/Users/Vincent Callegari/A
 ppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/symbols/msbm10.pfb><C:
 /Users/Vincent Callegari/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfo
 nts/symbols/msbm7.pfb>
-Output written on rapport_1.pdf (10 pages, 206951 bytes).
+Output written on rapport_1.pdf (11 pages, 209509 bytes).
 PDF statistics:
- 116 PDF objects out of 1000 (max. 8388607)
+ 118 PDF objects out of 1000 (max. 8388607)
  0 named destinations out of 1000 (max. 500000)
  1 words of extra memory for PDF output out of 10000 (max. 10000000)
 
