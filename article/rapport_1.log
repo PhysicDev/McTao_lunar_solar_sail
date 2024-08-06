@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.25 (MiKTeX 23.10) (preloaded format=pdflatex 2023.10.12)  2 AUG 2024 10:52
+This is pdfTeX, Version 3.141592653-2.6-1.40.25 (MiKTeX 23.10) (preloaded format=pdflatex 2023.10.12)  6 AUG 2024 11:26
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -409,7 +409,33 @@ l.342 		\end{align}
 Try typing  <return>  to proceed.
 If that doesn't work, type  X <return>  to quit.
 
+<images/observations_main.png, id=31, 403.55568pt x 197.34528pt>
+File: images/observations_main.png Graphic file (type png)
+<use images/observations_main.png>
+Package pdftex.def Info: images/observations_main.png  used on input line 357.
+(pdftex.def)             Requested size: 284.52756pt x 139.1465pt.
+
+LaTeX Warning: `h' float specifier changed to `ht'.
+
 [6]
+! Missing } inserted.
+<inserted text> 
+                }
+l.377 ... $\sqrt{\frac{2\mu}{R_s}-\frac{\mu}{a_l}$
+                                                  ), we just have to find th...
+I've inserted something that you may have forgotten.
+(See the <inserted text> above.)
+With luck, this will get me unwedged. But if you
+really didn't forget anything, try typing `2' now; then
+my insertion and my current dilemma will both disappear.
+
+[7 <./images/observations_main.png>]
+<images/graph.jpg, id=42, 1927.2pt x 966.61125pt>
+File: images/graph.jpg Graphic file (type jpg)
+<use images/graph.jpg>
+Package pdftex.def Info: images/graph.jpg  used on input line 399.
+(pdftex.def)             Requested size: 341.43306pt x 171.23915pt.
+ [8 <./images/graph.jpg>]
 
 ! Package amsmath Error: Erroneous nesting of equation structures;
 (amsmath)                trying to recover with `aligned'.
@@ -418,7 +444,7 @@ See the amsmath package documentation for explanation.
 Type  H <return>  for immediate help.
  ...                                              
                                                   
-l.382 		\end{align}
+l.424 		\end{align}
                    
 Try typing  <return>  to proceed.
 If that doesn't work, type  X <return>  to quit.
@@ -426,7 +452,76 @@ If that doesn't work, type  X <return>  to quit.
 ! Missing } inserted.
 <inserted text> 
                 }
-l.389 ...($\sqrt{\frac{2\mu}{R_s}-\frac{\mu}{a_l}$
+l.424 		\end{align}
+                   
+I've inserted something that you may have forgotten.
+(See the <inserted text> above.)
+With luck, this will get me unwedged. But if you
+really didn't forget anything, try typing `2' now; then
+my insertion and my current dilemma will both disappear.
+
+! Missing $ inserted.
+<inserted text> 
+                $
+l.424 		\end{align}
+                   
+I've inserted a begin-math/end-math symbol since I think
+you left one out. Proceed, with fingers crossed.
+
+! Missing { inserted.
+<inserted text> 
+                {
+l.424 		\end{align}
+                   
+I've put in what seems to be necessary to fix
+the current column of the current alignment.
+Try to go on, since this might almost work.
+
+! Missing } inserted.
+<inserted text> 
+                }
+l.424 		\end{align}
+                   
+I've inserted something that you may have forgotten.
+(See the <inserted text> above.)
+With luck, this will get me unwedged. But if you
+really didn't forget anything, try typing `2' now; then
+my insertion and my current dilemma will both disappear.
+
+! Missing $ inserted.
+<inserted text> 
+                $
+l.424 		\end{align}
+                   
+I've inserted a begin-math/end-math symbol since I think
+you left one out. Proceed, with fingers crossed.
+
+! Missing { inserted.
+<inserted text> 
+                {
+l.424 		\end{align}
+                   
+I've put in what seems to be necessary to fix
+the current column of the current alignment.
+Try to go on, since this might almost work.
+
+
+! Package amsmath Error: Erroneous nesting of equation structures;
+(amsmath)                trying to recover with `aligned'.
+
+See the amsmath package documentation for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.444 		\end{align}
+                   
+Try typing  <return>  to proceed.
+If that doesn't work, type  X <return>  to quit.
+
+! Missing } inserted.
+<inserted text> 
+                }
+l.451 ...($\sqrt{\frac{2\mu}{R_s}-\frac{\mu}{a_l}$
                                                   ) is the same as the veloc...
 I've inserted something that you may have forgotten.
 (See the <inserted text> above.)
@@ -434,7 +529,7 @@ With luck, this will get me unwedged. But if you
 really didn't forget anything, try typing `2' now; then
 my insertion and my current dilemma will both disappear.
 
-[7]
+[9]
 
 ! Package amsmath Error: Erroneous nesting of equation structures;
 (amsmath)                trying to recover with `aligned'.
@@ -443,7 +538,7 @@ See the amsmath package documentation for explanation.
 Type  H <return>  for immediate help.
  ...                                              
                                                   
-l.416 			\end{align}
+l.478 			\end{align}
                     
 Try typing  <return>  to proceed.
 If that doesn't work, type  X <return>  to quit.
@@ -451,28 +546,28 @@ If that doesn't work, type  X <return>  to quit.
 ! Double subscript.
 <argument>  O_{2n}_
                    i&=nT-O_1+a\\ O_{2n+1}_i&=nT+O_1+a 
-l.416 			\end{align}
+l.478 			\end{align}
                     
 I treat `x_1_2' essentially like `x_1{}_2'.
 
 ! Double subscript.
 <argument>  O_{2n}_i&=nT-O_1+a\\ O_{2n+1}_
                                           i&=nT+O_1+a 
-l.416 			\end{align}
+l.478 			\end{align}
                     
 I treat `x_1_2' essentially like `x_1{}_2'.
 
 ! Double subscript.
-l.420 			$O_k_
+l.482 			$O_k_
               i$ is the initial value used to find the $k^{th}$ optimum of t...
 I treat `x_1_2' essentially like `x_1{}_2'.
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 444--445
+Underfull \hbox (badness 10000) in paragraph at lines 506--507
 
  []
 
-[8]
+[10]
 
 ! Package amsmath Error: Erroneous nesting of equation structures;
 (amsmath)                trying to recover with `aligned'.
@@ -481,7 +576,7 @@ See the amsmath package documentation for explanation.
 Type  H <return>  for immediate help.
  ...                                              
                                                   
-l.491 			\end{align}
+l.553 			\end{align}
                     
 Try typing  <return>  to proceed.
 If that doesn't work, type  X <return>  to quit.
@@ -494,12 +589,12 @@ See the amsmath package documentation for explanation.
 Type  H <return>  for immediate help.
  ...                                              
                                                   
-l.499 			\end{align}
+l.561 			\end{align}
                     
 Try typing  <return>  to proceed.
 If that doesn't work, type  X <return>  to quit.
 
-[9]
+[11]
 
 ! LaTeX Error: There's no line here to end.
 
@@ -507,7 +602,7 @@ See the LaTeX manual or LaTeX Companion for explanation.
 Type  H <return>  for immediate help.
  ...                                              
                                                   
-l.523 			t
+l.585 			t
           o compute the solution, i've used the julia library : OptimalControl,
 
 Your command was ignored.
@@ -515,16 +610,16 @@ Type  I <command> <return>  to replace it with another command,
 or  <return>  to continue without it.
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 530--533
+Underfull \hbox (badness 10000) in paragraph at lines 592--595
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 534--537
+Underfull \hbox (badness 10000) in paragraph at lines 596--599
 
  []
 
-[10]
+[12]
 
 ! LaTeX Error: There's no line here to end.
 
@@ -532,7 +627,7 @@ See the LaTeX manual or LaTeX Companion for explanation.
 Type  H <return>  for immediate help.
  ...                                              
                                                   
-l.544 			\\ \\
+l.606 			\\ \\
               
 Your command was ignored.
 Type  I <command> <return>  to replace it with another command,
@@ -545,27 +640,27 @@ See the LaTeX manual or LaTeX Companion for explanation.
 Type  H <return>  for immediate help.
  ...                                              
                                                   
-l.545 			W
+l.607 			W
           hat look like the best scenario at this point would be to put two ...
 
 Your command was ignored.
 Type  I <command> <return>  to replace it with another command,
 or  <return>  to continue without it.
 
-[11] (rapport_1.aux)
+[13] (rapport_1.aux)
  ***********
 LaTeX2e <2023-06-01> patch level 1
 L3 programming layer <2023-08-29>
  ***********
  ) 
 Here is how much of TeX's memory you used:
- 2551 strings out of 475247
- 37974 string characters out of 5752091
+ 2567 strings out of 475247
+ 38434 string characters out of 5752091
  1938785 words of memory out of 5000000
- 24076 multiletter control sequences out of 15000+600000
+ 24092 multiletter control sequences out of 15000+600000
  565959 words of font info for 67 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
- 57i,21n,65p,1014b,220s stack positions out of 10000i,1000n,20000p,200000b,200000s
+ 57i,21n,65p,1014b,227s stack positions out of 10000i,1000n,20000p,200000b,200000s
  <C:\Users\Vincent Callegari\AppData\Local\MiKTeX\fonts/pk/ljfour/jknappen/ec
 /dpi600\tcrm1000.pk><C:/Users/Vincent Callegari/AppData/Local/Programs/MiKTeX/f
 onts/type1/public/amsfonts/cm/cmbx12.pfb><C:/Users/Vincent Callegari/AppData/Lo
@@ -587,9 +682,9 @@ s/MiKTeX/fonts/type1/public/amsfonts/cm/cmsy7.pfb><C:/Users/Vincent Callegari/A
 ppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/symbols/msbm10.pfb><C:
 /Users/Vincent Callegari/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfo
 nts/symbols/msbm7.pfb>
-Output written on rapport_1.pdf (11 pages, 209509 bytes).
+Output written on rapport_1.pdf (13 pages, 750637 bytes).
 PDF statistics:
- 118 PDF objects out of 1000 (max. 8388607)
+ 129 PDF objects out of 1000 (max. 8388607)
  0 named destinations out of 1000 (max. 500000)
- 1 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 11 words of extra memory for PDF output out of 10000 (max. 10000000)
 

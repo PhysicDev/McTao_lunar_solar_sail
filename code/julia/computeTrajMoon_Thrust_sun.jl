@@ -334,7 +334,7 @@ if(resolve)
                 println(string("grid size : ",samp));
                 if(resolve)
                     if(isnothing(initg))#if there are no initial condition do nothing
-                        sol = solve(ocp,display=false,grid_size=samp)
+                        sol = solve(ocp,display=false,grid_size=samp,max_iter=3000)
                     else
                         sol = solve(ocp,display=false,grid_size=samp,init=initg)
                     end

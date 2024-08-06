@@ -164,11 +164,14 @@ for i=1:(N+1)
     payoff(i)=fun(time(i));
 end
 hold off
+fig=figure()
 plot(time*ut/86400,payoff);
 grid on
 set(gca, 'YScale', 'log')
 xlim([0,maxT/86400])
 
+
+saveas(fig, "D:\storage\CODE\matlab\simpModel.png", "png");
 
 %finding dephasage:
 

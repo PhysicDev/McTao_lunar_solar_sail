@@ -52,9 +52,9 @@ global ut;
 ud=al;
 ut=2*pi*sqrt(al^3/Muter);
 
-periodRatio=1;
 
 Synperiod=1.078;%synodic period of the Moon ( rough approximation )
+periodRatio=1.078;
 nbOpt=50;
 maxT=365*nbOpt/20*86400;
 
@@ -164,11 +164,14 @@ for i=1:(N+1)
     payoff(i)=fun(time(i));
 end
 hold off
+fig=figure()
 plot(time*ut/86400,payoff);
 grid on
 set(gca, 'YScale', 'log')
 xlim([0,maxT/86400])
+ylim=[0,maxT*]
 
+saveas(fig, "D:\storage\CODE\matlab\observation.png", "png");
 
 %finding dephasage:
 

@@ -13,8 +13,8 @@
 	\begin{document}
 		\maketitle
 		\section{introduction}%flemme de faire cette partie pour l'instant
-		\section{zone d'observation}
-		\subsection{calcul de la zone exacte}
+		\section{observation zone}
+		\subsection{computing the position of the observation zone}
 		
 		during the study of these problems, we will take the earth as the orgin in cartesian coordinate. The axis Earth-Sun at time t0 will be defined as the X axis and the axis X and Y define the earth ecliptic plane. 
 		
@@ -350,7 +350,13 @@
 		
 		as the satellite is in the obsevation zone, the region in which the satelite can cross the observation zone and at the same speed as the moon is the intersection between the possible observation zone space (which is in this simplified case simplified by an ellipse) and a sphere of radius $R$ with $R=R_l$ in this case.
 		
-		There are two point in the orbit that satisfy these condition
+		There are two point in the orbit that satisfy these condition.
+		
+		
+		\begin{figure}[h]
+			\includegraphics[width=10cm]{images/observations_main.png}
+			\caption{keplerian orbit allowing to make long observation in a simplified model (fixed sun, circular orbit of the moon and observation zone distance equal to moon's orbit radius)}
+		\end{figure}
 		
 		Using the solution that we found in 2D we can try to use it as an initial condition for 3D problems, the solution found with varying $\Omega$ value and considering the eccentricity of the Moon tend to show that there are always a solution near this point.
 		
@@ -363,6 +369,64 @@
 		The fact that we make longer observation when the speed of of the observation zone match the speed of a circular orbit at its current position could be linked to the fact that the radial speed of the device start decreasing after crossing this altitude which could allow the device to make an oscilation around the observation point.
 		
 		about the last peak, the proximity of the observation from the Earth umbra and the fact that the corresponding device will have around the energy to escape the Earth sphere of influence (the speed of the Moon two time further than the Moon) make it not the better choice for reapeated observation
+		
+		\subsection{finding initial guess}
+		
+		Now that we know where the observation roughly are we can create an algorithm that could easily find initial guess to find observation.
+		
+		as the speed of the device is constrained by its semi major axis (by the equation $\sqrt{\frac{2\mu}{R_s}-\frac{\mu}{a_l}$), we just have to find the point where the observation zone speed matches the speed of the device.
+			
+		If we consider that the observation zone center is at the position of the point $P_{2x}$ we get :
+		
+		$$
+		P_{2x}=R_l+\frac{D_{p2}}{D_{ts}}(R_l-R_s)
+		$$
+		where $D_{p2}$ is the distance between the moon and the point $P_{2x}$ where the moon is at the origin.
+		the velocity of $P_{2x}$ is then straightforward to compute
+		$$
+		\dot{P_{2x}}=\dot{R_l}+\frac{D_{p2}}{D_{ts}}(\dot{R_l}-\dot{R_s})
+		$$
+		
+		we can then get from this the following payoff formula :
+		
+		$$
+		D_{obs}=\left(||\dot{P_{2x}}||-\sqrt{\frac{2\mu}{P_{2x}}-\frac{\mu}{a_l}}\right)^2
+		$$  
+		
+		which is a one dimension equation depending of time only, which make it way easier to solve.
+		
+		\begin{figure}[h]
+			\includegraphics[width=12cm]{images/graph.jpg}
+			\caption{relative speed between the device and the observation zone}
+		\end{figure}
+		
+		we can see a periodic signal with a period equal to the synodic period of the device. A period is made of two local maximum corresponding to the time when the observation zone is the closest to Earth (the highest sharp peak)and when the observation zone is the farthest from Earth(the soft peak). There also two local minimum which correspond to the two points of interest. Theses minimum are around 5 days before and after the highest peak ($\frac{1}{6}$ time the synodic period exactly). 
+		
+		This configuration allow find estimate of time where the observation happen : 
+		
+		The first step consist of finding the high peak, the sharp peak would always be higher than 100 because of the high speed of the device near Earth and the soft peak would be always under 100 (because the speed difference can't be above $2\pi$ making the value of $D_{obs}$ smaller than $4\pi^2\approx 39$).
+		
+		this give us the following constrained problem:
+		
+		$$
+		t^0=\arg \max D_{obs}(t)_{0\leq t ; D_{obs}(t)\geq100}
+		$$
+		
+		by taking an initial guess at $t^0_0=0$ or finding the an estimation by hand should give us the first peak.
+		
+		we can then find every peak by solving the same problem with an initial guess of $t^n_0=t^{n-1}+P_{sy}$ where $t^{n-1}$ is the time of the last peak and $P_{sy}$ is the synodic period of the moon.
+		
+		we can then find the points of interests by finding the minimum	of the function $D_{obs}$ by taking the the following initial guess : 
+		$$
+		\begin{align}
+			$O^{2n}_0&=t^n-\frac{P_{sy}}{6}\\
+			$O^{2n+1}_0&=t^n+\frac{P_{sy}}{6}
+		\end{align}
+		$$ 
+		
+		A good thing about this method is that each problems (except the first one if we take $t^0_0=0$) can be easily sove with a simple gradient descent method. take also note that the first observation may be before 0 if the first peak happen at a time smaller than a sixth of the Synodic period.
+		
+		At last we can compute the vector $X_0$ for each of these time and then apply the real method to compute the best set of value for each observation.
 		
 		\section{low thrust transfert}
 
