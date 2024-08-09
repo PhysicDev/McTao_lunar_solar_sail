@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.25 (MiKTeX 23.10) (preloaded format=pdflatex 2023.10.12)  6 AUG 2024 11:26
+This is pdfTeX, Version 3.141592653-2.6-1.40.25 (MiKTeX 23.10) (preloaded format=pdflatex 2023.10.12)  9 AUG 2024 16:48
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -395,47 +395,219 @@ l.169 		\end{align}
 Try typing  <return>  to proceed.
 If that doesn't work, type  X <return>  to quit.
 
-[3] [4] [5]
+[3] [4]
 
-! Package amsmath Error: Erroneous nesting of equation structures;
-(amsmath)                trying to recover with `aligned'.
+LaTeX Warning: Command \t invalid in math mode on input line 319.
 
-See the amsmath package documentation for explanation.
+
+LaTeX Warning: Command \t invalid in math mode on input line 319.
+
+! Missing $ inserted.
+<inserted text> 
+                $
+l.319 			\item the initial time $\t_
+                                    0$ that is used to determine intial posi...
+I've inserted a begin-math/end-math symbol since I think
+you left one out. Proceed, with fingers crossed.
+
+! Missing { inserted.
+<to be read again> 
+                   \global 
+l.319 			\item the initial time $\t_
+                                    0$ that is used to determine intial posi...
+A left brace was mandatory here, so I've put one in.
+You might want to delete and/or insert some corrections
+so that I will find a matching right brace soon.
+(If you're confused by all this, try typing `I}' now.)
+
+! Improper \spacefactor.
+<recently read> \spacefactor 
+                             
+l.319 			\item the initial time $\t_
+                                    0$ that is used to determine intial posi...
+You can refer to \spacefactor only in horizontal mode;
+you can refer to \prevdepth only in vertical mode; and
+neither of these is meaningful inside \write. So
+I'm forgetting what you said and using zero instead.
+
+! Please use \mathaccent for accents in math mode.
+\add@accent ... \let \ignorespaces \relax \accent 
+                                                  #1 #2\egroup \ifmmode \els...
+l.319 			\item the initial time $\t_
+                                    0$ that is used to determine intial posi...
+I'm changing \accent to \mathaccent here; wish me luck.
+(Accents are not the same in formulas as they are in text.)
+
+! Missing { inserted.
+<to be read again> 
+                   \edef 
+l.319 			\item the initial time $\t_
+                                    0$ that is used to determine intial posi...
+A left brace was mandatory here, so I've put one in.
+You might want to delete and/or insert some corrections
+so that I will find a matching right brace soon.
+(If you're confused by all this, try typing `I}' now.)
+
+! Missing { inserted.
+<to be read again> 
+                   \egroup 
+l.319 			\item the initial time $\t_
+                                    0$ that is used to determine intial posi...
+A left brace was mandatory here, so I've put one in.
+You might want to delete and/or insert some corrections
+so that I will find a matching right brace soon.
+(If you're confused by all this, try typing `I}' now.)
+
+
+! LaTeX Error: Something's wrong--perhaps a missing \item.
+
+See the LaTeX manual or LaTeX Companion for explanation.
 Type  H <return>  for immediate help.
  ...                                              
                                                   
-l.342 		\end{align}
-                   
+l.320 			\item t
+                he initial position within the observation zone $\lambda$ %d...
+
 Try typing  <return>  to proceed.
 If that doesn't work, type  X <return>  to quit.
 
-<images/observations_main.png, id=31, 403.55568pt x 197.34528pt>
+
+! LaTeX Error: Something's wrong--perhaps a missing \item.
+
+See the LaTeX manual or LaTeX Companion for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.320 			\item t
+                he initial position within the observation zone $\lambda$ %d...
+
+Try typing  <return>  to proceed.
+If that doesn't work, type  X <return>  to quit.
+
+
+! LaTeX Error: Something's wrong--perhaps a missing \item.
+
+See the LaTeX manual or LaTeX Companion for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.321 			\item t
+                he angles $\theta_s$ et $\phi_s$ that defined the intial dir...
+
+Try typing  <return>  to proceed.
+If that doesn't work, type  X <return>  to quit.
+
+
+! LaTeX Error: Something's wrong--perhaps a missing \item.
+
+See the LaTeX manual or LaTeX Companion for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.321 			\item t
+                he angles $\theta_s$ et $\phi_s$ that defined the intial dir...
+
+Try typing  <return>  to proceed.
+If that doesn't work, type  X <return>  to quit.
+
+
+! LaTeX Error: Something's wrong--perhaps a missing \item.
+
+See the LaTeX manual or LaTeX Companion for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.322 		\end{itemize}
+                     
+Try typing  <return>  to proceed.
+If that doesn't work, type  X <return>  to quit.
+
+
+! LaTeX Error: Something's wrong--perhaps a missing \item.
+
+See the LaTeX manual or LaTeX Companion for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.322 		\end{itemize}
+                     
+Try typing  <return>  to proceed.
+If that doesn't work, type  X <return>  to quit.
+
+! Missing } inserted.
+<inserted text> 
+                }
+l.322 		\end{itemize}
+                     
+I've inserted something that you may have forgotten.
+(See the <inserted text> above.)
+With luck, this will get me unwedged. But if you
+really didn't forget anything, try typing `2' now; then
+my insertion and my current dilemma will both disappear.
+
+! Missing } inserted.
+<inserted text> 
+                }
+l.322 		\end{itemize}
+                     
+I've inserted something that you may have forgotten.
+(See the <inserted text> above.)
+With luck, this will get me unwedged. But if you
+really didn't forget anything, try typing `2' now; then
+my insertion and my current dilemma will both disappear.
+
+! Missing } inserted.
+<inserted text> 
+                }
+l.322 		\end{itemize}
+                     
+I've inserted something that you may have forgotten.
+(See the <inserted text> above.)
+With luck, this will get me unwedged. But if you
+really didn't forget anything, try typing `2' now; then
+my insertion and my current dilemma will both disappear.
+
+! Missing $ inserted.
+<inserted text> 
+                $
+l.322 		\end{itemize}
+                     
+I've inserted something that you may have forgotten.
+(See the <inserted text> above.)
+With luck, this will get me unwedged. But if you
+really didn't forget anything, try typing `2' now; then
+my insertion and my current dilemma will both disappear.
+
+[5]
+! Misplaced alignment tab character &.
+l.344 		\sqrt{\frac{2\mu}{R_s}-\frac{\mu}{a_s}}&
+                                                =\sqrt{\frac{2\mu}{R_l}-\fra...
+I can't figure out why you would want to use a tab mark
+here. If you just want an ampersand, the remedy is
+simple: Just type `I\&' now. But if some right brace
+up above has ended a previous alignment prematurely,
+you're probably due for more error messages, and you
+might try typing `S' now just to see what is salvageable.
+
+<images/observations_main.png, id=30, 403.55568pt x 197.34528pt>
 File: images/observations_main.png Graphic file (type png)
 <use images/observations_main.png>
-Package pdftex.def Info: images/observations_main.png  used on input line 357.
+Package pdftex.def Info: images/observations_main.png  used on input line 359.
 (pdftex.def)             Requested size: 284.52756pt x 139.1465pt.
 
 LaTeX Warning: `h' float specifier changed to `ht'.
 
-[6]
-! Missing } inserted.
-<inserted text> 
-                }
-l.377 ... $\sqrt{\frac{2\mu}{R_s}-\frac{\mu}{a_l}$
-                                                  ), we just have to find th...
-I've inserted something that you may have forgotten.
-(See the <inserted text> above.)
-With luck, this will get me unwedged. But if you
-really didn't forget anything, try typing `2' now; then
-my insertion and my current dilemma will both disappear.
-
-[7 <./images/observations_main.png>]
+[6] [7 <./images/observations_main.png>]
 <images/graph.jpg, id=42, 1927.2pt x 966.61125pt>
 File: images/graph.jpg Graphic file (type jpg)
 <use images/graph.jpg>
-Package pdftex.def Info: images/graph.jpg  used on input line 399.
+Package pdftex.def Info: images/graph.jpg  used on input line 403.
 (pdftex.def)             Requested size: 341.43306pt x 171.23915pt.
- [8 <./images/graph.jpg>]
+
+
+LaTeX Warning: `h' float specifier changed to `ht'.
+
+[8]
 
 ! Package amsmath Error: Erroneous nesting of equation structures;
 (amsmath)                trying to recover with `aligned'.
@@ -444,7 +616,7 @@ See the amsmath package documentation for explanation.
 Type  H <return>  for immediate help.
  ...                                              
                                                   
-l.424 		\end{align}
+l.428 		\end{align}
                    
 Try typing  <return>  to proceed.
 If that doesn't work, type  X <return>  to quit.
@@ -452,7 +624,7 @@ If that doesn't work, type  X <return>  to quit.
 ! Missing } inserted.
 <inserted text> 
                 }
-l.424 		\end{align}
+l.428 		\end{align}
                    
 I've inserted something that you may have forgotten.
 (See the <inserted text> above.)
@@ -463,7 +635,7 @@ my insertion and my current dilemma will both disappear.
 ! Missing $ inserted.
 <inserted text> 
                 $
-l.424 		\end{align}
+l.428 		\end{align}
                    
 I've inserted a begin-math/end-math symbol since I think
 you left one out. Proceed, with fingers crossed.
@@ -471,7 +643,7 @@ you left one out. Proceed, with fingers crossed.
 ! Missing { inserted.
 <inserted text> 
                 {
-l.424 		\end{align}
+l.428 		\end{align}
                    
 I've put in what seems to be necessary to fix
 the current column of the current alignment.
@@ -480,7 +652,7 @@ Try to go on, since this might almost work.
 ! Missing } inserted.
 <inserted text> 
                 }
-l.424 		\end{align}
+l.428 		\end{align}
                    
 I've inserted something that you may have forgotten.
 (See the <inserted text> above.)
@@ -491,7 +663,7 @@ my insertion and my current dilemma will both disappear.
 ! Missing $ inserted.
 <inserted text> 
                 $
-l.424 		\end{align}
+l.428 		\end{align}
                    
 I've inserted a begin-math/end-math symbol since I think
 you left one out. Proceed, with fingers crossed.
@@ -499,75 +671,27 @@ you left one out. Proceed, with fingers crossed.
 ! Missing { inserted.
 <inserted text> 
                 {
-l.424 		\end{align}
+l.428 		\end{align}
                    
 I've put in what seems to be necessary to fix
 the current column of the current alignment.
 Try to go on, since this might almost work.
 
+<images/observation_zone_year_scaled.png, id=46, 1445.4pt x 724.95844pt>
+File: images/observation_zone_year_scaled.png Graphic file (type png)
+<use images/observation_zone_year_scaled.png>
+Package pdftex.def Info: images/observation_zone_year_scaled.png  used on input
+ line 436.
+(pdftex.def)             Requested size: 345.0pt x 173.03119pt.
 
-! Package amsmath Error: Erroneous nesting of equation structures;
-(amsmath)                trying to recover with `aligned'.
+LaTeX Warning: `h' float specifier changed to `ht'.
 
-See the amsmath package documentation for explanation.
-Type  H <return>  for immediate help.
- ...                                              
-                                                  
-l.444 		\end{align}
-                   
-Try typing  <return>  to proceed.
-If that doesn't work, type  X <return>  to quit.
-
-! Missing } inserted.
-<inserted text> 
-                }
-l.451 ...($\sqrt{\frac{2\mu}{R_s}-\frac{\mu}{a_l}$
-                                                  ) is the same as the veloc...
-I've inserted something that you may have forgotten.
-(See the <inserted text> above.)
-With luck, this will get me unwedged. But if you
-really didn't forget anything, try typing `2' now; then
-my insertion and my current dilemma will both disappear.
-
-[9]
-
-! Package amsmath Error: Erroneous nesting of equation structures;
-(amsmath)                trying to recover with `aligned'.
-
-See the amsmath package documentation for explanation.
-Type  H <return>  for immediate help.
- ...                                              
-                                                  
-l.478 			\end{align}
-                    
-Try typing  <return>  to proceed.
-If that doesn't work, type  X <return>  to quit.
-
-! Double subscript.
-<argument>  O_{2n}_
-                   i&=nT-O_1+a\\ O_{2n+1}_i&=nT+O_1+a 
-l.478 			\end{align}
-                    
-I treat `x_1_2' essentially like `x_1{}_2'.
-
-! Double subscript.
-<argument>  O_{2n}_i&=nT-O_1+a\\ O_{2n+1}_
-                                          i&=nT+O_1+a 
-l.478 			\end{align}
-                    
-I treat `x_1_2' essentially like `x_1{}_2'.
-
-! Double subscript.
-l.482 			$O_k_
-              i$ is the initial value used to find the $k^{th}$ optimum of t...
-I treat `x_1_2' essentially like `x_1{}_2'.
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 506--507
+[9 <./images/graph.jpg>] [10 <./images/observation_zone_year_scaled.png (PNG co
+py)>]
+Underfull \hbox (badness 10000) in paragraph at lines 482--483
 
  []
 
-[10]
 
 ! Package amsmath Error: Erroneous nesting of equation structures;
 (amsmath)                trying to recover with `aligned'.
@@ -576,7 +700,7 @@ See the amsmath package documentation for explanation.
 Type  H <return>  for immediate help.
  ...                                              
                                                   
-l.553 			\end{align}
+l.529 			\end{align}
                     
 Try typing  <return>  to proceed.
 If that doesn't work, type  X <return>  to quit.
@@ -589,7 +713,7 @@ See the amsmath package documentation for explanation.
 Type  H <return>  for immediate help.
  ...                                              
                                                   
-l.561 			\end{align}
+l.537 			\end{align}
                     
 Try typing  <return>  to proceed.
 If that doesn't work, type  X <return>  to quit.
@@ -602,7 +726,7 @@ See the LaTeX manual or LaTeX Companion for explanation.
 Type  H <return>  for immediate help.
  ...                                              
                                                   
-l.585 			t
+l.561 			t
           o compute the solution, i've used the julia library : OptimalControl,
 
 Your command was ignored.
@@ -610,16 +734,48 @@ Type  I <command> <return>  to replace it with another command,
 or  <return>  to continue without it.
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 592--595
+Underfull \hbox (badness 10000) in paragraph at lines 568--571
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 596--599
+Underfull \hbox (badness 10000) in paragraph at lines 572--575
 
  []
 
 [12]
+<images/1in2obs.png, id=60, 424.87395pt x 251.56404pt>
+File: images/1in2obs.png Graphic file (type png)
+<use images/1in2obs.png>
+Package pdftex.def Info: images/1in2obs.png  used on input line 583.
+(pdftex.def)             Requested size: 172.5pt x 102.13622pt.
+<images/odd_to_even.png, id=61, 424.87395pt x 251.56404pt>
+File: images/odd_to_even.png Graphic file (type png)
+<use images/odd_to_even.png>
+Package pdftex.def Info: images/odd_to_even.png  used on input line 584.
+(pdftex.def)             Requested size: 172.5pt x 102.13622pt.
+<images/1in3_obs.png, id=62, 424.87395pt x 251.56404pt>
+File: images/1in3_obs.png Graphic file (type png)
+<use images/1in3_obs.png>
+Package pdftex.def Info: images/1in3_obs.png  used on input line 585.
+(pdftex.def)             Requested size: 172.5pt x 102.13622pt.
+<images/1in3_bad.png, id=63, 424.87395pt x 251.56404pt>
+File: images/1in3_bad.png Graphic file (type png)
+<use images/1in3_bad.png>
+Package pdftex.def Info: images/1in3_bad.png  used on input line 586.
+(pdftex.def)             Requested size: 172.5pt x 102.13622pt.
+
+Overfull \hbox (2.22221pt too wide) in paragraph at lines 583--587
+[][] []
+ []
+
+
+Overfull \hbox (2.22221pt too wide) in paragraph at lines 583--587
+[] [] 
+ []
+
+[13 <./images/1in2obs.png> <./images/odd_to_even.png> <./images/1in3_obs.png> <
+./images/1in3_bad.png>]
 
 ! LaTeX Error: There's no line here to end.
 
@@ -627,7 +783,7 @@ See the LaTeX manual or LaTeX Companion for explanation.
 Type  H <return>  for immediate help.
  ...                                              
                                                   
-l.606 			\\ \\
+l.604 			\\ \\
               
 Your command was ignored.
 Type  I <command> <return>  to replace it with another command,
@@ -640,27 +796,27 @@ See the LaTeX manual or LaTeX Companion for explanation.
 Type  H <return>  for immediate help.
  ...                                              
                                                   
-l.607 			W
+l.605 			W
           hat look like the best scenario at this point would be to put two ...
 
 Your command was ignored.
 Type  I <command> <return>  to replace it with another command,
 or  <return>  to continue without it.
 
-[13] (rapport_1.aux)
+[14] (rapport_1.aux)
  ***********
 LaTeX2e <2023-06-01> patch level 1
 L3 programming layer <2023-08-29>
  ***********
  ) 
 Here is how much of TeX's memory you used:
- 2567 strings out of 475247
- 38434 string characters out of 5752091
- 1938785 words of memory out of 5000000
- 24092 multiletter control sequences out of 15000+600000
+ 2600 strings out of 475247
+ 39474 string characters out of 5752091
+ 1933785 words of memory out of 5000000
+ 24125 multiletter control sequences out of 15000+600000
  565959 words of font info for 67 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
- 57i,21n,65p,1014b,227s stack positions out of 10000i,1000n,20000p,200000b,200000s
+ 57i,21n,65p,1064b,227s stack positions out of 10000i,1000n,20000p,200000b,200000s
  <C:\Users\Vincent Callegari\AppData\Local\MiKTeX\fonts/pk/ljfour/jknappen/ec
 /dpi600\tcrm1000.pk><C:/Users/Vincent Callegari/AppData/Local/Programs/MiKTeX/f
 onts/type1/public/amsfonts/cm/cmbx12.pfb><C:/Users/Vincent Callegari/AppData/Lo
@@ -682,9 +838,9 @@ s/MiKTeX/fonts/type1/public/amsfonts/cm/cmsy7.pfb><C:/Users/Vincent Callegari/A
 ppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/symbols/msbm10.pfb><C:
 /Users/Vincent Callegari/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfo
 nts/symbols/msbm7.pfb>
-Output written on rapport_1.pdf (13 pages, 750637 bytes).
+Output written on rapport_1.pdf (14 pages, 1235344 bytes).
 PDF statistics:
- 129 PDF objects out of 1000 (max. 8388607)
+ 141 PDF objects out of 1000 (max. 8388607)
  0 named destinations out of 1000 (max. 500000)
- 11 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 36 words of extra memory for PDF output out of 10000 (max. 10000000)
 

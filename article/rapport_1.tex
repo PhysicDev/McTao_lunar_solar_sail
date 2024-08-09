@@ -184,137 +184,141 @@
 		
 		%en prenant une valeur encore plus simplifié de $\bar{D}$ : $\bar{D}=D$ on obtient une erreur sur les positions de  $X_1$ et $X_3$ de l'ordre de $1000km$ mais on conserve une erreur assez faible sur la distance entre $X_1$ et $X_3$ (environ 0.25\% de la distance $X_1$$X_3$ ). Cela permet de considérer la zone d'observation comma ayant toujours la même forme (longueur et épaisseur).
 		
-		\section{problème}
+		\newpage
+		\section{Observation analysis}
 		
-		on va considérer le problème suivant:
+		\subsection{definition of the problem}
 		
-		la lune suit une orbite circulaire autour de la Terre de rayon $a=384000km$.
+		the problem is describe as follow :
+		\\
+		The Earth Moon Sun system is simulated with the Sun being fixed at the origin. The Coordinate system is then centered without rotating it at the Earth Moon barycenter. The motion of the device is computed by taking in accoun the gravitional pull of the Earth an Moon but we don't apply the force of gravity of the sun, this mean that the device will experience the gravity of the sun as if it wa at the altitude of the Earth-Moon barycenter.This won't make a huge difference considering that the device will stay between 2 Moon-Earth distance from Earth. the trajectory of Earth and Moon will be precompute before running any optimisation algorithm.
 		
-		la forme de la zone d'observation de la Lune est considérée comme étant égale à la zone d'observation de la lune si elle se trouvait à l'origine (la position de la terre). La position du point $P_3$ est déterminé par la formule suivante:
-		avec 
+		the initial position of the Earth and Moon that will be use in this article are their position in January 1st midnight, 2025. their position are retrieved on the horyzon system of Nasa : https://ssd.jpl.nasa.gov/horizons/app.html
+		
+		%la lune suit une orbite circulaire autour de la Terre de rayon $a=384000km$.
+		
+		%la forme de la zone d'observation de la Lune est considérée comme étant égale à la zone d'observation de la lune si elle se trouvait à l'origine (la position de la terre). La position du point $P_3$ est déterminé par la formule suivante:
+		
+		we consider the position and shape of the observation using the formula and approximation defined earlier, with the initial value of the observation zone being computed if the moon was at the origin at time t0.
+		this give the following equation :
 		$$
-		P_3(R_l)=R_{lt}+\hat{P_{3x}}D^{-1}R_{ls}
+		P_3(R_l)=R_{l}+\hat{P_{3x}}D^{-1}R_{ls}
 		$$
-		avec $\hat{P_3}$ étant la position du point $P_3$ quand la lune est à l'origine
-		,$R_{lt}$ est la position de la lune relativement à la Terre.
-		et $R_{ls}$ est la position de la Lune relativement au Soleil.
+		with $\hat{P_3}$ being the position of the point $P_3$ when the moon is at the origin
+		,$R_{l}$ being the Moon position.
+		and $R_{ls}$ is the position of the Moon relatively to the sun.
 		
-		(on a $R_{ls} = R_{lt}+D\hat{x}$);
+		the objectif is to find trajectory that allow repeated and long observations.
 		
-		le but est de trouver des orbites Kepleriennes qui effectue des observations répété et les plus longues possibles.
+		%le but est de trouver des orbites Kepleriennes qui effectue des observations répété et les plus longues possibles.
 		
-		Les temps d'observation peuvent beaucoup varier allant d'une durée de quelques minutes à plusieurs heures.	dans la suite on va donc se concentrer sur une seule observation.
+		after testing some possible orbit configuration for the device, it look like most of the observation last only a few minutes, but some precise configuration that we will discuss later can last for multiples hour. This space of solutions suggest that it is better to optimize only one observations that will last longer instead of trying to find trajectory that will make multiples observations but very short ones.
+		
+		
+		
+		%Les temps d'observation peuvent beaucoup varier allant d'une durée de quelques minutes à plusieurs heures.	dans la suite on va donc se concentrer sur une seule observation.
 		
 		%afin de pouvoir reproduire les observations, il vaut mieux prendre une période d'orbite qui est un multiple de celle de la Lune.
 		
-		in order to make multiple observation, it may be better to take orbital period that are multiple of the moon's.
+		in order to make multiple observation, it may be better to take orbital period that are multiple of the moon's, this way the Moon and thus the observation zone would be at the same place when the device get to the observation zone again.
 		
-		Hovewer choosing period between the moon orbital period or its synodic period could up to debate.
+		%Hovewer choosing period between the moon orbital period or its synodic period could up to debate.
+		hovewer considering that the Sun is moving, it may be better to make the device orbital period equal to the Moon's synodic period but i haven't make enough comparative data to know which one is the best.	
 		
-		from this we can conclude the following formula for the semi major axis.
+		from this we can conclude the following formula for the semi major axis of the device.
 		$$
-		a_s=a_lk^{\frac{2}{3}}
+		a_s=a_lk^{\frac{2}{3}}\left(\frac{\mu_t}{\mu_t+\mu_l}\right)^\frac{1}{3}
 		$$
 		
-		avec
+		with
 		$$
 		P_s=kP_l
 		$$
 		
-		étant donné que l'objectif est de faire une observation, on peut faire partir le satellite directement de la zone d'observation.
+		considering that the objective is to make observation, it seem logical that the device will be in the observation zone at one time or another. This is why i've decided to define the device initial position to be inside the observation zone. In addition the fact that the observation zone is almost flat (around $100$ times longer than thick), we can consider the starting position of the device to be on the segment $[P_3,P_1]$. We will also need a initial time $t_0$ to know when the device cross this segment.
 		
-		De plus la dimension de la zone étant très étirée (environ $10000km\times100km\times100km$) on peut considérer que le satellite coupera forcement le segment $[P_3,P_1]$, on peut donc décrire la position initiale du satellite à l'aide de l'anomalie vraie de la lune $\nu$ et un scalaire $\lambda$ entre 0 et 1. la position initiale du satellite devient : 
+		this mean that we can defined the initial position of the device with the following function
 		$$
-		S_0=\lambda(P_1-P_3)+P_3(R_l(\nu))
-		$$
-		
-		avec 
-		$$
-		R_l(\nu)=\begin{bmatrix}
-			r( \cos\Omega \cos\theta -\sin\Omega \sin\theta \cos\ i)\\
-			r( \sin\Omega \cos\theta -\cos\Omega \sin\theta \cos\ i)\\
-			r\sin\theta \sin\ i\ 
-		\end{bmatrix}
-		$$
-		avec $\theta = \nu+\omega$ \\
-		pour l'instant on est en 2D donc l'équation se simplifie par:
-		$$
-		X_l(\nu)=\begin{bmatrix}
-			r \cos\theta \\
-			r \sin\theta \\
-			0 
-		\end{bmatrix}
+		r_0(t,\lambda)=P_3(t)\lambda+(1-\lambda)P_1(t)
 		$$
 		
-		Maintenant que l'on connait la position du satellite on peut déterminer sa vitesse à l'aide de la formule suivante:
+		where $P_3$ and $P_1$ are computed using the Moon position and the formula that we show earlier.
+		
+		
+		
+		%étant donné que l'objectif est de faire une observation, on peut faire partir le satellite directement de la zone d'observation.
+		
+		%De plus la dimension de la zone étant très étirée (environ $10000km\times100km\times100km$) on peut considérer que le satellite coupera forcement le segment $[P_3,P_1]$, on peut donc décrire la position initiale du satellite à l'aide de l'anomalie vraie de la lune $\nu$ et un scalaire $\lambda$ entre 0 et 1. la position initiale du satellite devient : 
+		%$$
+		%S_0=\lambda(P_1-P_3)+P_3(R_l(\nu))
+		%$$
+		
+		as we have fixed the semi major axis of the device wa can conclude its speed using this formula :
 		
 		$$
-		||\dot{S}(0)||=\sqrt{\frac{2\mu}{||S_0||}-\frac{\mu}{a_s}}
+		||\dot{r}(0)||=\sqrt{\frac{2\mu}{||S_0||}-\frac{\mu}{a_s}}
 		$$
 		
-		on peut ensuite determiner l'orientation de la vitesse initiale avec deux angles $\theta_s$ et $\phi_s$.
 		
-		la dynamique du satellite et de la lune doivent être calculé pour calculer le temps de l'observation.
+		we then just have to choose the direction of the speed vector $\dot{r}_0$ using two angle $\theta_s$ and $\phi_s$.
 		
-		on à la dynamique suivante :
+		%on peut ensuite determiner l'orientation de la vitesse initiale avec deux angles $\theta_s$ et $\phi_s$.
+		
+		%la dynamique du satellite et de la lune doivent être calculé pour calculer le temps de l'observation.
+		
+		%on à la dynamique suivante :
+		
+		we must compile the dynamics of the device in order to get the observation time. Here's the dynamics : 
 		
 		$$
 		\begin{bmatrix}
 			\dot{\overrightarrow{R_{s}}}\\
 			\dot{\overrightarrow{V_{s}}}\\
-			\dot{\overrightarrow{R_{l}}}\\
-			\dot{\overrightarrow{V_{l}}}
 		\end{bmatrix} =\begin{bmatrix}
 			\overrightarrow{V_{s}}\\
-			\frac{-\mu }{||R_{s} ||^{3}}\overrightarrow{R_{s}}\\
-			\overrightarrow{V_{l}}\\
-			\frac{-\mu }{||R_{l} ||^{3}}\overrightarrow{R_{l}}
+			\frac{-\mu_l }{||R_{s}-R_{l} ||^{3}}(\overrightarrow{R_{s}}-\overrightarrow{R_{l}}) + \frac{-\mu_t }{||R_{s}-R_{t} ||^{3}}(\overrightarrow{R_{s}}-\overrightarrow{R_{t}})\\
 		\end{bmatrix}
 		$$
 		
-		avec comme condition initiale :
-		
+		%avec comme condition initiale :
+		with as initial condition
 		
 		$$
 		\begin{bmatrix}
-			\overrightarrow{R_{s0}}\\
-			\overrightarrow{V_{s0}}\\
-			\overrightarrow{R_{l0}}\\
-			\overrightarrow{V_{l0}}
+			\overrightarrow{R_{0}}\\
+			\overrightarrow{V_{0}}\\
 		\end{bmatrix} =\begin{bmatrix}
 			\lambda \left(\widehat{P_{1}} -\widehat{P_{3}}\right) +R_{lt} +\frac{\widehat{P_{3x}}}{D} R_{ls}\\
-			\sqrt{\mu \left(\frac{2}{||R_{s0} ||} -2\right)}\widehat{v_{0}}( \theta _{s} ,\phi _{s})\\
-			r( \nu )\begin{bmatrix}
-				( \cos\Omega \cos\theta -\sin\Omega \sin\theta \cos\ i)\\
-				( \sin\Omega \cos\theta +\cos\Omega \sin\theta \cos\ i)\\
-				\sin\theta \sin\ i
-			\end{bmatrix}\\
-			\sqrt{\frac{\mu }{p}}\begin{bmatrix}
-				-\cos\Omega ( \sin\theta +e\ \sin\omega ) -\sin\Omega ( \cos\theta +e\ \cos\omega ) \cos\ i\\
-				-\sin\Omega ( \sin\theta +e\ \sin\omega ) +\cos\Omega ( \cos\theta +e\ \cos\omega ) \cos\ i\\
-				( \cos\theta +e\ \cos\omega ) \sin\ i
-			\end{bmatrix}
+			\sqrt{\mu \left(\frac{2}{||R_{0} ||} -\frac{1}{a_s}\right)}\widehat{v_{0}}( \theta _{s} ,\phi _{s})\\
 		\end{bmatrix}
 		$$
 		
-		la dynamique devra être simulée après et avant l'état initial pour trouver l'instant où l'objet entre et sort de la zone.
+		the differential equation must be solve before and after the initial time $t_0$ to get the time when the device exit and enter the observation zone.
+		%la dynamique devra être simulée après et avant l'état initial pour trouver l'instant où l'objet entre et sort de la zone.
 		
-		la fonctions d'objectif est définit comme suit :
+		%la fonctions d'objectif est définit comme suit :
+		the payoff function that will be used to evaluate the interest of one observation is defined as follow
 		
 		$$
 		\int_{-\tau_d}^{\tau_u}dx=\tau_d+\tau_u
 		$$
 		
-		où $\tau_d$ est l'instant où l'objet rentre dans la zone d'observation et $\tau_u$ l'instant où l'objet en sort.
+		%où $\tau_d$ est l'instant où l'objet rentre dans la zone d'observation et $\tau_u$ l'instant où l'objet en sort.
 		
-		l'équation utilisé pour vérifier si l'objet est dans la zone est l'équation (2).
+		where  $\tau_d$ and $\tau_u$ are the time when the device enter and exit the observation zone.
 		
-		les paramètre de contrôle sont :
+		we will use the equation (2) to evaluate if the device is in the observation zone at a time $t$.
+		
+		%l'équation utilisé pour vérifier si l'objet est dans la zone est l'équation (2).
+		
+		%les paramètre de contrôle sont :
+		
+		to conclude we have the following variables : 
 		
 		\begin{itemize}
-			\item la position de la lune $\nu$ qui définit la position de la zone d'observation.
-			\item la position initiale $\lambda$ de l'objet dans la zone d'observation qui est simplifier par un segment allant de $P_3$ à $P_1$. 
-			\item les angles $\theta_s$ et $\phi_s$ qui définissent l'orientation de la vitesse de l'objet.
+			\item the initial time $\t_0$ that is used to determine intial position of the observation zone and bodies of the system.%qui définit la position de la zone d'observation.
+			\item the initial position within the observation zone $\lambda$ %de l'objet dans la zone d'observation qui est simplifier par un segment allant de $P_3$ à $P_1$. 
+			\item the angles $\theta_s$ et $\phi_s$ that defined the intial direction of the object speed.% qui définissent l'orientation de la vitesse de l'objet.
 		\end{itemize}
 		
 		on a donc un espace de dimension 4 :
@@ -328,7 +332,7 @@
 		
 		We managed to get observation time this long because the speed of the object and the observation Zone are equivalent. Meaning that the device can stay in the observation zone for a long time. As the Observation Zone velocity are nearly the same as the Moon, we can simplify for now by saying that the device must have the same speed as the Moon.
 		
-		The satellite describe a loop inside the observation zone, meaning that it is possible to get two fairly long observation very near to each other if the tip of the loop is outside of the observation zone. Even if there is a good chance that these solutions are less efficient that a solution with the entire loop inside the observation zone, it could be usefull to improve the objective function to detect when the object reenter the observation zone after a short time.
+		The satellite describe a loop inside the observation zone, meaning that it is possible to get two fairly long observation very near to each other if the tip of the loop is outside of the observation zone. ascending if there is a good chance that these solutions are less efficient that a solution with the entire loop inside the observation zone, it could be usefull to improve the objective function to detect when the object reenter the observation zone after a short time.
 		
 		For the model implemented, i've intentionally kept high value of $\alpha$ to ensure that the loop stayed in the observation zone.		
 		
@@ -337,9 +341,7 @@
 		The satellite can have the same speed vector as the moon only if the following equation is verified : 
 		
 		$$
-		\begin{align}
-			\sqrt{\frac{2\mu}{R_s}-\frac{\mu}{a_s}}&=\sqrt{\frac{2\mu}{R_l}-\frac{\mu}{a_l}}
-		\end{align}
+		\sqrt{\frac{2\mu}{R_s}-\frac{\mu}{a_s}}&=\sqrt{\frac{2\mu}{R_l}-\frac{\mu}{a_l}}
 		$$
 		
 		Considering that the moon's speed is constant (because of its small eccentricity) and that the period of the device is the same as the moon (ie $a_s=a_l$), we get the relation :
@@ -362,19 +364,21 @@
 		
 		A question that could arise from these observation can be about the importance of the device period over its speed in the observation zone. In other word, maybe it is better to force the device to match the speed of the observations zone instead of making it matcht the speed needed to get a fixed period.
 		
-		To answer this question i've made a quick test where for a set of position of the observation zone i've lanched the device with the same velocity vector as the observation zone, the result gave pretty high observation time of multiple hours, with the lowest possible time occuring when the observation time is near the Earth. This is not a problem as this kind of trajectory where not possible anyway because it require speed of around $1 km\cdot s^2$.
+		To answer this question i've made a quick test where for a set of position of the observation zone i've lanched the device with the same velocity vector as the observation zone, the result gave pretty high observation time of multiple hours, with the lowest possible time occuring when the observation time is near the Earth. This is not a problem as this kind of trajectory where not possible anyway because it require speed of around $1 km\cdot s^2$ at low altitudes.
 		
 		We can also see Three main peak, the first two are the one we find earlier with observations time of around 18 hours, and there a third one that is a little bit higher with observation time of around 24 hours.
 		
 		The fact that we make longer observation when the speed of of the observation zone match the speed of a circular orbit at its current position could be linked to the fact that the radial speed of the device start decreasing after crossing this altitude which could allow the device to make an oscilation around the observation point.
 		
-		about the last peak, the proximity of the observation from the Earth umbra and the fact that the corresponding device will have around the energy to escape the Earth sphere of influence (the speed of the Moon two time further than the Moon) make it not the better choice for reapeated observation
+		about the last peak, the proximity of the observation from the Earth umbra and the fact that the corresponding device will have around the energy to escape the Earth sphere of influence (the speed of the Moon two time further than the Moon) make it not the better choice for reapeated observation.
+		
+		It could be an improvement of the method to drop the constraint on the speed norm and add a parameter for it but tests show worse result in most case even if we take initial value close to the optimum, likely caused by a complexity of the space of solution that make good solution harder to find. I've also noticed that observation time were higher when the period of the device was slightly reduced (around 0.92 Lunar period). I didn't manage to find the exact cause of this pheonomenon, i think it might be related to the observation zone speed being different from the moon's .This mean that i didn't find a way to improve the model to take advantage of that point. Just know that for the rest of this article the value of the device period was fixed at 0.92 as it give longer observation time.
 		
 		\subsection{finding initial guess}
 		
 		Now that we know where the observation roughly are we can create an algorithm that could easily find initial guess to find observation.
 		
-		as the speed of the device is constrained by its semi major axis (by the equation $\sqrt{\frac{2\mu}{R_s}-\frac{\mu}{a_l}$), we just have to find the point where the observation zone speed matches the speed of the device.
+		as the speed of the device is constrained by its semi major axis (by the equation $\sqrt{\frac{2\mu}{R_s}-\frac{\mu}{a_l}}$), we just have to find the point where the observation zone speed matches the speed of the device.
 			
 		If we consider that the observation zone center is at the position of the point $P_{2x}$ we get :
 		
@@ -428,63 +432,33 @@
 		
 		At last we can compute the vector $X_0$ for each of these time and then apply the real method to compute the best set of value for each observation.
 		
+		\begin{figure}[h]
+			\includegraphics[width=1\textwidth]{images/observation_zone_year_scaled.png}
+			\caption{descending observation zone over the course of one year, the position of the moon and the device is also added, the result show in this graph doesn't take in accout the variation of the moon orbit caused by the sun}
+		\end{figure}
+		
+		\subsection{impact of alpha on the observation time}
+		
+		i've made a few test of the algorithm with mulitple value of alpha. I've fetch all observations happening between january 4th of 2025 and january 2nd of 2027. here's the observations time we got from theses:  
+		\begin{center}
+			\begin{tabular}{||c||c c c c c||} 
+				\hline
+				alpha & 10\% & 5\% & 2\% &1\% & 0.5\% \\ [0.5ex] 
+				\hline\hline
+				maximum & 28h01min & 21h26min & 15h02min &11h31min & 8h46min \\ 
+				\hline
+				minimum & 23h30min & 18h00min & 12h42min &9h42min& 6h34min \\
+				\hline
+				median & 25h26min & 19h29min & 13h40min &10h30min& 8h06min\\
+				\hline
+				mean & 25h35min & 19h35min & 13h47min &10h33min& 8h04min\\ 
+				\hline
+			\end{tabular}
+		\end{center}
+		
+		the result with the observation zone at 5\% will be used in the rest of the article.
+		
 		\section{low thrust transfert}
-
-		now that we know that the best configuration to make observation are with no relative speed, it mean that we can compare the different $\Delta v$ needed to transfert from one observation to another.
-		
-		the goal of this computing is to get an idea of which subset of observations could be done (as it is very likely that we won't be able to make the device attend all the observations).
-		
-		For now we will consider the simulation over one year, with the earth at the origin, the sun moving around the earth along a perfect circle with a radius of one UA at a constant speed and. The moon moving allong a keplerian orbit with the following component :
-		
-		$$
-		\begin{align}
-			\Omega&=0\\
-			\omega&=0\\
-			i&=5\\
-			e&=0.054\\
-			\nu&=0\\
-		\end{align}
-		$$
-		
-		The value of $\nu$ correspond to the true anomaly of the moon at time $t=0$ . the value of $\omega$ and $\Omega$ are set at 0 for now but we will test other value later.
-		
-		%as we can achieve zero velocity observation only if the distance of the Moon and the Earth and the distance between observation zone and the Earth are equal. Considering that the part where the observation is the more thickest is more likely to create long observation, we define the following payoff function to find optimum :
-		
-		we can achieve zero velocity observation if the velocity of the device at the observation zone ($\sqrt{\frac{2\mu}{R_s}-\frac{\mu}{a_l}$) is the same as the velocity of the observation zone. As the position of the point $P_{2x}$ is given by the following formula : 
-			
-			$$
-			P_{2x}=R_l+\frac{D_{p2}}{D_{ts}}(R_l-R_s)
-			$$
-			where $D_{p2}$ is the distance between the moon and the point $P_{2x}$ where the moon is at the origin.
-			so we have:
-			$$
-			\dot{P_{2x}}=\dot{R_l}+\frac{D_{p2}}{D_{ts}}(\dot{R_l}-\dot{R_s})
-			$$
-			
-			we can get from this the following payoff formula :
-			
-			$$
-			D_{obs}=\left(||\dot{P_{2x}}||-\sqrt{\frac{2\mu}{P_{2x}}-\frac{\mu}{a_l}}\right)^2
-			$$  
-			
-			ploting the value of this function over one year give the follwoing graph :
-			
-			%insert graph here
-			
-			we can see that we have a almost a symetric and a periodic function, this mean that we just need to find the first optimum and then we could compute good initial value to find the other optimum of the function using the following formulas : 
-			
-			$$
-			\begin{align}
-				O_{2n}_i&=nT-O_1+a\\
-				O_{2n+1}_i&=nT+O_1+a
-			\end{align}
-			$$
-			
-			where $T$ is the synodic period of the Moon,
-			$O_k_i$ is the initial value used to find the $k^{th}$ optimum of the function using a simple gradient descent method
-			$O_1$ is the value of the first optimum of the function relative to $a$.
-			
-			and $a$ is the first time the Sun-Earth-Moon system align (when projected on the ecliptic plane of earth) in this order, for now the value $a$ is equal to zero.
 			
 			\subsection{low thrust model}
 			
@@ -588,25 +562,51 @@
 			
 			the starting point of the device is the exting point where of starting observation and the ending point is the enter point of the ending observation.
 			
-			To simplify the next explication i will separate the observations into two category : the even observations and the odd observation. The odd observations are the first observation that happen on the moon orbit and the even one are the second one. another way to see this is to consider that the odd observations are the observation occuring when the device is aproaching earth and the odd observation is when the device is moving away from earth
+			To simplify the next explication i will separate the observations into two category : the ascending observations and the descending observation. The descending observations are observations happening when the moon is around it last crescent, in this configuration the device must aproach Earth to make an observation. The ascending observation is the opposite, happening when the moon is around its first crescent and needed the device to moving away from earth.
 			
 			\subsection{observation}
-			The algorithm had a lot of struggle to find an optimum for moving to two adjacent observations, which was excpected as the two orbit of adjacent optimum are very different and the time interval is small meaning that important $\Delta_v$ are needed to move from the starting point to the ending point. hovewer the algorithm find solution for transition between even observation and between odd observation. This was also excpected as the starting and objective orbit are very similar with the main difference being only a rotation of $\frac{P_{moon}}{P_{sol}}2\pi $ rad caused by the movement of the sun.
+			The algorithm had a lot of struggle to find an optimum for moving to two adjacent observations, which was excpected as the two orbit of adjacent optimum are very different and the time interval is small meaning that important $\Delta_v$ are needed to move from the starting point to the ending point. hovewer the algorithm find solution for transition between ascending observation and between descending observation. This was also excpected as the starting and objective orbit are very similar with the main difference being only a rotation of $\frac{P_{moon}}{P_{sol}}2\pi $ rad caused by the movement of the sun.
 			\\ \\
 			for 1 in 2 transfert, the maximum acceleration found was betweeen $170 \mu{N}\cdot\text{Kg}$ and $200 \mu{N}\cdot\text{Kg}$ which is around the acceleration we can get from electric engine but not from solar sail.
 		
-			there are also another type of transfert that caught my interest, it is transfert from odd observation to even observation (1 in 3 transfert starting from odd observation) which seem to be very easy to do with maximum acceleration ranging from  $50 \mu{N}\cdot\text{Kg}$ to $95 \mu{N}\cdot\text{Kg}$. It truned out that the angle between an odd orbit and a even orbit orbit is around the same length of the angle describe by the movement of the sun in $\frac{4}{3}$ of the moon synodic period, this mean that the starting and ending orbit in such transfert are almost the same with the only main task being to change the true anomaly. This transferts could look like they are a good alternative to reduce maximum acceleration during transfert but the problem is that once we reached the odd observation, we have to make a transfert from even to odd and in this case the situation is reverse with the angles being added and not substracted, causing high maximum acceleration.
+			there are also another type of transfert that caught my interest, it is transfert from descending observation to ascending observation (1 in 3 transfert starting from descending observation) which seem to be very easy to do with maximum acceleration ranging from  $50 \mu{N}\cdot\text{Kg}$ to $95 \mu{N}\cdot\text{Kg}$. It truned out that the angle between an descending orbit and a ascending orbit orbit is around the same length of the angle describe by the movement of the sun in $\frac{4}{3}$ of the moon synodic period, this mean that the starting and ending orbit in such transfert are almost the same with the only main task being to change the true anomaly. This transferts could look like they are a good alternative to reduce maximum acceleration during transfert but the problem is that once we reached the descending observation, we have to make a transfert from ascending to descending and in this case the situation is reverse with the angles being added and not substracted, causing high maximum acceleration.
 			\\ \\
-			In fact making fewer observation doesn't seem to reduce the maximum acceleration needed or even the $\Delta_{V}$ which could look counter intuitive at first glance but is not when we think aboout the fact that orbits become increasingly different from each other with time. This mean that there shold be some kind of minimum power needed for making observations which must be around the amount of power needed to rotate the observation orbit by $360^\circ$ every year. Though it is possible to jump a lot of observations to the point that we don't need to rotate the orbit all around the Earth. Like with the obvious example of making an observation every year, when the sun is roughly at the same place relative to the Earth-Moon system. But the counter part is that we will be making way less observations ... at most one every 6 mouths. 
+			In fact making fewer observation doesn't seem to reduce the maximum acceleration needed or ascending the $\Delta_{V}$ which could look counter intuitive at first glance but is not when we think aboout the fact that orbits become increasingly different from each other with time. This mean that there shold be some kind of minimum power needed for making observations which must be around the amount of power needed to rotate the observation orbit by $360^\circ$ every year. considering the result that we have now, the device should be able to deliver a delta V of around $5Km\cdot s^{-1} $ every year, which is not that far of what solar sail could do , but we don't take in account here the constraint given by solar sail that will likely increase this value.
+			
+			
+			
+			 with this said it is possible to jump a lot of observations to the point that we don't need to rotate the orbit all around the Earth. Like with the obvious example of making an observation every year, when the sun is roughly at the same place relative to the Earth-Moon system. But the counter part is that we will be making way less observations ... at most one every 6 mouths. 
+			
+			here some illustration to better understand the different possible transfert (note that theses graphics show approximative position of observations orbits and are not made from real data):
+			
+			\begin{figure}[h]
+				\includegraphics[width=0.5\textwidth]{images/1in2obs.png}
+				\includegraphics[width=0.5\textwidth]{images/odd_to_even.png}
+				\includegraphics[width=0.5\textwidth]{images/1in3_obs.png}
+				\includegraphics[width=0.5\textwidth]{images/1in3_bad.png}
+			\end{figure}
+			
+			here we can see that the top left transfert (descending observations to descending observation) is relatively easy to do with having to rotate a little bit the orbit in around 29 days. Hovewer, making a transfert from and descending to ascending observations like in the top right  would need the device to make a bigger change in orbit in abour 3 times less time. moving from ascending to descending observation will be even harder as the orbit move apart from each other instead of getting closer.
+			
+			the bottom left illustration show the easiest transfert where the sun magnitude change compensate almost exactly the angle between descending and ascending observation making the transfert only a question of changing the true anomaly.
+			
+			like for the two other transfert, moving from ascending to descending observation are harder as the sun magnitude change cumulate instead of cancelling the angle between descending and ascending observation. 
+			
+			
+			
 			\subsection{scenario with solar sail}
 			
-			Using solar sails with their actual performance level (around $50\mu{m}\cdot\text{s}^2$) won't allow to make a lot of observations, with the only plausible scenario that far could be to make an odd observation follow by a even observation 40 days later taking advantage of the low maximum acceleration of these transfert. Then spend multiples mounths aligning for another odd observations and repeating the process in a cycle of at least 8 mouths which is still way better than what we could do on Earth. But even this scenario may be infeasible once the additional sail constraint on the control are added.
+			Using solar sails with their actual performance level (around $50\mu{m}\cdot\text{s}^2$) won't allow to make a lot of observations, with the only plausible scenario that far could be to make an descending observation follow by a ascending observation 40 days later taking advantage of the low maximum acceleration of these transfert. Then spend multiples mounths aligning for another descending observations and repeating the process in a cycle of at least 8 mouths which is still way better than what we could do on Earth. But ascending this scenario may be infeasible once the additional sail constraint on the control are added.
 			
 			another possibility could be about the third observation that i had consider to too impractical to be usefull at first but may give better result when making only a few observation per years.
 			
 			\subsection{scenario with electric propulsion}	
 			\\ \\
-			What look like the best scenario at this point would be to put two devices capable of delivering acceleration of the order of $300\mu{m}\cdot\text{s}^2$, one for the odd observation and one for the even observation. This would allow to attends every observations which mean that we will be able to observe the solar corona around $2.8\%$ of the mission time with even the possibility of observing the sun and the sun corrona at the same time if one device aim at the sun during the observation of the other device
+			What look like the best scenario at this point would be to put two devices capable of delivering acceleration of the order of $300\mu{m}\cdot\text{s}^2$, one for the descending observation and one for the ascending observation. This would allow to attends every observations which mean that we will be able to observe the solar corona around $2.8\%$ of the mission time with ascending the possibility of observing the sun and the sun corrona at the same time if one device aim at the sun during the observation of the other device.
+			
+			To get more data about these scenario i've added the equation of mass to the dynamics of the system. for the next result i've use the following theoretical spacecraft : 
+			
+			the device has $50Kg$ of payload with $40Kg$ of fuel, the engine used is the RIT-10 evo from 
 			 
 	
 		\end{document}
