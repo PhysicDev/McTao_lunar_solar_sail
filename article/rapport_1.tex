@@ -4,7 +4,7 @@
 \usepackage{amssymb}
 \usepackage{amsmath} % \usepackage is a command that allows you to add functionality to your LaTeX code
 
-\title{Mission d'occulatation lunaire} % Sets article title
+\title{Solar crown observation mission study} % Sets article title
 \author{Vincent Callegari} % Sets authors name
 \date{\today} % Sets date for date compiled
 \usepackage{graphicx}
@@ -16,23 +16,26 @@
 		\section{observation zone}
 		\subsection{computing the position of the observation zone}
 		
-		during the study of these problems, we will take the earth as the orgin in cartesian coordinate. The axis Earth-Sun at time t0 will be defined as the X axis and the axis X and Y define the earth ecliptic plane. 
+		At first for simplify things we will first consider that the sun and the occulting body are aligned along the X axis.
 		
-		for now we fix the time at (0,0)
-		
+		\begin{figure}[h]
+			\includegraphics[width=10cm]{images/moon_schem.png}
+			\caption{major points of the observation zone }}
+		\end{figure}
+			
 		%durant l'étude de ces problèmes, on se place dans %le référentiel de la Terre avec des coordonnées %cartésienne, l'axe Terre-Soleil étant l'axe X avec
 		%l'axe Y colinéaire au plan écliptique de la Terre. 
 		
-		a point is in the observation zone if the sun is totally hidden and the crown is visible around the occulting body. This zone has the shape of a double cone that we can represent by the rotation of a triangle.
+		A point is in the observation zone if the sun is totally hidden and the crown is visible around the occulting body. This zone has the shape of a double cone that we can represent by the rotation of a triangle.
 		
 		%un point est dans la zone d'observation quand le %soleil est totalement masqué et que la couronne %est visible autour de l'astre occultant. Cette %zone à la forme d'un double cône que l'on peut %représenter comme la rotation d'un losange %mettre un schéma pour être plus clair.
 		
-		the triangle could be defined by its three points
+		The triangle could be defined by its three points
 		$P_1$,$P_2$ et $P_3$, with as coordinates $(P_{1x},0,0)$ , $(P_{2x},P_{2y},0)$,$(P_{3x},0,0)$ 
 		
 		%le losange peut être définit par 3 points %$P_1$,$P_2$ et $P_3$, ayant pour coordonnée %$(P_{1x},0)$ , $(P_{2x},P_{2y})$,$(P_{3x},0)$ avec %$\hat{x}$ le long de l'axe lune soleil.
 		
-		the value of $P_{1x}$ and $P_{3x}$ can be easily computed usingt the Thales theorem.
+		The value of $P_{1x}$ and $P_{3x}$ can be easily computed using the Thales theorem.
 		
 		%les valeurs de $P_{1x}$ et $P_{3x}$ peuvent être %facilement calculée en utilisant le théorème de %Thalès :
 		
@@ -43,10 +46,10 @@
 		P_{3x}=\frac{\bar{D}R_l}{R_s(\alpha+1)-R_l}
 		$$
 		
-		where $\bar{D}$ is the Solar-Moon distance, $R_s$ the Solar Radius ,$R_l$ the Lunar radius and $\alpha$ is the solar crown's added size in solar radius (the more $alpha$ is near of zero the more the solar crown's radius is near of the solar raidus meaning that we will observe part of the crown near of the solar surface)
+		Where $\bar{D}$ is the Solar-Moon distance, $R_s$ the Solar Radius ,$R_l$ the Lunar radius and $\alpha$ is the solar crown's added size in solar radius (the more $alpha$ is near of zero the more the solar crown's radius is near of the solar radius meaning that we will observe part of the crown near of the solar surface)
 		%où $\bar{D}$ est la distance Soleil-lune, $R_s$ le rayon solaire ,$R_l$ le rayon lunaire et $\alpha$ est la taille supplémentaire de la couronne solaire par rapport au rayon solaire( plus $alpha$ est proche de 0 plus on observera des parties de la couronne proche de la surface du soleil).
 		
-		we can then compute the position of $P_2$ by computing the intersection of the lines linking the surface of the Moon and the points $P_1$ and $P_3$
+		We can then compute the position of $P_2$ by computing the intersection of the lines linking the surface of the Moon and the points $P_1$ and $P_3$
 		
 		%on peut ensuite calculer la position de $P_2$ en calculant l'intersection des lignes reliant la surface de la Lune au points $P_1$ et $P_3$ : 
 		
@@ -69,18 +72,23 @@
 		with $\alpha=0.05$
 		
 		\subsection{approximation of the zone}
-		the Position of the points $P_1$,$P_2$ and $P_3$ relative to the moon will change depending of the moon position around the earth, hovewer the shape of the the zone in itself will not change much (with a dimension error smaller than 0.5\%)
+		
+		We could use directly the result obtained earlier in the simulation but as checking if the device is in the observation zone will be one of the most reapeated computing of the code i think it is usefull to look for approximation that could reduce computing.
+		
+		The Position of the points $P_1$,$P_2$ and $P_3$ relative to the moon will change depending of the moon position around the earth, hovewer the shape of the the zone in itself will not change much (with a dimension error smaller than 0.5\%)
 		
 		%la position des points $P_1$,$P_2$ et $P_3$ par rapport à la Lune vont changer en fonction de sa position autour de la Terre. Cependant la forme de la zone en elle même varie assez peu (les dimensions variant de moins de 0.5\%).
 		
-		we can obtain a good approximation of the observation zone at any position of the moon around the Earth by computing the shape of the observation zone with the moon at the origin and then move it and rotate it to place it at the right position.
+		We can obtain a good approximation of the observation zone at any position of the moon around the Earth by computing the shape of the observation zone with the moon at the origin and then move it and rotate it to place it at the right position.
 		%On peut donc obtenir une bonne approximation de la zone d'observation où que se trouve la Lune autours de la Terre en calculant la forme de la zone d'observation lorsque la Lune se trouve à la place de la Terre puis de la déformer pour se positionner là où se trouve la Lune.
 		
 		
 		
-		We name $\hat{P_1}$, $\hat{P_2}$ and $\hat{P_3}$ the points of the observation zone when the moon is at the origin. the points $P_1$ and $P_3$ are collinear with the vector $R_{ls}$ witch are the position of the Moon relative to the Sun.
+		We name $\hat{P_1}$, $\hat{P_2}$ and $\hat{P_3}$ the points of the observation zone when the moon is at the origin (which is fixed at the average distance between the Earth and Sun $D$). the points $P_1$ and $P_3$ are collinear with the vector $R_{ls}$ witch are the position of the Moon relative to the Sun.
 		
-		Also the points $\hat{P_1}$ $\hat{P_3}$ are colinear with the X axis. We can conclude of the following formula of the points $P_3$ and $P_1$
+		As the value of $P_1$ and $P_3$ are proportional to the distance between the Moon and Sun 
+		
+		Also we take the points $\hat{P_1}$ $\hat{P_3}$ so they are colinear with the X axis. We can conclude of the following formula of the points $P_3$ and $P_1$.
 		
 		%On nomme $\hat{P_1}$, $\hat{P_2}$ et $\hat{P_3}$ les points de la zone d'observation quand la Lune est à la place de La Terre. Les points $P_1$ et $P_3$ sont colinéaire avec le vecteur $R_{ls}$ qui représente la position de la Lune par rapport au Soleil.
 		%De plus les points $\hat{P_1}$ $\hat{P_3}$ sont colinéaire avec l'axe X. On peut en déduire les formules suivantes de la position de $P_3$:
@@ -97,19 +105,18 @@
 		$$
 		
 		%vérifier si un point $S$ est dans la zone d'observation revient à vérifier les inégalités suivantes:
-		a point $S$ is consider in the observation zone if the following inequality are verified : 
+		A point $S$ is considered in the observation zone if the following inequality are verified : 
 		
 		$$
 		\begin{equation}
 			\begin{align}
 				||a||&<||b||p_1\\
 				||a||&<O-||b||p_2\\
-				||S||&<||P_3||
+				||S||&>||P_3||
 			\end{align}	
 		\end{equation}
 		$$
 		
-		note that the last condition was added just to avoid a symetric virtual zone that will appear before the $P_3$ point because of the symetry of the norm function.
 		
 		with $b$ being the projection of $S-P_3$ on the axis Sun-Moon, $a=S-P_3-b$. $p_1$, $p_2$ and $O$ are real value: here this parameter will be approximated by their value when the Moon is at the origin :
 		
@@ -123,27 +130,32 @@
 		\end{align}	
 		$$ 
 		
+		Note that the last condition was added just to avoid a symetric virtual zone that will appear before the $P_3$ point because of the symetry of the norm function.
+		
 		%En supposant que la forme de la zone d'observation varie peu lorsque la lune se déplace, on peut utiliser les même coefficients où que se trouve la Lune.
 		
 		%Si on souhaite avoir une approximation un peu plus précise on peu prendre en compte la variation la plus importante sur la forme de la zone d'observation étant la variation de la longueur de la zone.
 		
-		if we want to increase the precision of the observation zone we can take in account the variation in length of the observation zone by scaling the parameter $b$ by 
+		If we want to increase the precision of the observation zone we can take in account the variation in length of the observation zone by scaling the parameter $b$ by
 		
 		%On peut prendre en compte cette variation en multipliant $b$ par
 		
-		$\frac{||\hat{P_1}-\hat{P_3}||}{||P_1-P_3||}$		
+		$\frac{||\hat{P_1}-\hat{P_3}||}{||P_1-P_3||}$
+		
+		This approximation is quite precise because the real equation of the point $P_1$,$P_{2x}$ and $P_3$ are linea, meaning there is an error only on the position of $P_{2y}$.
+		
 		\subsection{numeric application}
-		we have the following distances : 
+		We have the following distances : 
 		$$
 		\begin{align}
 			R_l&=1.7374\times10^6 m \\
 			R_s&=6.955\times10^8 m \\ 
 			D_{sl}&=1.496\times10^{11} m \\
-			\Delta_D=2D_{tl}&= 7.69496\times10^8 m
+			\Delta_D=2D_{el}&= 7.69496\times10^8 m
 		\end{align}
 		$$
 		
-		we get the following value for the point of the Zone for $\alpha=0.05$
+		We get the following value for the point of the Zone for $\alpha=0.05$ with the moon at the origin
 		%on obtient les valeur suivantes pour les points de la zone pour $\alpha=0.05$
 		
 		$$
@@ -156,7 +168,7 @@
 		\end{align}
 		$$
 		
-		with
+		And here is the variation of these distance when value 
 		
 		$$
 		\begin{align}
@@ -170,9 +182,9 @@
 		$$
 		
 		
-		we can see that by using the approximation defined earlier, we are neglecting variation of order lower than thousand of killometer ($10^6 m$).If we add the optimisation on the value of $b$ we are now neglecting variation of order lower than ten killometerss ($10^4 m$) leaving only error of a couple killometers on the  posisiton of $P_{2x}$ which is not a lot against the size of the observation zone : (around $ 20000 km $ by $100 km$).
+		We can see that by using the approximation defined earlier, we are neglecting variation of order lower than thousand of killometer ($10^6 m$).If we add the optimisation on the value of $b$ we are now neglecting variation of order lower than ten killometerss ($10^4 m$) leaving only error of a couple killometers on the  posisiton of $P_{2x}$ which is not a lot against the size of the observation zone : (around $ 20000 km $ by $100 km$).
 		
-		about the error on $P_{2y}$ the error is of the order of a millimeter and can clearly be neglected.
+		About the error on $P_{2y}$ the error is of the order of a millimeter and can clearly be neglected.
 		
 		%on observe qu'en utilisant l'approximation définie plus tôt, on néglige les variation de l'ordre du millier de kilomètres ($10^6 m$). et en ajoutant l'optimisation supplémentaire sur la valeur de $b$ on néglige également les variation de l'ordre de la dizaine de kilomètre ($10^4 m$) ne laissant que les erreurs de l'ordre de quelques kilomètre sur la position de $P_2x$ ce qui ne change pas grand chose compte tenu de la grande longueur de la zone par rapport à son épaisseur (environ $ 20000 km $ contre $100 km$)
 		
@@ -189,17 +201,17 @@
 		
 		\subsection{definition of the problem}
 		
-		the problem is describe as follow :
+		The problem is describe as follow :
 		\\
 		The Earth Moon Sun system is simulated with the Sun being fixed at the origin. The Coordinate system is then centered without rotating it at the Earth Moon barycenter. The motion of the device is computed by taking in accoun the gravitional pull of the Earth an Moon but we don't apply the force of gravity of the sun, this mean that the device will experience the gravity of the sun as if it wa at the altitude of the Earth-Moon barycenter.This won't make a huge difference considering that the device will stay between 2 Moon-Earth distance from Earth. the trajectory of Earth and Moon will be precompute before running any optimisation algorithm.
 		
-		the initial position of the Earth and Moon that will be use in this article are their position in January 1st midnight, 2025. their position are retrieved on the horyzon system of Nasa : https://ssd.jpl.nasa.gov/horizons/app.html
+		The initial position of the Earth and Moon that will be use in this article are their position in January 1st midnight, 2025. their position are retrieved on the horyzon system of Nasa : https://ssd.jpl.nasa.gov/horizons/app.html
 		
 		%la lune suit une orbite circulaire autour de la Terre de rayon $a=384000km$.
 		
 		%la forme de la zone d'observation de la Lune est considérée comme étant égale à la zone d'observation de la lune si elle se trouvait à l'origine (la position de la terre). La position du point $P_3$ est déterminé par la formule suivante:
 		
-		we consider the position and shape of the observation using the formula and approximation defined earlier, with the initial value of the observation zone being computed if the moon was at the origin at time t0.
+		We consider the position and shape of the observation using the formula and approximation defined earlier, with the initial value of the observation zone being computed if the moon was at the origin at time t0.
 		this give the following equation :
 		$$
 		P_3(R_l)=R_{l}+\hat{P_{3x}}D^{-1}R_{ls}

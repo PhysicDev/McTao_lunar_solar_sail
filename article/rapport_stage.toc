@@ -1,0 +1,12 @@
+\contentsline {section}{\numberline {1}Introduction}{3}{}%
+\contentsline {subsection}{\numberline {1.1}la problèmatique}{3}{}%
+\contentsline {section}{\numberline {2}travail demandé}{4}{}%
+\contentsline {subsection}{\numberline {2.1}objectif du stage}{4}{}%
+\contentsline {subsection}{\numberline {2.2}tâches}{4}{}%
+\contentsline {section}{\numberline {3}travail effectué}{5}{}%
+\contentsline {subsection}{\numberline {3.1}première observations}{5}{}%
+\contentsline {subsection}{\numberline {3.2}calcul des observations}{5}{}%
+\contentsline {subsection}{\numberline {3.3}contrôle optimal}{7}{}%
+\contentsline {subsection}{\numberline {3.4}analyse de résultat}{8}{}%
+\contentsline {section}{\numberline {4}Conclusion}{10}{}%
+\contentsline {subsection}{\numberline {4.1}compétence acquise}{10}{}%
