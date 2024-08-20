@@ -1,4 +1,8 @@
 
+
+%load initial parameters :
+pmeter=readtable("D:\storage\CODE\matlab\params.csv")
+
 %bodies radius
 Rsol=696000000;
 Rlun=1737000;
@@ -15,7 +19,7 @@ UA=149597870690;
 
 %distance relative de la terre lune.
 Dter=UA;
-alpha=0.05;
+alpha=pmeter.alpha;%0.05;
 
 %donnée sur la zone d'observation (calculer avec la lune à une distance de
 %Dter du soleil
@@ -42,8 +46,8 @@ ut=2*pi*sqrt(al^3/Muter);
 
 %information temporelle
 Synperiod=1.078;%synodic period of the Moon ( rough approximation )
-periodRatio=0.92;
-nbOpt=50;
+periodRatio=pmeter.Dperiod;%0.92;
+nbOpt=pmeter.nbOpt;%50;
 maxT=365*nbOpt/20*86400;
 
 %on normalise toutes les paramètres.
@@ -260,6 +264,7 @@ for i=1:(nbOpt/2)
     plotSol(Xoptimum(:,2*i),Xoptimum(1,2*i)+1,HSVvec(2*i,:));
 end
 grid on;
+
 
 %==========================================================================
 % generate vector usable for the method ObsTimeDE from a vector computed at lines 204-207. (we fixed the speed of the device to be aligned to the
@@ -549,6 +554,10 @@ function T=ObsTimeDE(X)
 end
 
 %==========================================================================
+% generate the initial position and velocity of the device from the vector
+% given in input of the method ObsTimeDE (it is separated from this method
+% because it could be used in multiple place)
+%==========================================================================
 function x0=makeX0DE4(X)
     global param;
     [Xl,Vl,Xe,Ve]=EarthMoonPos(X(1));%toCart(param.al,param.el,param.wl,param.Wl,param.Il,X(1));
@@ -568,6 +577,10 @@ function x0=makeX0DE4(X)
 end
 
 %==========================================================================
+% generate the initial position and velocity of the device from the vector
+% given in input of the method ObsTimeDE5 (it is separated from this method
+% because it could be used in multiple place)
+%==========================================================================
 function x0=makeX0DE5(X)
     global param;
     [Xl,Vl,Xe,Ve]=EarthMoonPos(X(1));%toCart(param.al,param.el,param.wl,param.Wl,param.Il,X(1));
@@ -586,6 +599,10 @@ function x0=makeX0DE5(X)
     x0=[R,V]';
 end
 
+%==========================================================================
+% do pretty much the same things as the method ObsTimeDE5 except it return
+% more informations about the observations (used after the optimisation to
+% fill the csv)
 %==========================================================================
 function [T,TS,TF,YS,YF,V]=infoObsDE5(X)
     global param;

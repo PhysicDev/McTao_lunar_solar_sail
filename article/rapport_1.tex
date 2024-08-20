@@ -372,7 +372,7 @@
 		
 		about the last peak, the proximity of the observation from the Earth umbra and the fact that the corresponding device will have around the energy to escape the Earth sphere of influence (the speed of the Moon two time further than the Moon) make it not the better choice for reapeated observation.
 		
-		It could be an improvement of the method to drop the constraint on the speed norm and add a parameter for it but tests show worse result in most case even if we take initial value close to the optimum, likely caused by a complexity of the space of solution that make good solution harder to find. I've also noticed that observation time were higher when the period of the device was slightly reduced (around 0.92 Lunar period). I didn't manage to find the exact cause of this pheonomenon, i think it might be related to the observation zone speed being different from the moon's .This mean that i didn't find a way to improve the model to take advantage of that point. Just know that for the rest of this article the value of the device period was fixed at 0.92 as it give longer observation time.
+		It could be an improvement of the method to drop the constraint on the speed norm and replace the two angle argument by a simple vector. Hovewer tests show worse result in most case when using only this algotithm to find solution while using this algorithm with the solution of the previous ones as initial condition barelly improve the solution.
 		
 		\subsection{finding initial guess}
 		
@@ -436,6 +436,12 @@
 			\includegraphics[width=1\textwidth]{images/observation_zone_year_scaled.png}
 			\caption{descending observation zone over the course of one year, the position of the moon and the device is also added, the result show in this graph doesn't take in accout the variation of the moon orbit caused by the sun}
 		\end{figure}
+		
+		the problem of this simplified model is that we fixed the period of the device at the period of the Moon which was an hypothesis to reduce thrust needed between transfert but not realy an argument for maximizing the observation time.
+		
+		in fact I've noticed that observation time were higher when the period of the device was slightly reduced (around 0.92 Lunar period). I didn't manage to find the exact cause of this pheonomenon, i think a better model than this one could be around...
+		
+		For the rest of this article the value of the device period was fixed at 0.92 as it give longer observation time. 
 		
 		\subsection{impact of alpha on the observation time}
 		
