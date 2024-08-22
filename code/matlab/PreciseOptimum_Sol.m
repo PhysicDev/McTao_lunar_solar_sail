@@ -273,7 +273,7 @@ grid on;
 function X=OptiConvert(vec)
     global param;
     V=norm(vec(8:10));
-    X=[vec(1),(param.DP2-param.DP3)/(param.DP1-param.DP3), vec(8),vec(9),vec(10)]%,sign(vec(9))*acos(vec(8)/norm(vec(8:9))),acos(vec(10)/V)];
+    X=[vec(1),(param.DP2-param.DP3)/(param.DP1-param.DP3),sign(vec(9))*acos(vec(8)/norm(vec(8:9))),acos(vec(10)/V)];
 end
 
 %==========================================================================
@@ -283,14 +283,15 @@ end
 % but with a fully free speed vector.
 %==========================================================================
 function [X,Y]=solveProblem(x0)
+    disp("o");
     %disp(["pos : ",val/S*360]);
     options = optimoptions('fminunc', 'Algorithm', 'quasi-newton',"Display","off","MaxFunctionEvaluations",1e3);
-    %ObsTimeDE(x0)
-    %fun = @(x) -ObsTimeDE(x); % Negate the function to find maximum
-    %[X, Y] = fminunc(fun, x0, options);
-    %temp=makeX0DE4(X);
-    %x02=[X,norm(temp(4:6))]
-    x02=x0;
+    ObsTimeDE(x0);
+    fun = @(x) -ObsTimeDE(x); % Negate the function to find maximum
+    [X, Y] = fminunc(fun, x0, options);
+    temp=makeX0DE4(X);
+
+    x02=[X(1),X(2),temp(4:6)'];
     fun = @(x) -ObsTimeDE5(x); % Negate the function to find maximum
     [X, Y] = fminunc(fun, x02, options);
 end
@@ -342,7 +343,6 @@ end
 %==========================================================================
 function [X,V,Xe,Ve]=EarthMoonPos(t)
     global MainSys;
-    
     Y=deval(MainSys,t);
     X0=Origin(Y);
     V0=SpeedOrigin(Y);
@@ -583,6 +583,7 @@ end
 %==========================================================================
 function x0=makeX0DE5(X)
     global param;
+    
     [Xl,Vl,Xe,Ve]=EarthMoonPos(X(1));%toCart(param.al,param.el,param.wl,param.Wl,param.Il,X(1));
     %XP3=[param.DP3,0,0];
     %XP1=[param.DP1,0,0];

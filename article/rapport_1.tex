@@ -8,10 +8,17 @@
 \author{Vincent Callegari} % Sets authors name
 \date{\today} % Sets date for date compiled
 \usepackage{graphicx}
+\usepackage[left=2cm, right=2cm]{geometry}
 \graphicspath{{./images/graph/}}
 % The preamble ends with the command \begin{document}
 	\begin{document}
-		\maketitle
+		\maketitle 
+		\includegraphics[width=1\textwidth]{images/eclipse_2.png}
+		\vfill
+		\includegraphics[width=3cm]{images/Logo_Reseau_Polytech.png} \hfill \includegraphics[width=3cm]{images/inria.png}
+		\newpage
+		\tableofcontents
+		\newpage
 		\section{introduction}%flemme de faire cette partie pour l'instant
 		\section{observation zone}
 		\subsection{computing the position of the observation zone}
@@ -455,9 +462,11 @@
 		
 		For the rest of this article the value of the device period was fixed at 0.92 as it give longer observation time. 
 		
+		I've also implemented an alternative method that use instead of the simplified model describe earlier the original model but with the speed fixed to the exact velocity of the observation zone. This method should include better optimum than the other models but test show slightly worse result (observation time around 30 minutes shorter). It is very likely that these error come from the fact that the optimum of this model are less obvious making them more difficult to find. Additionally this model run also slightly slower because of the differential we have to solve.
+		
 		\subsection{impact of alpha on the observation time}
 		
-		i've made a few test of the algorithm with mulitple value of alpha. I've fetch all observations happening between january 4th of 2025 and january 2nd of 2027. here's the observations time we got from theses:  
+		i've made a few test of the algorithm with mulitple value of alpha using the fixed period method. I've fetch all observations happening between january 4th of 2025 and january 2nd of 2027. here's the observations time we got from theses:  
 		\begin{center}
 			\begin{tabular}{||c||c c c c c||} 
 				\hline
@@ -624,7 +633,48 @@
 			
 			To get more data about these scenario i've added the equation of mass to the dynamics of the system. for the next result i've use the following theoretical spacecraft : 
 			
-			the device has $50Kg$ of payload with $40Kg$ of fuel, the engine used is the RIT-10 evo from 
+			the device has $50Kg$ of payload with $40Kg$ of fuel, the engine used is part of the RIT 10 electrics engine series. This engine was used in some real mission like the Smart 1 mission of ESA.
+			
+			with this example a transfert between two ascending or descending observations typically consume 300 grams of fuel. At this rate we could achieve mission of multiple years (around 6 years) if we consider the fuel as the only limiting factor in mission time.
 			 
+			 
+			 \section{Conclusion}
+			 
+			 \subsection{Results}
+			 
+			 In conclusion this work show that it is possible to get passive trajectory that stay in the observation zone for multiple hours or even more than a day depending of the constraint put on the $\alpha$ value or the position of the bodies of the system. This work consider two symetricals possibles orbits around the Earth that allow this kind of observation.
+			 
+			 Theses observations consist of eliptical orbit with orbital period close to the period of the Moon and with the trajectory being choosen to reach a velocity of zero relative to the observation zone making the device stay longer in the zone, there is also an additional factor making theses observation longer than other.It was theorised to be the fact that the observation happen at proximity of the circular orbit of same energy of the device's orbit but latest result show that this may be just a consequences of somehting more complicated that was simplified thanks to the hyphothesis of earliest models.
+			 
+			 The close range between the period of the device and the period of the Moon plus the high similarity between two obseravtions made the amount of energy needed to move the device from one orbit to another very small. Hovewer the results show that it was still too much for a modern solar sail. This is why the final code compute tranferts using low thrust ion engine.
+			 
+			 To finish I compute possibles transferts and, after making conclusion like the fact that energy needed for transfert are roughly proportional to the time, i conclude that the best scenario to maximized the observations time of the Solar coronna using an device using a low thrust ion engin would be to orbit the Earth along on of the orbit describe earlier and use the thruster to rotate the orbit along the normal of the ecliptic plane and adjust the true anomaly allowing to make one observations of mulitple hours (8h to 24h depending of the constraint on $\alpha$) every 29.5 days on average. The device could repeat this process for multiple years (around 6 years if we project the observations made in the example of this article). 
+			 \\ \\
+			 To obtain these result i've create two code :
+			 
+			 The First one is a Matlab code made to compute the observations, its goal is to find every observations that are like the ones describe above and return multiple information about them, like the starting and ending time of these observations as well as the state of the device at the start and end of the observation.
+			 This code consider the following model : 
+			 
+			 The Sun,Moon and Earth are simulated like a Three body system with the mass of the Earth-Moon system being neglected compared to the Sun's (ie the sun is fixed at 0,0). The device is simulated in the reference frame of the Earth Moon barycenter wihtout rotating it, the gravity of the Sun on the device is neglected meaning that the device will be attract to the Sun as if it was at the barycenter at all time. 
+			 The observation zone is computed using the method describe in the first part of this article, meaning that there are just an error of less than a killometer on the position of $P_2$.
+			 The algorithm use the method ode45 of Matlab to solve the differential equation.
+			 
+			 \\ \\
+			 The second code is made in Julia using a library of Optimal Control. Its goal is to test transfert from one observation to another one by solving a optimal control problem.
+			 
+			 
+			 
+			 
+			 
+			 
+			 \subsection{To continue}
+			 
+			 As this work was made in the frame of a four month internship, there are some elements of the project that may need to be explore further.
+			 The first step would be to make a lot of testing to get more information of the influence of the diverse parameters of the system, which one influence the observation time or the fuel consumed between transfert for example. Also I think that taking in acount the fuel used in the computing of the best observations may be important because it may be possible that reducing the length of a few observations by 1 hour for example could save enough fuel to maybe make one more observation of 20 hours.
+			 
+			 There also some scenario that were barrely explored that could be usefull, for example the idea of linking an descengin observation and a ascending one taking advantage of their high similirality because of the Sun movement . Then slowy moving to another observation 6 mounth later could be a good scenarion if the original required too much energy. There also the third observation that was discover later and havn't be studied at all and could be a good option for solar sail mission even if they seem less efficient than the ones already founded.
 	
+			 To conclude there are also the unknown caused that could explain the existence of the three optimum. The conjecture made so far was that making an observation by going in the same direction of the observation zone when it is at proximity of the same energy circular orbit has show to be the solution without being the exact one (using this method in the simplified model don't give good result in the true model). I think there are a mathematical reason of the existence of theses peak that, if we simplify some value and neglected other, become this conjecture.
+			 
+			 A last thing that could be done to make this project more usefull would be to consider all the other factor that would be needed in a real space mission, for example, it is known that there are dim dust cloud at the lagrange point L4 and L5 of the lunar orbit (see Kordylewsky dust cloud) and the observations could occurs near these points.
 		\end{document}
