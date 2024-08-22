@@ -23,7 +23,7 @@ using CSV
 using DataFrames
 using NLPModelsIpopt
 using Base.Filesystem
-
+using JLD2, JSON3
 
 function integral(f,t0,tf,N)
     h=(tf-t0)/N
@@ -50,7 +50,7 @@ end
 AddFolder("images")
 AddFolder("control")
 AddFolder("solGraph")
-
+AddFolder("solutions")
 
 function integral(f,t0,tf,N)
     h=(tf-t0)/N
@@ -147,49 +147,45 @@ reloadMoon=true;
 #loading CSV data
 println("loading data");
 if(load)
-    times=CSV.File("./times_2025.csv"; header=false) |> DataFrame #observations time info 
-    startObservation=CSV.File("./startOBS_2025.csv"; header=false) |> DataFrame #device position and speed when entering observation zone
-    endObservation=CSV.File("./endOBS_2025.csv"; header=false) |> DataFrame #device position and speed when exiting observation zone
+    times=CSV.File("./times.csv"; header=false) |> DataFrame #observations time info 
+    startObservation=CSV.File("./startOBS.csv"; header=false) |> DataFrame #device position and speed when entering observation zone
+    endObservation=CSV.File("./endOBS.csv"; header=false) |> DataFrame #device position and speed when exiting observation zone
     moonEarthPos=CSV.File("./Sun_Moon_Earth_jan_2025.csv"; header=true) |> DataFrame #position and velocity of moon and Earth at time t=0 (2025)
+    N=ncol(times);
 end
 
 #initiate variable : 
-startPoint=3 #starting observation ID
-endPoint=5 #ending observation ID
-Amax=5 #maximum acceleration (unused when minimizing Amax)
 muTer=1*39.478417604357425 #acceleration constant of earth
 muLun=1*0.483520433963301 #acceleration constant of moon
 muSol=1*1.314418294336131e+07 #acceleration constant of sun
 
-#device related variable (use of RIT 10 evo thruster):
-Isp=3000
-Mass=50
-FuelMass=40
-Thrust=0.025
+#device related variable (use data of RIT 10 evo thruster):
+Isp=3000 #isp in s
+Mass=50 #payload mass in kg
+FuelMass=40 #fuel mass in kg
+Thrust=0.025 #thrust force in N
 
-ud=384399000
-ut=2.371834349258416e+06
+#normalisation constant
+ud=384399000 #distance : Earth Moon mean distance
+ut=2.371834349258416e+06 #time Lunar mean period
 
-g0=9.80665;
+#thruster related computed variable
+g0=9.80665; 
 Q=Thrust/Isp/g0;
-
 NormThrust=0.02/ud*ut*ut;
-println("norm Thrust")
-println(NormThrust)
-println("débit : ")
-println(Q)
-println("norm débit : ")
 NormQ=Q*ut;
+println("normalized Thrust")
+println(NormThrust)
+println("flow : ")
+println(Q)
+println("normalized flow : ")
 println(NormQ)
-
-#ESA smart-1, données à verifier obtenu avec gemini
-#Amax ~= 222 µm/s²    6.5 km/s DV
 
 #compute the trajectory of the moon over 20 revolution (increase if needed)
 println("compute moon trajectory")
 
 if(reloadMoon)
-    tspan = (0,30)
+    tspan = (0,times[!,end][3]+1)
     prob3 = OrdinaryDiffEq.ODEProblem(lorenzSun!,vcat(Array(moonEarthPos[3,:]),Array(moonEarthPos[2,:])),tspan)
     odeMoonEarth3=OrdinaryDiffEq.solve(prob3,OrdinaryDiffEq.Tsit5(), reltol=1e-12, abstol=1e-12)
 end
@@ -198,6 +194,10 @@ end
 # on part de la sortie de la zone d'observation de départ
 # jusqu'à l'entrée de la zone d'observation d'arrivée
 #
+
+startPoint=3 #starting observation ID
+endPoint=5 #ending observation ID
+
 ENDOBS=startObservation[!,endPoint]
 STARTOBS=endObservation[!,startPoint]
 
@@ -208,13 +208,13 @@ fun(t)=t
 
 if(resolve)
     #objective value of the problem (0 mean not computed)
-    objective_output=zeros(50,50)
-    deltas_V=zeros(50,50)
-    mass=zeros(2,50)
+    objective_output=zeros(N,N)
+    deltas_V=zeros(N,N)
+    mass=zeros(2,N)
     
-    sols=Array{Any}(undef, 50,50)
+    sols=Array{Any}(undef, N,N)
     #s = readline()
-    for j in range(1,48,step=1)
+    for j in range(1,N-2,step=1)
         for k in [2]
 
             global ENDOBS,STARTOBS,startPoint,endPoint,tstart,fun,tend,Tvec,mini,maxi,tspan
@@ -245,51 +245,61 @@ if(resolve)
             #defining the problem
             @def ocp begin
                 #tf ∈ R, variable
-                maxia ∈ R, variable
+                #maxia ∈ R, variable
+
                 tf=timef
                 ts=time0
+
                 #tend=0.728470473745049
                 t ∈ [ ts, tf ], time
                 x ∈ R^7, state
                 u ∈ R^3, control
                 #tf ≥ 0
                 sum(u(t).^2)≤1
-                1 ≥ maxia ≥ 0
+                #1 ≥ maxia ≥ 0
 
-                qx = x[1]
-                qy = x[2]
-                qz = x[3]
+                rx = x[1]
+                ry = x[2]
+                rz = x[3]
+
                 vx = x[4]
                 vy = x[5]
                 vz = x[6]
+
                 m = x[7]
             
-                qx(ts) == STARTOBS[1]
-                qy(ts) == STARTOBS[2]
-                qz(ts) == STARTOBS[3]
-
-                m(ts) == Mi;
-            
+                rx(ts) == STARTOBS[1]
+                ry(ts) == STARTOBS[2]
+                rz(ts) == STARTOBS[3]
+                
                 vx(ts) == STARTOBS[4]
                 vy(ts) == STARTOBS[5]
                 vz(ts) == STARTOBS[6]
+
+                m(ts) == Mi;
             
-                qx(tf) == ENDOBS[1]
-                qy(tf) == ENDOBS[2]
-                qz(tf) == ENDOBS[3]
+                rx(tf) == ENDOBS[1]
+                ry(tf) == ENDOBS[2]
+                rz(tf) == ENDOBS[3]
             
                 vx(tf) == ENDOBS[4]
                 vy(tf) == ENDOBS[5]
                 vz(tf) == ENDOBS[6]
             
-                -10 ≤ qx(t) ≤ 10,      (1)
+                -10 ≤ rx(t) ≤ 10,      (1)
                 -100 ≤ vx(t) ≤ 100,      (2)
-                -10 ≤ qy(t) ≤ 10,      (3)
+                -10 ≤ ry(t) ≤ 10,      (3)
                 -100 ≤ vy(t) ≤ 100,      (4)
-                -10 ≤ qy(t) ≤ 10,      (5)
+                -10 ≤ ry(t) ≤ 10,      (5)
                 -100 ≤ vy(t) ≤ 100,      (6)
-                Mass ≤ m(t) ≤ 100,      (7)
-                ẋ(t) == vcat([vx(t),vy(t),vz(t)],u(t)*maxia*NormThrust/m(t)+acceleration(t+tstart-time0,[qx(t),qy(t),qz(t)],odeMoonEarth3),[-1*NormQ*maxia*(FuelMass+Mass)/NormThrust*(max(0,(sum(u(t).^2))))^(1/2)])
+                Mass ≤ m(t) ≤ Mi,      (7)
+
+
+                ẋ(t) == vcat( [vx(t),vy(t),vz(t)] #position derivative
+                              , u(t)*NormThrust/m(t) #control acceleration
+                              + acceleration(t+tstart-time0,[rx(t),ry(t),rz(t)],odeMoonEarth3) #gravity of Earth and Moon (see accelerationmethod for more info)
+                              , [-NormQ*(FuelMass+Mass)/NormThrust * (max(0,(sum(u(t).^2))))^(1/2) ]
+                            )
                 #tf → min
                 ∫( 0.5*(sum(u(t).^2)) ) → min
             end
@@ -311,11 +321,11 @@ if(resolve)
 
             #compute keplerian orbit
             tspan=[tstart,tend]
-            pbtemp = OrdinaryDiffEq.ODEProblem(lorenzVide!,STARTOBS,tspan,P)
+            pbtemp = OrdinaryDiffEq.ODEProblem(lorenz!,STARTOBS,tspan,P)
             sat1=OrdinaryDiffEq.solve(pbtemp,OrdinaryDiffEq.Tsit5(), reltol=1e-15, abstol=1e-15)
             
             tspan=[tend,tstart]
-            pbtemp = OrdinaryDiffEq.ODEProblem(lorenzVide!,ENDOBS,tspan,P)
+            pbtemp = OrdinaryDiffEq.ODEProblem(lorenz!,ENDOBS,tspan,P)
             sat2=OrdinaryDiffEq.solve(pbtemp,OrdinaryDiffEq.Tsit5(), reltol=1e-15, abstol=1e-15)
 
             # computing initial condition 
@@ -326,44 +336,47 @@ if(resolve)
             trueX0(t)=x0(t);
 
             trueX0(t)=vcat((sat1(t+tstart-time0)*(tend-t+tstart-time0)+sat2(t+tstart-time0)*(t-time0))/(tend-tstart),[Mi])
-            initg = (state=trueX0, control=u0, variable=0.5)
+            initg = (state=trueX0, control=u0)
             #initg=nothing
             println("    ");
             println("solve time pb");#solving problem
+
+            #solving process
             for samp in sampling 
                 println(string("grid size : ",samp));
-                if(resolve)
-                    if(isnothing(initg))#if there are no initial condition do nothing
-                        sol = solve(ocp,display=false,grid_size=samp,max_iter=3000)
-                    else
-                        sol = solve(ocp,display=false,grid_size=samp,init=initg)
-                    end
+                if(isnothing(initg))#if there are no initial condition do nothing
+                    sol = solve(ocp,display=false,grid_size=samp,max_iter=3000)
+                else
+                    sol = solve(ocp,display=false,grid_size=samp,init=initg)
                 end
                 if(0==cmp(sol.message,"Solve_Succeeded"))#if we solve we set the new intitial solution then we continue
-                    println(string("solved  in ",sol.iterations," iterations || fuel used : ",Mi-sol.state(tend)[7] , "Kg : ",(Mi-sol.state(tend)[7])/FuelMass*100," %"))
-                    initg=(state=sol.state, control=sol.control, variable=sol.variable)
+                    println(string("solved in ",sol.iterations," iterations || fuel used : ",Mi-sol.state(tend)[7] , "Kg : ",(Mi-sol.state(tend)[7])/FuelMass*100," %"))
+                    initg=(state=sol.state, control=sol.control, variable=sol.variable)#we update the initial condition for the next solving iteration
                 else#if we don't solve we do nothing
                     println("not solved :(")
                 end
             end
 
+            #printint result
+            println(" ");
             println(string("founded solution max acceleration ",sol.objective));
 
             
             fun(t)=sqrt(sum((sol.control(t)).^2))/sol.state(t)[7];
-            tempDV=integral(fun,time0,timef,10000)*sol.variable*NormThrust;
-            println(string("temporary delta V :",tempDV))
-            println(string("alternative method : ",sol.objective*(tend-tstart)))
+            tempDV=integral(fun,time0,timef,10000)*NormThrust;
+            println(string("delta V :",tempDV))
             deltas_V[i,j]=tempDV;
             println(string("plot sol ... optimum : ",sol.objective));
 
             mass[Pi,j]=sol.state(tend)[7];
 
-            #plot(sol, size=(1200, 1800))
-            objective_output[i,j]=sol.variable*NormThrust;#setting objective output variable
-
+            objective_output[i,j]=sol.objective;
            
             sols[j,i]=sol;
+
+            save(sol, filename_prefix=string("./solutions/sol_",startPoint,"_",endPoint ))
+
+
 
             #ploting solutions
             Tvec=[i for i in range(1,1000)]/1000*(tend-tstart);
@@ -406,10 +419,10 @@ if(resolve)
 
 
             #title("transfert from observation "+startPoint+" to observation "+endPoint)
-            savefig(string("images/Transfert_Amax_",Amax,"_",startPoint,"_",endPoint,".png"));
+            savefig(string("images/Transfert_",startPoint,"_",endPoint,".png"));
 
             plot(sol, size=(1200, 1800))
-            savefig(string("solGraph/Transfert_Amax_",Amax,"_",startPoint,"_",endPoint,".png"));
+            savefig(string("solGraph/Transfert_",startPoint,"_",endPoint,".png"));
 
             controlVal=[sol.control(t)*sol.objective for t in Tvec];
             
@@ -436,7 +449,7 @@ if(resolve)
             #println([newX[1]],[newY[1]],[newZ[1]])
             scatter!([newX[1]],[newY[1]],[newZ[1]],label="initial point")
             scatter!([newX[end]],[newY[end]],[newZ[end]],label="end point")
-            savefig(string("control/Transfert_Amax_",Amax,"_",startPoint,"_",endPoint,".png"));
+            savefig(string("control/Transfert_",startPoint,"_",endPoint,".png"));
 
             # Create a 3-row, 1-column layout
             plot_layout = @layout [a; b; c]
@@ -453,7 +466,7 @@ if(resolve)
             
             controlVal=[sqrt(sum(sol.control(t).^2))*sol.objective for t in sol.times];
             plot(controlVal,ylim=(0,11));
-            savefig(string("control/NORM_Transfert_Amax_",Amax,"_",startPoint,"_",endPoint,".png"));
+            savefig(string("control/NORM_Transfert__",startPoint,"_",endPoint,".png"));
 
             
         end
@@ -481,7 +494,7 @@ for j in range(1,21,step=2)
     maxi=max(maxi,max(maximum(X),maximum(Y),maximum(Z))+0.1)
     plot!(X,Y,Z,label=string(j, " to ",(j+2)),title=string("transfert total ",endPoint),xlim=(mini, maxi),ylim=(mini, maxi),zlim=(mini, maxi));
 end
-savefig(string("All_transfert_odd_",Amax,"_",startPoint,"_",endPoint,".png"));
+savefig(string("All_transfert_odd_",startPoint,"_",endPoint,".png"));
 
 mini=0
 maxi=0
@@ -500,48 +513,12 @@ for j in range(2,22,step=2)
     maxi=max(maxi,max(maximum(X),maximum(Y),maximum(Z))+0.1)
     plot!(X,Y,Z,label=string(j, " to ",(j+2)),title=string("transfert total ",endPoint),xlim=(mini, maxi),ylim=(mini, maxi),zlim=(mini, maxi));
 end
-savefig(string("All_transfert_even_",Amax,"_",startPoint,"_",endPoint,".png"));
+savefig(string("All_transfert_even_",startPoint,"_",endPoint,".png"));
 
 mini=0
 maxi=0
 scatter([0],[0],[0],label="Earth",size=(1920, 1080))
-#=
-for j in range(1,19,step=3)
-    states=sols[j,j+3]
-    
-    X=[x[1] for x in states]
-    Y=[x[2] for x in states]
-    Z=[x[3] for x in states]
-    
 
-    global maxi,mini;
-
-    mini=min(mini,min(minimum(X),minimum(Y),minimum(Z))-0.1)
-    maxi=max(maxi,max(maximum(X),maximum(Y),maximum(Z))+0.1)
-    plot!(X,Y,Z,label=string(j, " to ",(j+2)),title=string("transfert total ",endPoint),xlim=(mini, maxi),ylim=(mini, maxi),zlim=(mini, maxi));
-end
-#savefig(string("All_transfert_1_on_3_",Amax,"_",startPoint,"_",endPoint,".png"));
-
-mini=0
-maxi=0
-scatter([0],[0],[0],label="Earth",size=(1920, 1080))
-for j in range(1,17,step=4)
-    states=sols[j,j+4]
-    
-    X=[x[1] for x in states]
-    Y=[x[2] for x in states]
-    Z=[x[3] for x in states]
-    
-
-    global maxi,mini;
-
-    mini=min(mini,min(minimum(X),minimum(Y),minimum(Z))-0.1)
-    maxi=max(maxi,max(maximum(X),maximum(Y),maximum(Z))+0.1)
-    plot!(X,Y,Z,label=string(j, " to ",(j+2)),title=string("transfert total ",endPoint),xlim=(mini, maxi),ylim=(mini, maxi),zlim=(mini, maxi));
-end
-savefig(string("All_transfert_1_on_4.png"));
-
-=#
 gui()
 while true
     sleep(0.1)
