@@ -1,6 +1,6 @@
 % This is a simple sample document.  For more complicated documents take a look in the exercise tab. Note that everything that comes after a % symbol is treated as comment and ignored when the code is compiled.
 
-\documentclass{article} % \documentclass{} is the first command in any LaTeX code.  It is used to define what kind of document you are creating such as an article or a book, and begins the document preamble
+\documentclass[12pt]{article} % \documentclass{} is the first command in any LaTeX code.  It is used to define what kind of document you are creating such as an article or a book, and begins the document preamble
 \usepackage{amssymb}
 \usepackage[utf8]{inputenc}
 \usepackage{glossaries}
@@ -50,9 +50,14 @@ description={un moteur fusée propulsant de petites quantités de matières à t
 	description={dans un problème de contrôle optimal le contrôle est une fonction qui dépend de l'état et du temps qui influence la dynamique d'un système, dans le cadre de ce stage, le contrôle est une fonction qui indique un vecteur 3D en fonction du temps}
 }
 
+\newglossaryentry{Cor}{
+	name={coronographe},
+	description={un téléscope équipé d'un disque opaque cachant la partie la plus lumineuse de l'objet observé permettant d'observer les détails les moins lumineux, utilisé majoritairement pour observer la couronne solaire d'où son  nom}
+}
+
 
 \usepackage{amsmath} % \usepackage is a command that allows you to add functionality to your LaTeX code
-\usepackage[left=2cm, right=2cm]{geometry}
+\usepackage[left=2cm, right=2cm,bottom=2cm]{geometry}
 \title{Rapport de Stage} % Sets article title
 \author{Vincent Callegari} % Sets authors name
 \date{\today} % Sets date for date compiled
@@ -85,11 +90,15 @@ description={un moteur fusée propulsant de petites quantités de matières à t
 		
 		La voile solaire fonctionne de la même manière qu'une voile normale à l'exception qu'elle utilise la quantité de mouvement de la lumière au lieu de la quantité de mouvement de l'air pour changer de vitesse. Les forces générées par des voiles solaires ne peuvent pas être dirigées dans toutes les directions et sont très faibles en comparaison d'autres formes de propulsion les plus utilisés par les véhicules spatiaux mais ont le grand avantage de ne pas dépenser de carburant.
 		
-		L'observation de la couronne solaire est compliqué car elle est bien moins lumineuse que le soleil lui même. Afin d'observer cette couronne, il est donc nécessaire d'occulter le disque solaire, plus l'objet utilisé pour occulter le soleil est grand et éloigné, plus l'observation peut être précise. Les planètes, planètes naines et autre astre sphérique opaque sont donc des objets idéal pour effectuer des mesures car leurs taille excède largement tout objets occultant que l'humanité peut construire à ce jour.
+		L'observation de la couronne solaire est compliqué car elle est bien moins lumineuse que le soleil lui même. Afin d'observer cette couronne, il est donc nécessaire d'occulter le disque solaire. Il est possible d'effectuer de telles observation en utilisant un \gls{Cor}. Cependant plus l'objet utilisé pour occulter le soleil est grand et éloigné, plus l'observation peut être précise. Les planètes, planètes naines et autre astre sphérique opaque sont donc des objets idéal pour effectuer des mesures car leurs taille excède largement tout objets occultant que l'humanité peut construire à ce jour.
 		
 		L'objet du système solaire qui semble le plus indiqué pour être utilisé comme astre occultant est la Lune car son absence d'atmosphère significative et sa grande proximité avec la Terre combiné avec sa petite taille permettent d'effectuer des observations à distance relativement faible (environ égale à la distance Terre-Lune) tout en ayant les avantages énoncé plus tôt.
 		
 		Sur Terre il est possible d'effectuer des observations de la couronne solaire durant les éclipses totales où la Lune joue le rôle d'objet occultant. Cependant ces observations ont lieu en moyenne une fois tout les 18 mois et ne permettent des observations de quelques minutes à peine. L'idée serait de placer un satellite sur des trajectoires qui permettent de faire des observations plus souvent et pendant plus longtemps. 
+		 
+		La contrepartie lorsque l'on utilise une planète comme objet occultant est qu'on ne peut contrôler sa trajectoire et que le satellite est contraint de suivre l'objet, ce qui demande de résoudre un certain nombres de problèmes et de se plier à un certain nombre de contraintes.
+		
+		C'est ici l'objectif de mon stage, étudier les possibilités d'effectuer des observations de la couronne solaire en utilisant la Lune comme objet occultant
 		 
 		Dans ce rapport, je vais détailler le travail que j'ai effectué et les conclusions et résultats auxquels je suis arrivé ainsi que les compétence acquise au cours du stage. 
 		 
@@ -126,7 +135,7 @@ description={un moteur fusée propulsant de petites quantités de matières à t
 		
 		Pour finir il faudra résumer tout le travail et tous les résultats obtenu dans un rapport rédigé en anglais ainsi que rendre les programmes informatique produits lisible et clair dans l'optique d'utilisations futures de ces codes par des personnes potentiellement étrangères au projet.
 		\\ \\
-		De plus le modèle utilisé pour résoudre ce problème sera d'abord implémenté dans une version simplifiée : simple trajectoire circulaire de la lune avec vitesse fixe en 2D. Puis gagneras en complexité au fur et à mesure que le projet avanceras jusqu'à être très proche de la réalité (prise en compte de la variation de l'orbite lunaire causé par le soleil par exemple).
+		%De plus le modèle utilisé pour résoudre ce problème sera d'abord implémenté dans une version simplifiée : simple trajectoire circulaire de la lune avec vitesse fixe en 2D. Puis gagneras en complexité au fur et à mesure que le projet avanceras jusqu'à être très proche de la réalité (prise en compte de la variation de l'orbite lunaire causé par le soleil par exemple).
 		
 		\newpage
 		\section{travail effectué}
@@ -141,21 +150,23 @@ description={un moteur fusée propulsant de petites quantités de matières à t
 		Je suis arrivé à la conclusion que chercher à trouver des orbites effectuant plusieurs observations était inefficace en comparaison de chercher des orbites faisant une seule longue observations à cause du fait que la majorité des observations possibles sont courtes contre quelque rares mais très longues observations.
 		
 		\subsection{calcul des observations}
-		Une fois cette étape théorique passé ,j'ai implémenté le modèle dans Matlab ainsi qu'une méthode permettant de calculer le temps passé dans la \gls{Zone} en fonction d'une vitesse et position initiale situé dans la zone d'observation.\\
-		
-		J'ai pu obtenir de premiers résultat, résultats qui ont permis de mettre en évidence deux points de l'orbite lunaire qui semblait être assez intéressant pour effectuer des observations : ces deux points se situant aux moments où le Soleil, la Terre et la Lune forment un angle d'environ 60 degrés (\gls{AscObs} et \gls{DesObs}). Du point de vue de la Terre cela représente les moments où un tiers de la Lune est illuminé par le Soleil. le satellite se situerais aussi sur l'orbite de la Lune mais 60 degrés plus loin (le Soleil, la Terre et le satellite formerais donc un angle de 120 degrés) mais se déplacerais dans la même direction que la Lune afin d'accompagner la zone d'observation (voir figure 1). Il faut noter cependant que ces résultats sont valables dans un modèle très simplifié (orbite lunaire ronde, soleil fixe, distance de la zone d'observation exactement égale au rayon de l'orbite lunaire etc...), les vrais résultats ont des orbites assez similaires mais de nombreux facteurs font que les valeurs optimales ne correspondent pas exactement à ce qui est énoncé ci dessus.
+		Une fois cette étape théorique passé , j'ai implémenté le modèle dans Matlab ainsi qu'une méthode permettant de calculer le temps passé dans la \gls{Zone} en fonction d'une vitesse et position initiale situé dans la zone d'observation. Cette méthode simule la dynamique du système avant et après la position initiale pour déterminer l'instant où l'objet entre dans la zone et l'instant où ce dernier en sort ce qui permet de calculer le temps d'observation.
+		\\ \\
+		J'ai pu obtenir de premiers résultat consistant simplement à fixer tout les paramètres sauf un et d'afficher dans un graphe les variations causée. Ces résultats ont permis de mettre en évidence deux points de l'orbite lunaire qui semblait être assez intéressants pour effectuer des observations : ces deux points se situant aux moments où le Soleil, la Terre et la Lune forment un angle d'environs 60 degrés (\gls{AscObs} et \gls{DesObs}). Du point de vue de la Terre cela représente les moments où un tiers de la Lune est illuminé par le Soleil. le satellite se situerais aussi sur l'orbite de la Lune mais 60 degrés plus loin (le Soleil, la Terre et le satellite formerais donc un angle de 120 degrés) mais se déplacerait dans la même direction que la Lune afin d'accompagner la zone d'observation (voir figure 1). Il faut noter cependant que ces résultats sont valables dans un modèle très simplifié (orbite lunaire ronde, soleil fixe, distance de la zone d'observation exactement égale au rayon de l'orbite lunaire etc...), les vrais résultats ont des orbites assez similaires mais de nombreux facteurs font que les valeurs optimales ne correspondent pas exactement à ce qui est énoncé ci dessus.
 		
 		
 		\begin{figure}[h]
 			\includegraphics[width=18cm]{images/observations_main.png}
 			\caption{orbite keplerienne qui permetent de faire des observations aux points d'interêt mentionné plus tôt}
 		\end{figure}
+		\\ \\
+		J'ai également amélioré le modèle en prenant en compte de plus en plus de facteur comme l'excentricité et l'inclinaison de l'orbite de la Lune, la gravité de la Lune qui influence la dynamique du satellite ainsi que les variations de l'orbite de la Lune et de la Terre causé par l'influence gravitationnelle du Soleil sur le système Terre Lune (voir figure 2).
+		\begin{figure}[h]
+			\includegraphics[width=18cm]{images/moon_orbit.jpg}
+			\caption{variation de l'orbite lunaire sur 2 ans}
+		\end{figure}
 		
-		%peut être une démo mathématique ici ?
-		
-		J'ai également amélioré le modèle en prenant en compte de plus en plus de facteur comme l'excentricité et l'inclinaison de l'orbite de la Lune, la gravité de la Lune qui influence la dynamique du satellite ainsi que les variations du mouvement de la lune causé par la gravité solaire.
-		
-		Aux termes du projet, j'ai réalisé un code MATLAB d'une longueur approximativement 600 lignes qui effectue de nombreuses opérations décrite ci dessous: 
+		Aux termes du projet, le code MATLAB que j'ai réalisé avait d'une longueur approximativement 600 lignes et effectuait plusieurs opérations qui sont listées ci dessous: 
 		
 		\begin{itemize}
 			\item simuler la dynamique du système à trois corps Soleil Lune Terre (l'influence de du système Terre-Lune sur le soleil est négligé);
@@ -164,13 +175,13 @@ description={un moteur fusée propulsant de petites quantités de matières à t
 			\item obtenir des images graphiques et des fichiers csv contenant les données.
 		\end{itemize}
 		
-		Le code à besoin en entrée de multiples informations sur la dynamique du problème dont la plupart des facteurs sont fournis directement dans le code. La partie venant de l'extérieur du code sont les positions et vitesses initiales du soleil de la Lune et de La Terre ainsi que l'intervalle de temps sur lequel il faut rechercher des observations.
+		Le code à besoin en entrée de multiples informations sur la dynamique du problème dont la plupart des facteurs sont fournis directement dans le code. La partie venant de l'extérieur du code sont les positions et vitesses initiales du soleil de la Lune et de La Terre ainsi que quelques informations sur le nombre d'observations qu'il faut récupérer.
 		\\ \\
-		Ce code pourrait être facilement adapté en librairie
+		Ce code pourrait être facilement adapté en une librairie qui pourrait être ensuite incorporer dans des outils plus avancer par d'autres utilisateur.
 		\\ \\	
 		Ce travail permis de confirmer l'intérêt des deux points de l'orbite lunaire qui semblait être les plus intéressants avec des temps d'observation situé entre 15 et 25 heures. En sachant qu'il y a deux observations de ce type pour chaque période synodique lunaire (environ 29.53 jours), cela permettrait de faire des observations pendant environs 2.8\% du temps (ou 1.4\% du temps en n'en faisant qu'une sur deux) de la mission ce qui est bien mieux que ce que l'on peut faire sur Terre (une observation de 10 minutes tout les 18 mois en moyenne soit environs 0.0015\% du temps).
 		
-		le fait que les temps d'observation soit bien plus long aux points spécifique où le satellite est lancé depuis la zone d'observation m'a poussé à faire un test dans lequel le satellite étant toujours lancé à la même vitesse que la zone d'observation sans se soucier de sa période, ce test à bien confirmer que les 2 observations trouvé précédemment sont bien les plus efficace mais a permis de mettre en évidence un $3^{eme}$ point de l'orbite lunaire aux alentour de $0^o$. Cependant, cette trajectoire n'est pas idéale car, en plus ne pas avoir une période similaire à celle de la lune, l'observation a lieu à proximité de la zone d'ombre de la Terre ce qui rendrait toutes observations impossible si la zone d'observation traversais celle de la Terre. De plus, l'excentricité de l'orbite associé à cette trajectoire est aux alentour de 1 ce qui implique que le satellite pourrait être facilement quitter le système Terre Lune ce qui serait embêtant.
+		Le fait que les temps d'observation soit bien plus long aux points spécifique où le satellite est lancé depuis la zone d'observation à la même vitesse que cette dernière m'a poussé à faire un test dans lequel le satellite étant toujours lancé à la même vitesse que la zone d'observation sans se soucier de sa période. ce test à bien confirmé que les 2 observations trouvé précédemment sont bien les plus efficace mais a permis de mettre en évidence un $3^{eme}$ point de l'orbite lunaire aux alentour de $0^o$ (ie quand le Soleil, la Terre et la Lune sont aligné dans cette ordre). Cependant, cette troisième trajectoire n'est pas idéale car, en plus ne pas avoir une période similaire à celle de la lune, l'observation a lieu à proximité de la zone d'ombre de la Terre ce qui rendrait toutes observations impossible si la zone d'observation traversais celle de la Terre. De plus, l'excentricité de l'orbite associée à cette trajectoire est aux alentour de 1 ce qui implique que le satellite pourrait être facilement quitter le système Terre Lune ce qui pourrait être un problème en plus d'impliquer une énergie de mise en orbite initiale plus importante, c'est pourquoi cette observation n'a pas été étudiée plus que ça.
 		\begin{figure}[h]
 			\includegraphics[width=1\textwidth]{images/observation_Obs.png}
 			\caption{temps d'observation en fonction de l'anomalie vraie de la Lune}

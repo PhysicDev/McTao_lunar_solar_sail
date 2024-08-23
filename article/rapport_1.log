@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.25 (MiKTeX 23.10) (preloaded format=pdflatex 2023.10.12)  22 AUG 2024 16:59
+This is pdfTeX, Version 3.141592653-2.6-1.40.25 (MiKTeX 23.10) (preloaded format=pdflatex 2023.10.12)  23 AUG 2024 14:36
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -11,9 +11,9 @@ L3 programming layer <2023-08-29>
 e.cls
 Document Class: article 2023/05/17 v1.4n Standard LaTeX document class
 
-(C:\Users\Vincent Callegari\AppData\Local\Programs\MiKTeX\tex/latex/base\size10
+(C:\Users\Vincent Callegari\AppData\Local\Programs\MiKTeX\tex/latex/base\size11
 .clo
-File: size10.clo 2023/05/17 v1.4n Standard LaTeX file (size option)
+File: size11.clo 2023/05/17 v1.4n Standard LaTeX file (size option)
 )
 \c@part=\count185
 \c@section=\count186
@@ -229,22 +229,22 @@ File: epstopdf-sys.cfg 2021/03/18 v2.0 Configuration of epstopdf for MiKTeX
 * layoutoffset:(h,v)=(0.0pt,0.0pt)
 * modes: 
 * h-part:(L,W,R)=(56.9055pt, 500.484pt, 56.9055pt)
-* v-part:(T,H,B)=(95.39737pt, 556.47656pt, 143.09605pt)
+* v-part:(T,H,B)=(95.39737pt, 642.66711pt, 56.9055pt)
 * \paperwidth=614.295pt
 * \paperheight=794.96999pt
 * \textwidth=500.484pt
-* \textheight=556.47656pt
+* \textheight=642.66711pt
 * \oddsidemargin=-15.36449pt
 * \evensidemargin=-15.36449pt
 * \topmargin=-13.87262pt
 * \headheight=12.0pt
 * \headsep=25.0pt
-* \topskip=10.0pt
+* \topskip=11.0pt
 * \footskip=30.0pt
-* \marginparwidth=65.0pt
-* \marginparsep=11.0pt
+* \marginparwidth=59.0pt
+* \marginparsep=10.0pt
 * \columnsep=10.0pt
-* \skip\footins=9.0pt plus 4.0pt minus 2.0pt
+* \skip\footins=10.0pt plus 4.0pt minus 2.0pt
 * \hoffset=0.0pt
 * \voffset=0.0pt
 * \mag=1000
@@ -274,7 +274,7 @@ File: images/eclipse_2.png Graphic file (type png)
 Package pdftex.def Info: images/eclipse_2.png  used on input line 16.
 (pdftex.def)             Requested size: 500.484pt x 281.499pt.
 
-Overfull \hbox (15.0pt too wide) in paragraph at lines 16--17
+Overfull \hbox (17.0pt too wide) in paragraph at lines 16--17
 [][] 
  []
 
@@ -314,16 +314,6 @@ spurious, as in `$x}$'. But perhaps the } is legitimate and
 you forgot something else, as in `\hbox{$x}'. In such cases
 the way to recover is to insert both the forgotten and the
 deleted material, e.g., by typing `I$}'.
-
-
-Overfull \hbox (5.07678pt too wide) in paragraph at lines 40--42
-[]\OT1/cmr/m/n/10 The tri-an-gle could be de-fined by its three points $\OML/cm
-m/m/it/10 P[]$\OT1/cmr/m/n/10 ,$\OML/cmm/m/it/10 P[]$ \OT1/cmr/m/n/10 et $\OML/
-cmm/m/it/10 P[]$\OT1/cmr/m/n/10 , with as co-or-di-nates $(\OML/cmm/m/it/10 P[]
-; \OT1/cmr/m/n/10 0\OML/cmm/m/it/10 ; \OT1/cmr/m/n/10 0)$ , $(\OML/cmm/m/it/10 
-P[]; P[]; \OT1/cmr/m/n/10 0)$,$(\OML/cmm/m/it/10 P[]; \OT1/cmr/m/n/10 0\OML/cmm
-/m/it/10 ; \OT1/cmr/m/n/10 0)$ 
- []
 
 [3 <./images/moon_schem.png>]
 
@@ -512,7 +502,13 @@ l.188 		\end{align}
 Try typing  <return>  to proceed.
 If that doesn't work, type  X <return>  to quit.
 
-[5] [6]
+[5]
+Overfull \hbox (78.97453pt too wide) in paragraph at lines 215--216
+\OT1/cmr/m/n/10.95 1st mid-night, 2025. their po-si-tion are re-trieved on the 
+ho-ry-zon sys-tem of Nasa : https://ssd.jpl.nasa.gov/horizons/app.html 
+ []
+
+[6]
 
 LaTeX Warning: Command \t invalid in math mode on input line 338.
 
@@ -715,12 +711,9 @@ Package pdftex.def Info: images/observations_main.png  used on input line 378.
 <images/graph.jpg, id=54, 1927.2pt x 966.61125pt>
 File: images/graph.jpg Graphic file (type jpg)
 <use images/graph.jpg>
-Package pdftex.def Info: images/graph.jpg  used on input line 422.
+Package pdftex.def Info: images/graph.jpg  used on input line 424.
 (pdftex.def)             Requested size: 341.43306pt x 171.23915pt.
-
-
-LaTeX Warning: `h' float specifier changed to `ht'.
-
+ [9 <./images/graph.jpg>]
 
 ! Package amsmath Error: Erroneous nesting of equation structures;
 (amsmath)                trying to recover with `aligned'.
@@ -729,7 +722,7 @@ See the amsmath package documentation for explanation.
 Type  H <return>  for immediate help.
  ...                                              
                                                   
-l.447 		\end{align}
+l.449 		\end{align}
                    
 Try typing  <return>  to proceed.
 If that doesn't work, type  X <return>  to quit.
@@ -737,7 +730,7 @@ If that doesn't work, type  X <return>  to quit.
 ! Missing } inserted.
 <inserted text> 
                 }
-l.447 		\end{align}
+l.449 		\end{align}
                    
 I've inserted something that you may have forgotten.
 (See the <inserted text> above.)
@@ -748,7 +741,7 @@ my insertion and my current dilemma will both disappear.
 ! Missing $ inserted.
 <inserted text> 
                 $
-l.447 		\end{align}
+l.449 		\end{align}
                    
 I've inserted a begin-math/end-math symbol since I think
 you left one out. Proceed, with fingers crossed.
@@ -756,7 +749,7 @@ you left one out. Proceed, with fingers crossed.
 ! Missing { inserted.
 <inserted text> 
                 {
-l.447 		\end{align}
+l.449 		\end{align}
                    
 I've put in what seems to be necessary to fix
 the current column of the current alignment.
@@ -765,7 +758,7 @@ Try to go on, since this might almost work.
 ! Missing } inserted.
 <inserted text> 
                 }
-l.447 		\end{align}
+l.449 		\end{align}
                    
 I've inserted something that you may have forgotten.
 (See the <inserted text> above.)
@@ -776,7 +769,7 @@ my insertion and my current dilemma will both disappear.
 ! Missing $ inserted.
 <inserted text> 
                 $
-l.447 		\end{align}
+l.449 		\end{align}
                    
 I've inserted a begin-math/end-math symbol since I think
 you left one out. Proceed, with fingers crossed.
@@ -784,29 +777,35 @@ you left one out. Proceed, with fingers crossed.
 ! Missing { inserted.
 <inserted text> 
                 {
-l.447 		\end{align}
+l.449 		\end{align}
                    
 I've put in what seems to be necessary to fix
 the current column of the current alignment.
 Try to go on, since this might almost work.
 
-[9]
 <images/observation_zone_year_scaled.png, id=58, 1445.4pt x 724.95844pt>
 File: images/observation_zone_year_scaled.png Graphic file (type png)
 <use images/observation_zone_year_scaled.png>
 Package pdftex.def Info: images/observation_zone_year_scaled.png  used on input
- line 455.
+ line 457.
 (pdftex.def)             Requested size: 500.484pt x 251.018pt.
-
 
 LaTeX Warning: `h' float specifier changed to `ht'.
 
-[10 <./images/graph.jpg>] [11 <./images/observation_zone_year_scaled.png (PNG c
-opy)>]
-Underfull \hbox (badness 10000) in paragraph at lines 509--510
+<images/observation_Obs.png, id=59, 1445.4pt x 724.95844pt>
+File: images/observation_Obs.png Graphic file (type png)
+<use images/observation_Obs.png>
+Package pdftex.def Info: images/observation_Obs.png  used on input line 470.
+(pdftex.def)             Requested size: 500.484pt x 251.018pt.
+
+LaTeX Warning: `h' float specifier changed to `ht'.
+
+[10] [11 <./images/observation_zone_year_scaled.png (PNG copy)>]
+Underfull \hbox (badness 10000) in paragraph at lines 518--519
 
  []
 
+[12 <./images/observation_Obs.png>]
 
 ! Package amsmath Error: Erroneous nesting of equation structures;
 (amsmath)                trying to recover with `aligned'.
@@ -815,7 +814,7 @@ See the amsmath package documentation for explanation.
 Type  H <return>  for immediate help.
  ...                                              
                                                   
-l.556 			\end{align}
+l.565 			\end{align}
                     
 Try typing  <return>  to proceed.
 If that doesn't work, type  X <return>  to quit.
@@ -828,12 +827,11 @@ See the amsmath package documentation for explanation.
 Type  H <return>  for immediate help.
  ...                                              
                                                   
-l.564 			\end{align}
+l.573 			\end{align}
                     
 Try typing  <return>  to proceed.
 If that doesn't work, type  X <return>  to quit.
 
-[12]
 
 ! LaTeX Error: There's no line here to end.
 
@@ -841,7 +839,7 @@ See the LaTeX manual or LaTeX Companion for explanation.
 Type  H <return>  for immediate help.
  ...                                              
                                                   
-l.588 			t
+l.597 			t
           o compute the solution, i've used the julia library : OptimalControl,
 
 Your command was ignored.
@@ -849,48 +847,49 @@ Type  I <command> <return>  to replace it with another command,
 or  <return>  to continue without it.
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 595--598
-
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 599--602
+Underfull \hbox (badness 10000) in paragraph at lines 604--607
 
  []
 
 [13]
-<images/1in2obs.png, id=73, 424.87395pt x 251.56404pt>
+Underfull \hbox (badness 10000) in paragraph at lines 608--611
+
+ []
+
+<images/1in2obs.png, id=74, 424.87395pt x 251.56404pt>
 File: images/1in2obs.png Graphic file (type png)
 <use images/1in2obs.png>
-Package pdftex.def Info: images/1in2obs.png  used on input line 610.
+Package pdftex.def Info: images/1in2obs.png  used on input line 619.
 (pdftex.def)             Requested size: 250.24199pt x 148.16814pt.
-<images/odd_to_even.png, id=74, 424.87395pt x 251.56404pt>
+<images/odd_to_even.png, id=75, 424.87395pt x 251.56404pt>
 File: images/odd_to_even.png Graphic file (type png)
 <use images/odd_to_even.png>
-Package pdftex.def Info: images/odd_to_even.png  used on input line 611.
+Package pdftex.def Info: images/odd_to_even.png  used on input line 620.
 (pdftex.def)             Requested size: 250.24199pt x 148.16814pt.
-<images/1in3_obs.png, id=75, 424.87395pt x 251.56404pt>
+<images/1in3_obs.png, id=76, 424.87395pt x 251.56404pt>
 File: images/1in3_obs.png Graphic file (type png)
 <use images/1in3_obs.png>
-Package pdftex.def Info: images/1in3_obs.png  used on input line 612.
+Package pdftex.def Info: images/1in3_obs.png  used on input line 621.
 (pdftex.def)             Requested size: 250.24199pt x 148.16814pt.
-<images/1in3_bad.png, id=76, 424.87395pt x 251.56404pt>
+<images/1in3_bad.png, id=77, 424.87395pt x 251.56404pt>
 File: images/1in3_bad.png Graphic file (type png)
 <use images/1in3_bad.png>
-Package pdftex.def Info: images/1in3_bad.png  used on input line 613.
+Package pdftex.def Info: images/1in3_bad.png  used on input line 622.
 (pdftex.def)             Requested size: 250.24199pt x 148.16814pt.
 
-Overfull \hbox (2.2222pt too wide) in paragraph at lines 610--614
+Overfull \hbox (2.43332pt too wide) in paragraph at lines 619--623
 [][] []
  []
 
 
-Overfull \hbox (2.2222pt too wide) in paragraph at lines 610--614
+Overfull \hbox (2.43332pt too wide) in paragraph at lines 619--623
 [] [] 
  []
 
-[14 <./images/1in2obs.png> <./images/odd_to_even.png> <./images/1in3_obs.png> <
-./images/1in3_bad.png>]
+
+LaTeX Warning: `h' float specifier changed to `ht'.
+
+[14]
 
 ! LaTeX Error: There's no line here to end.
 
@@ -898,7 +897,7 @@ See the LaTeX manual or LaTeX Companion for explanation.
 Type  H <return>  for immediate help.
  ...                                              
                                                   
-l.631 			\\ \\
+l.640 			\\ \\
               
 Your command was ignored.
 Type  I <command> <return>  to replace it with another command,
@@ -911,19 +910,19 @@ See the LaTeX manual or LaTeX Companion for explanation.
 Type  H <return>  for immediate help.
  ...                                              
                                                   
-l.632 			W
+l.641 			W
           hat look like the best scenario at this point would be to put two ...
 
 Your command was ignored.
 Type  I <command> <return>  to replace it with another command,
 or  <return>  to continue without it.
 
-
-Underfull \hbox (badness 10000) in paragraph at lines 651--654
+[15 <./images/1in2obs.png> <./images/odd_to_even.png> <./images/1in3_obs.png> <
+./images/1in3_bad.png>]
+Underfull \hbox (badness 10000) in paragraph at lines 660--663
 
  []
 
-[15]
 
 ! LaTeX Error: There's no line here to end.
 
@@ -931,7 +930,7 @@ See the LaTeX manual or LaTeX Companion for explanation.
 Type  H <return>  for immediate help.
  ...                                              
                                                   
-l.662 			 \\ \\
+l.671 			 \\ \\
                
 Your command was ignored.
 Type  I <command> <return>  to replace it with another command,
@@ -944,52 +943,51 @@ See the LaTeX manual or LaTeX Companion for explanation.
 Type  H <return>  for immediate help.
  ...                                              
                                                   
-l.663 			 T
+l.672 			 T
            he second code is made in Julia using a library of Optimal Contro...
 
 Your command was ignored.
 Type  I <command> <return>  to replace it with another command,
 or  <return>  to continue without it.
 
-[16] (rapport_1.aux)
+[16] [17] (rapport_1.aux)
  ***********
 LaTeX2e <2023-06-01> patch level 1
 L3 programming layer <2023-08-29>
  ***********
  ) 
 Here is how much of TeX's memory you used:
- 3196 strings out of 475247
- 49309 string characters out of 5752091
+ 3199 strings out of 475247
+ 49540 string characters out of 5752091
  1934785 words of memory out of 5000000
- 24704 multiletter control sequences out of 15000+600000
- 566267 words of font info for 68 fonts, out of 8000000 for 9000
+ 24709 multiletter control sequences out of 15000+600000
+ 566122 words of font info for 66 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
- 57i,21n,65p,1064b,228s stack positions out of 10000i,1000n,20000p,200000b,200000s
+ 57i,21n,65p,1098b,228s stack positions out of 10000i,1000n,20000p,200000b,200000s
  <C:\Users\Vincent Callegari\AppData\Local\MiKTeX\fonts/pk/ljfour/jknappen/ec
-/dpi600\tcrm1000.pk><C:/Users/Vincent Callegari/AppData/Local/Programs/MiKTeX/f
+/dpi600\tcrm1095.pk><C:/Users/Vincent Callegari/AppData/Local/Programs/MiKTeX/f
 onts/type1/public/amsfonts/cm/cmbx10.pfb><C:/Users/Vincent Callegari/AppData/Lo
 cal/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmbx12.pfb><C:/Users/Vincent
  Callegari/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmex10.
 pfb><C:/Users/Vincent Callegari/AppData/Local/Programs/MiKTeX/fonts/type1/publi
-c/amsfonts/cmextra/cmex7.pfb><C:/Users/Vincent Callegari/AppData/Local/Programs
+c/amsfonts/cmextra/cmex8.pfb><C:/Users/Vincent Callegari/AppData/Local/Programs
 /MiKTeX/fonts/type1/public/amsfonts/cm/cmmi10.pfb><C:/Users/Vincent Callegari/A
-ppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmmi5.pfb><C:/Users
+ppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmmi6.pfb><C:/Users
 /Vincent Callegari/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm
-/cmmi7.pfb><C:/Users/Vincent Callegari/AppData/Local/Programs/MiKTeX/fonts/type
+/cmmi8.pfb><C:/Users/Vincent Callegari/AppData/Local/Programs/MiKTeX/fonts/type
 1/public/amsfonts/cm/cmr10.pfb><C:/Users/Vincent Callegari/AppData/Local/Progra
 ms/MiKTeX/fonts/type1/public/amsfonts/cm/cmr12.pfb><C:/Users/Vincent Callegari/
 AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmr17.pfb><C:/User
 s/Vincent Callegari/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/c
-m/cmr5.pfb><C:/Users/Vincent Callegari/AppData/Local/Programs/MiKTeX/fonts/type
-1/public/amsfonts/cm/cmr7.pfb><C:/Users/Vincent Callegari/AppData/Local/Program
+m/cmr6.pfb><C:/Users/Vincent Callegari/AppData/Local/Programs/MiKTeX/fonts/type
+1/public/amsfonts/cm/cmr8.pfb><C:/Users/Vincent Callegari/AppData/Local/Program
 s/MiKTeX/fonts/type1/public/amsfonts/cm/cmsy10.pfb><C:/Users/Vincent Callegari/
-AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmsy7.pfb><C:/User
+AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmsy8.pfb><C:/User
 s/Vincent Callegari/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/s
-ymbols/msbm10.pfb><C:/Users/Vincent Callegari/AppData/Local/Programs/MiKTeX/fon
-ts/type1/public/amsfonts/symbols/msbm7.pfb>
-Output written on rapport_1.pdf (16 pages, 9196378 bytes).
+ymbols/msbm10.pfb>
+Output written on rapport_1.pdf (17 pages, 9253832 bytes).
 PDF statistics:
  160 PDF objects out of 1000 (max. 8388607)
  0 named destinations out of 1000 (max. 500000)
- 56 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 61 words of extra memory for PDF output out of 10000 (max. 10000000)
 

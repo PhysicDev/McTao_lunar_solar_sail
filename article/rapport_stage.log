@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.25 (MiKTeX 23.10) (preloaded format=pdflatex 2023.10.12)  22 AUG 2024 17:00
+This is pdfTeX, Version 3.141592653-2.6-1.40.25 (MiKTeX 23.10) (preloaded format=pdflatex 2023.10.12)  23 AUG 2024 11:03
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -11,9 +11,9 @@ L3 programming layer <2023-08-29>
 e.cls
 Document Class: article 2023/05/17 v1.4n Standard LaTeX document class
 
-(C:\Users\Vincent Callegari\AppData\Local\Programs\MiKTeX\tex/latex/base\size10
+(C:\Users\Vincent Callegari\AppData\Local\Programs\MiKTeX\tex/latex/base\size12
 .clo
-File: size10.clo 2023/05/17 v1.4n Standard LaTeX file (size option)
+File: size12.clo 2023/05/17 v1.4n Standard LaTeX file (size option)
 )
 \c@part=\count185
 \c@section=\count186
@@ -382,20 +382,20 @@ File: l3backend-pdftex.def 2023-04-19 L3 backend support: PDF output (pdfTeX)
 ) (rapport_stage.aux)
 \openout1 = `rapport_stage.aux'.
 
-LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 73.
-LaTeX Font Info:    ... okay on input line 73.
-LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 73.
-LaTeX Font Info:    ... okay on input line 73.
-LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 73.
-LaTeX Font Info:    ... okay on input line 73.
-LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 73.
-LaTeX Font Info:    ... okay on input line 73.
-LaTeX Font Info:    Checking defaults for TS1/cmr/m/n on input line 73.
-LaTeX Font Info:    ... okay on input line 73.
-LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 73.
-LaTeX Font Info:    ... okay on input line 73.
-LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 73.
-LaTeX Font Info:    ... okay on input line 73.
+LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 78.
+LaTeX Font Info:    ... okay on input line 78.
+LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 78.
+LaTeX Font Info:    ... okay on input line 78.
+LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 78.
+LaTeX Font Info:    ... okay on input line 78.
+LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 78.
+LaTeX Font Info:    ... okay on input line 78.
+LaTeX Font Info:    Checking defaults for TS1/cmr/m/n on input line 78.
+LaTeX Font Info:    ... okay on input line 78.
+LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 78.
+LaTeX Font Info:    ... okay on input line 78.
+LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 78.
+LaTeX Font Info:    ... okay on input line 78.
  (rapport_stage.glsdefs)
 *geometry* driver: auto-detecting
 *geometry* detected driver: pdftex
@@ -406,22 +406,22 @@ LaTeX Font Info:    ... okay on input line 73.
 * layoutoffset:(h,v)=(0.0pt,0.0pt)
 * modes: 
 * h-part:(L,W,R)=(56.9055pt, 500.484pt, 56.9055pt)
-* v-part:(T,H,B)=(95.39737pt, 556.47656pt, 143.09605pt)
+* v-part:(T,H,B)=(95.39737pt, 642.66711pt, 56.9055pt)
 * \paperwidth=614.295pt
 * \paperheight=794.96999pt
 * \textwidth=500.484pt
-* \textheight=556.47656pt
+* \textheight=642.66711pt
 * \oddsidemargin=-15.36449pt
 * \evensidemargin=-15.36449pt
 * \topmargin=-13.87262pt
 * \headheight=12.0pt
 * \headsep=25.0pt
-* \topskip=10.0pt
+* \topskip=12.0pt
 * \footskip=30.0pt
-* \marginparwidth=65.0pt
-* \marginparsep=11.0pt
+* \marginparwidth=44.0pt
+* \marginparsep=10.0pt
 * \columnsep=10.0pt
-* \skip\footins=9.0pt plus 4.0pt minus 2.0pt
+* \skip\footins=10.8pt plus 4.0pt minus 2.0pt
 * \hoffset=0.0pt
 * \voffset=0.0pt
 * \mag=1000
@@ -457,14 +457,14 @@ Package epstopdf-base Info: Redefining graphics rule for `.eps' on input line 4
 stopdf-sys.cfg
 File: epstopdf-sys.cfg 2021/03/18 v2.0 Configuration of epstopdf for MiKTeX
 ))
-LaTeX Font Info:    Trying to load font information for U+msa on input line 74.
+LaTeX Font Info:    Trying to load font information for U+msa on input line 79.
 
 
 (C:\Users\Vincent Callegari\AppData\Local\Programs\MiKTeX\tex/latex/amsfonts\um
 sa.fd
 File: umsa.fd 2013/01/14 v3.01 AMS symbols A
 )
-LaTeX Font Info:    Trying to load font information for U+msb on input line 74.
+LaTeX Font Info:    Trying to load font information for U+msb on input line 79.
 
 
 (C:\Users\Vincent Callegari\AppData\Local\Programs\MiKTeX\tex/latex/amsfonts\um
@@ -474,23 +474,23 @@ File: umsb.fd 2013/01/14 v3.01 AMS symbols B
 <images/eclipse_2.png, id=1, 3854.4pt x 2168.1pt>
 File: images/eclipse_2.png Graphic file (type png)
 <use images/eclipse_2.png>
-Package pdftex.def Info: images/eclipse_2.png  used on input line 75.
+Package pdftex.def Info: images/eclipse_2.png  used on input line 80.
 (pdftex.def)             Requested size: 500.484pt x 281.499pt.
 
-Overfull \hbox (15.0pt too wide) in paragraph at lines 75--76
+Overfull \hbox (17.62482pt too wide) in paragraph at lines 80--81
 [][] 
  []
 
 <images/Logo_Reseau_Polytech.png, id=3, 1181.91562pt x 752.8125pt>
 File: images/Logo_Reseau_Polytech.png Graphic file (type png)
 <use images/Logo_Reseau_Polytech.png>
-Package pdftex.def Info: images/Logo_Reseau_Polytech.png  used on input line 77
+Package pdftex.def Info: images/Logo_Reseau_Polytech.png  used on input line 82
 .
 (pdftex.def)             Requested size: 85.35826pt x 54.36786pt.
 <images/inria.png, id=4, 418.56375pt x 121.45375pt>
 File: images/inria.png Graphic file (type png)
 <use images/inria.png>
-Package pdftex.def Info: images/inria.png  used on input line 77.
+Package pdftex.def Info: images/inria.png  used on input line 82.
 (pdftex.def)             Requested size: 85.35826pt x 24.76659pt.
 [1
 
@@ -503,83 +503,131 @@ Package pdftex.def Info: images/inria.png  used on input line 77.
 \openout5 = `rapport_stage.toc'.
 
  [2] [3]
-Underfull \hbox (badness 10000) in paragraph at lines 127--130
+Underfull \hbox (badness 10000) in paragraph at lines 136--139
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 136--139
 
  []
 
 [4]
-Underfull \hbox (badness 10000) in paragraph at lines 144--145
+Overfull \hbox (13.76483pt too wide) in paragraph at lines 148--149
+[]\OT1/cmr/m/n/12 Apr^^Res avoir utilis^^Se des out-ils graphiques pour vi-su-a
+liser claire-ment la forme de la []zone d'observation
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 153--156
 
  []
 
-<images/observations_main.png, id=27, 403.55568pt x 197.34528pt>
+<images/observations_main.png, id=25, 403.55568pt x 197.34528pt>
 File: images/observations_main.png Graphic file (type png)
 <use images/observations_main.png>
-Package pdftex.def Info: images/observations_main.png  used on input line 150.
+Package pdftex.def Info: images/observations_main.png  used on input line 159.
 (pdftex.def)             Requested size: 512.1496pt x 250.48117pt.
 
-Overfull \hbox (11.6656pt too wide) in paragraph at lines 150--151
+Overfull \hbox (11.6656pt too wide) in paragraph at lines 159--160
 [][] 
  []
 
 
 LaTeX Warning: `h' float specifier changed to `ht'.
 
+
+! LaTeX Error: There's no line here to end.
+
+See the LaTeX manual or LaTeX Companion for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.162 		\\ \\
+             
+Your command was ignored.
+Type  I <command> <return>  to replace it with another command,
+or  <return>  to continue without it.
+
+
+! LaTeX Error: There's no line here to end.
+
+See the LaTeX manual or LaTeX Companion for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.163 		J
+         'ai également amélioré le modèle en prenant en compte de plus e...
+
+Your command was ignored.
+Type  I <command> <return>  to replace it with another command,
+or  <return>  to continue without it.
+
+<images/moon_orbit.jpg, id=26, 1927.2pt x 966.61125pt>
+File: images/moon_orbit.jpg Graphic file (type jpg)
+<use images/moon_orbit.jpg>
+Package pdftex.def Info: images/moon_orbit.jpg  used on input line 165.
+(pdftex.def)             Requested size: 512.1496pt x 256.87347pt.
+
+Overfull \hbox (11.6656pt too wide) in paragraph at lines 165--166
+[][] 
+ []
+
 [5]
-Underfull \hbox (badness 10000) in paragraph at lines 167--172
+
+LaTeX Warning: `h' float specifier changed to `ht'.
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 178--183
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 167--172
+Underfull \hbox (badness 10000) in paragraph at lines 178--183
 
  []
 
-<images/observation_Obs.png, id=31, 1445.4pt x 724.95844pt>
+[6 <./images/observations_main.png>]
+<images/observation_Obs.png, id=34, 1445.4pt x 724.95844pt>
 File: images/observation_Obs.png Graphic file (type png)
 <use images/observation_Obs.png>
-Package pdftex.def Info: images/observation_Obs.png  used on input line 175.
+Package pdftex.def Info: images/observation_Obs.png  used on input line 186.
 (pdftex.def)             Requested size: 500.484pt x 251.018pt.
-[6 <./images/observations_main.png>] [7 <./images/observation_Obs.png (PNG copy
-)>] [8]
-Underfull \hbox (badness 10000) in paragraph at lines 223--226
+
+
+LaTeX Warning: `h' float specifier changed to `ht'.
+
+[7 <./images/moon_orbit.jpg>] [8 <./images/observation_Obs.png (PNG copy)>]
+[9]
+Underfull \hbox (badness 10000) in paragraph at lines 234--237
 
  []
 
-
-Overfull \hbox (4.26692pt too wide) in paragraph at lines 232--233
-\OT1/cmr/m/n/10 Si mon stage avait dur^^Se plus longtemps, j'aurais pu con-tin-
-uer ^^Ra ex-plorer les pos-si-bilit^^Se pour des mis-sions d'observations
- []
-
-[9] (rapport_stage.gls) [10] (rapport_stage.aux)
+[10] [11] (rapport_stage.gls) [12] (rapport_stage.aux)
  ***********
 LaTeX2e <2023-06-01> patch level 1
 L3 programming layer <2023-08-29>
  ***********
  ) 
 Here is how much of TeX's memory you used:
- 7771 strings out of 475247
- 125108 string characters out of 5752091
- 1929785 words of memory out of 5000000
- 29167 multiletter control sequences out of 15000+600000
- 566267 words of font info for 68 fonts, out of 8000000 for 9000
+ 7807 strings out of 475247
+ 125773 string characters out of 5752091
+ 1928785 words of memory out of 5000000
+ 29206 multiletter control sequences out of 15000+600000
+ 567169 words of font info for 71 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
  94i,7n,93p,2334b,281s stack positions out of 10000i,1000n,20000p,200000b,200000s
  <C:\Users\Vincent Callegari\AppData\Local\MiKTeX\fonts/pk/ljfour/jknappen/ec
-/dpi600\tcrm1000.pk><C:/Users/Vincent Callegari/AppData/Local/Programs/MiKTeX/f
-onts/type1/public/amsfonts/cm/cmbx10.pfb><C:/Users/Vincent Callegari/AppData/Lo
-cal/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmbx12.pfb><C:/Users/Vincent
- Callegari/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmmi10.
-pfb><C:/Users/Vincent Callegari/AppData/Local/Programs/MiKTeX/fonts/type1/publi
-c/amsfonts/cm/cmmi7.pfb><C:/Users/Vincent Callegari/AppData/Local/Programs/MiKT
-eX/fonts/type1/public/amsfonts/cm/cmr10.pfb><C:/Users/Vincent Callegari/AppData
-/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmr12.pfb><C:/Users/Vince
-nt Callegari/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmr17
-.pfb>
-Output written on rapport_stage.pdf (10 pages, 7913957 bytes).
+/dpi600\tcrm1200.pk><C:/Users/Vincent Callegari/AppData/Local/Programs/MiKTeX/f
+onts/type1/public/amsfonts/cm/cmbx12.pfb><C:/Users/Vincent Callegari/AppData/Lo
+cal/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmmi12.pfb><C:/Users/Vincent
+ Callegari/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmmi8.p
+fb><C:/Users/Vincent Callegari/AppData/Local/Programs/MiKTeX/fonts/type1/public
+/amsfonts/cm/cmr12.pfb><C:/Users/Vincent Callegari/AppData/Local/Programs/MiKTe
+X/fonts/type1/public/amsfonts/cm/cmr17.pfb>
+Output written on rapport_stage.pdf (12 pages, 7999047 bytes).
 PDF statistics:
- 85 PDF objects out of 1000 (max. 8388607)
+ 82 PDF objects out of 1000 (max. 8388607)
  0 named destinations out of 1000 (max. 500000)
- 26 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 31 words of extra memory for PDF output out of 10000 (max. 10000000)
 

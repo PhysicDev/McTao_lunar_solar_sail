@@ -1,6 +1,6 @@
 % This is a simple sample document.  For more complicated documents take a look in the exercise tab. Note that everything that comes after a % symbol is treated as comment and ignored when the code is compiled.
 
-\documentclass{article} % \documentclass{} is the first command in any LaTeX code.  It is used to define what kind of document you are creating such as an article or a book, and begins the document preamble
+\documentclass[11pt]{article} % \documentclass{} is the first command in any LaTeX code.  It is used to define what kind of document you are creating such as an article or a book, and begins the document preamble
 \usepackage{amssymb}
 \usepackage{amsmath} % \usepackage is a command that allows you to add functionality to your LaTeX code
 
@@ -8,7 +8,7 @@
 \author{Vincent Callegari} % Sets authors name
 \date{\today} % Sets date for date compiled
 \usepackage{graphicx}
-\usepackage[left=2cm, right=2cm]{geometry}
+\usepackage[left=2cm, right=2cm, bottom=2cm]{geometry}
 \graphicspath{{./images/graph/}}
 % The preamble ends with the command \begin{document}
 	\begin{document}
@@ -393,6 +393,8 @@
 		
 		It could be an improvement of the method to drop the constraint on the speed norm and replace the two angle argument by a simple vector. Hovewer tests show worse result in most case when using only this algotithm to find solution while using this algorithm with the solution of the previous ones as initial condition barelly improve the solution.
 		
+		In the next section we will thus still consider the period constraint. 
+		
 		\subsection{finding initial guess}
 		
 		Now that we know where the observation roughly are we can create an algorithm that could easily find initial guess to find observation.
@@ -458,11 +460,18 @@
 		
 		the problem of this simplified model is that we fixed the period of the device at the period of the Moon which was an hypothesis to reduce thrust needed between transfert but not realy an argument for maximizing the observation time.
 		
-		in fact I've noticed that observation time were higher when the period of the device was slightly reduced (around 0.92 Lunar period). I didn't manage to find the exact cause of this pheonomenon, i think a better model than this one could be around...
+		in fact I've noticed that observation time were higher when the period of the device was slightly reduced (around 0.92 Lunar period). I didn't manage to find the exact cause of this pheonomenon.
 		
-		For the rest of this article the value of the device period was fixed at 0.92 as it give longer observation time. 
+		%For the rest of this article the value of the device period was fixed at 0.92 as it give longer observation time. 
 		
-		I've also implemented an alternative method that use instead of the simplified model describe earlier the original model but with the speed fixed to the exact velocity of the observation zone. This method should include better optimum than the other models but test show slightly worse result (observation time around 30 minutes shorter). It is very likely that these error come from the fact that the optimum of this model are less obvious making them more difficult to find. Additionally this model run also slightly slower because of the differential we have to solve.
+		to adress this issue, i've also implemented an alternative method that use instead of the simplified model describe earlier the original model but with the speed fixed to the exact velocity of the observation zone. The method used to find the initial value are the same of what was describe in this sub section except we maximize the value instead of minimizing it. This method should include better optimum than the other models but test show slightly worse result (observation time around 30 minutes shorter). It is very likely that theses loss of performance come from the fact that the optimum of this model consisting of a main optimum split into two minor one (see figure 5 ) are less obvious making the true initial value more difficult to find. Additionally this model run also slightly slower because of the differential it has to solve. Despite that i think this model is technically better and we just need a better understanding of the reason that describe why the ascending and descending observation are optimum in order to refine the algorithm.
+		
+		\begin{figure}[h]
+			\includegraphics[width=1\textwidth]{images/observation_Obs.png}
+			\caption{observation time depending of the true anomaly of the moon at the time of observation, this graph was made in a simplified model of the Earth Moon system}
+		\end{figure}
+		
+		for the rest of the testing the first model will be used with a period value fixed at 0.92 instead of 1 because it was giving better observation time.
 		
 		\subsection{impact of alpha on the observation time}
 		
@@ -660,7 +669,7 @@
 			 The algorithm use the method ode45 of Matlab to solve the differential equation.
 			 
 			 \\ \\
-			 The second code is made in Julia using a library of Optimal Control. Its goal is to test transfert from one observation to another one by solving a optimal control problem.
+			 The second code is made in Julia using a library of Optimal Control. Its goal is to test transfert from one observation to another one by solving a optimal control problem. The program compute two possible scenario : making every ascending observations and making every descending observations.
 			 
 			 
 			 
@@ -672,9 +681,9 @@
 			 As this work was made in the frame of a four month internship, there are some elements of the project that may need to be explore further.
 			 The first step would be to make a lot of testing to get more information of the influence of the diverse parameters of the system, which one influence the observation time or the fuel consumed between transfert for example. Also I think that taking in acount the fuel used in the computing of the best observations may be important because it may be possible that reducing the length of a few observations by 1 hour for example could save enough fuel to maybe make one more observation of 20 hours.
 			 
-			 There also some scenario that were barrely explored that could be usefull, for example the idea of linking an descengin observation and a ascending one taking advantage of their high similirality because of the Sun movement . Then slowy moving to another observation 6 mounth later could be a good scenarion if the original required too much energy. There also the third observation that was discover later and havn't be studied at all and could be a good option for solar sail mission even if they seem less efficient than the ones already founded.
+			 There also some scenario that were barrely explored that could be usefull, for example the idea of linking an descending observation and a ascending one taking advantage of their high similirality because of the Sun movement. Then slowy moving to another observation 6 mounth later could be a good scenario if the others required too much energy. There also the third observation that was discover later and havn't be studied at all and could be a good option for solar sail mission even if they seem less efficient than the ones already studyed.
 	
-			 To conclude there are also the unknown caused that could explain the existence of the three optimum. The conjecture made so far was that making an observation by going in the same direction of the observation zone when it is at proximity of the same energy circular orbit has show to be the solution without being the exact one (using this method in the simplified model don't give good result in the true model). I think there are a mathematical reason of the existence of theses peak that, if we simplify some value and neglected other, become this conjecture.
+			 To conclude there are also the unknown causes that could explain the existence of the three optimum. The conjecture made so far was that making an observation by going in the same direction of the observation zone when it is at proximity of the same energy circular orbit has show to be the solution without being the exact one (using this method in the simplified model don't give good result in the true model). I think there are a mathematical reason of the existence of theses peak that, if we simplify some value and neglected other, become this conjecture.
 			 
 			 A last thing that could be done to make this project more usefull would be to consider all the other factor that would be needed in a real space mission, for example, it is known that there are dim dust cloud at the lagrange point L4 and L5 of the lunar orbit (see Kordylewsky dust cloud) and the observations could occurs near these points.
 		\end{document}

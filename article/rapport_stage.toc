@@ -7,10 +7,10 @@
 \contentsline {section}{\numberline {3}travail effectué}{5}{}%
 \contentsline {subsection}{\numberline {3.1}première observations}{5}{}%
 \contentsline {subsection}{\numberline {3.2}calcul des observations}{5}{}%
-\contentsline {subsection}{\numberline {3.3}contrôle optimal}{7}{}%
-\contentsline {subsection}{\numberline {3.4}analyse de résultat}{8}{}%
-\contentsline {section}{\numberline {4}Conclusion}{9}{}%
-\contentsline {subsection}{\numberline {4.1}compétence acquise}{9}{}%
-\contentsline {subsection}{\numberline {4.2}travail réalisé}{9}{}%
-\contentsline {subsection}{\numberline {4.3}possibilités pour aller plus loin}{9}{}%
-\contentsline {section}{\numberline {5}Glossaire}{10}{}%
+\contentsline {subsection}{\numberline {3.3}contrôle optimal}{8}{}%
+\contentsline {subsection}{\numberline {3.4}analyse de résultat}{9}{}%
+\contentsline {section}{\numberline {4}Conclusion}{10}{}%
+\contentsline {subsection}{\numberline {4.1}compétence acquise}{10}{}%
+\contentsline {subsection}{\numberline {4.2}travail réalisé}{10}{}%
+\contentsline {subsection}{\numberline {4.3}possibilités pour aller plus loin}{10}{}%
+\contentsline {section}{\numberline {5}Glossaire}{12}{}%
