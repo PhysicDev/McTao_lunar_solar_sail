@@ -26,7 +26,7 @@
 		At first for simplify things we will first consider that the sun and the occulting body are aligned along the X axis.
 		
 		\begin{figure}[h]
-			\includegraphics[width=10cm]{images/moon_schem.png}
+			\includegraphics[width=1\textwidth]{images/moon_schem.png}
 			\caption{major points of the observation zone }}
 		\end{figure}
 			
@@ -375,7 +375,7 @@
 		
 		
 		\begin{figure}[h]
-			\includegraphics[width=10cm]{images/observations_main.png}
+			\includegraphics[width=1\textwidth]{images/observations_main.png}
 			\caption{keplerian orbit allowing to make long observation in a simplified model (fixed sun, circular orbit of the moon and observation zone distance equal to moon's orbit radius)}
 		\end{figure}
 		
@@ -421,7 +421,7 @@
 		which is a one dimension equation depending of time only, which make it way easier to solve.
 		
 		\begin{figure}[h]
-			\includegraphics[width=12cm]{images/graph.jpg}
+			\includegraphics[width==1\textwidth]{images/graph.jpg}
 			\caption{relative speed between the device and the observation zone}
 		\end{figure}
 		
@@ -496,24 +496,28 @@
 		
 		\section{low thrust transfert}
 			
-			\subsection{low thrust model}
+			\subsection{analytic computing}
+			
+			before trying to make a model with the solar sail complex constraint on the control, we will first work with low thrust engine which is much easier to manage.
 			
 			we want to move from a point $R_i$ at time $t_i$ to a point $R_f$ at time $t_f$ with initial velocity $V_i$ and final velocity $V_f$.
 			
-			the device can be control with a low thrust engine that can generate an acceleration of maximum magnitude $A_{max}$ in any direction, as the final objective is to use a solar sail, the variation of mass is neglected.
+			the device can be control with a low thrust engine that can generate a maximum thrust $T_{max}$ in any direction. The device also use fuel at a rate $Q$ when at full throttle.
 			
 			the passive dynamic of the device is the following : 
 			$$
 			\begin{bmatrix}
 				\dot{r}\\
-				\dot{v}
+				\dot{v}\\
+				\dot{m}
 			\end{bmatrix} =\begin{bmatrix}
 				v\\
-				\sum\limits _{\beta \in B }\frac{\mu _{\beta }}{\| r_{\beta } -r\| ^{3}}( r_{\beta } -r)
+				\sum\limits _{\beta \in B }\frac{\mu _{\beta }}{\| r_{\beta } -r\| ^{3}}( r_{\beta } -r)\\
+				0
 			\end{bmatrix}
 			$$
 			
-			where $B$ is the set of every bodies that attract the device (for now the two body are The Earth and the Moon). the dynamics of the bodies must be computed before (we suppose that the device does not influence the dynamics of the system).
+			where $B$ is the set of every bodies that attract the device (in this case There are only the Earth and Moon, the sun is neglected as we are in the referential of the Earth Moon barycenter). the dynamics of the bodies are known and don't depend on the device state (we suppose that the device does not influence the dynamics of the system).
 			
 			the acceleration of the thruster can be take in account by adding a vector the equations of speed : \\
 			
@@ -521,13 +525,17 @@
 			f(x,u)=\dot{x}=
 			\begin{bmatrix}
 				\dot{r}\\
-				\dot{v}
+				\dot{v}\\
+				\dot{m}
 			\end{bmatrix}
 			=\begin{bmatrix}
 				v\\
-				u+\sum\limits _{\beta \in B }\frac{\mu _{\beta }}{\| r_{\beta } -r\| ^{3}}( r_{\beta } -r)
+				u\frac{T_ {max}}{m}+\sum\limits _{\beta \in B }\frac{\mu _{\beta }}{\| r_{\beta } -r\| ^{3}}( r_{\beta } -r)\\
+				-\|u\|Q
 			\end{bmatrix}
 			$$
+			
+			Here $u$ is an vector restrained inside a Sphereof radius one. 
 			
 			we want to minimize the $\Delta_v$ of the transfert, so the running payoff is :
 			$$
@@ -545,22 +553,25 @@
 			$$
 			H(x,p,u)=\begin{bmatrix}
 				v\\
-				u+\sum\limits _{\beta \in B }\frac{\mu _{\beta }}{\| r_{\beta } -r\| ^{3}}( r_{\beta } -r)
+				u\frac{T_ {max}}{m}+\sum\limits _{\beta \in B }\frac{\mu _{\beta }}{\| r_{\beta } -r\| ^{3}}( r_{\beta } -r)\\
+				-\|u\|Q
 			\end{bmatrix}^t\cdot p-\|u\|
 			$$
 			
-			using the Pontryagin maximum principle theorem we can compute the differential of $p=\begin{bmatrix}p_r\\p_v\end{bmatrix}$
+			using the Pontryagin maximum principle theorem we can compute the differential of $p=\begin{bmatrix}p_r\\p_v\\p_m\end{bmatrix}$
 			
 			$$
 			\begin{align}
 				\dot{p}=&-\nabla _{x}H\\
 				=&-\begin{bmatrix}
-					0 & I_3\\
-					\sum\limits _{\beta \in B }\frac{\mu _{\beta }}{\| r_{\beta } -r\| ^{3}}\left(\frac{3( r_{\beta } -r) \cdot ( r_{\beta } -r)^{t}}{\| r_{\beta } -r\| ^{2}} -I_3\right) & 0
+					0 & I_3 & 0\\
+					\sum\limits _{\beta \in B }\frac{\mu _{\beta }}{\| r_{\beta } -r\| ^{3}}\left(\frac{3( r_{\beta } -r) \cdot ( r_{\beta } -r)^{t}}{\| r_{\beta } -r\| ^{2}} -I_3\right) & 0 & -\frac{uT_ {max}}{m^2} \\
+					0 & 0 & 0
 				\end{bmatrix}^{t} \cdot p\\
 				=&\begin{bmatrix}
 					\sum\limits _{\beta \in B }\frac{\mu _{\beta }}{\| r_{\beta } -r\| ^{3}}\left(I_3-\frac{3( r_{\beta } -r) \cdot ( r_{\beta } -r)^{t}}{\| r_{\beta } -r\| ^{2}} \right)\cdot p_v\\
-					-p_r
+					-p_r\\
+					\frac{uT_ {max}}{m^2}p_v
 				\end{bmatrix}
 			\end{align}
 			$$
@@ -568,15 +579,15 @@
 			we know that $\forall t$ , $u=\arg\max_{u\in B(0,A_{max})}H(x,p,u)$. We can rewrite the hamiltonian as follow : 
 			$$
 			\begin{align}
-				H(x,p,u)=&C(x,p)+u\cdot p_v-\|u\| \\
-				=&C(x,p)+\|u\|(\|p_v\|\cos(\alpha_{\widehat{up_v}})-1)
+				H(x,p,u)=&C(x,p)+u\frac{T_ {max}}{m}\cdot p_v-\|u\|Qp_m-\|u\| \\
+				=&C(x,p)+\|u\|(\frac{T_ {max}}{m}\|p_v\|\cos(\alpha_{\widehat{up_v}})-1-Qp_m)
 			\end{align}
 			$$ 
 			
 			with this form we can easily conclude that 
 			$$
 			\begin{cases}
-				\| u\| =A_{max} & \text{if } \|p_v\|\cos(\alpha_{\widehat{up_v}})\ge1\\
+				\| u\| =1 & \text{if } \frac{T_ {max}}{m}\|p_v\|\cos(\alpha_{\widehat{up_v}})\ge1+Qp_m\\
 				\| u\| =0 & \text{else}
 			\end{cases}
 			$$
@@ -585,7 +596,7 @@
 			
 			$$
 			\begin{cases}
-				 u =A_{max}\widehat{p_v} & \text{if }\|p_v\| \ge 1\\
+				 u =\widehat{p_v} & \text{if }\frac{T_ {max}}{m}\|p_v\| \ge 1+Qp_m\\
 				 u =0 & \text{else}
 			\end{cases}
 			$$
@@ -599,6 +610,8 @@
 			the starting point of the device is the exting point where of starting observation and the ending point is the enter point of the ending observation.
 			
 			To simplify the next explication i will separate the observations into two category : the ascending observations and the descending observation. The descending observations are observations happening when the moon is around it last crescent, in this configuration the device must aproach Earth to make an observation. The ascending observation is the opposite, happening when the moon is around its first crescent and needed the device to moving away from earth.
+			
+			Hovewer because of unkown reasons (likely a problem with non squared norm) the algorithm didn't manage to find solutions when using the intial running payoff ($\|u\|$ which is the $\Delta_v$ of the transfert). So i used instead the cinetic energy running payoff which was way more stable and give result ($\frac{1}{2}\|u\|^2$).
 			
 			\subsection{observation}
 			The algorithm had a lot of struggle to find an optimum for moving to two adjacent observations, which was excpected as the two orbit of adjacent optimum are very different and the time interval is small meaning that important $\Delta_v$ are needed to move from the starting point to the ending point. hovewer the algorithm find solution for transition between ascending observation and between descending observation. This was also excpected as the starting and objective orbit are very similar with the main difference being only a rotation of $\frac{P_{moon}}{P_{sol}}2\pi $ rad caused by the movement of the sun.
@@ -685,5 +698,5 @@
 	
 			 To conclude there are also the unknown causes that could explain the existence of the three optimum. The conjecture made so far was that making an observation by going in the same direction of the observation zone when it is at proximity of the same energy circular orbit has show to be the solution without being the exact one (using this method in the simplified model don't give good result in the true model). I think there are a mathematical reason of the existence of theses peak that, if we simplify some value and neglected other, become this conjecture.
 			 
-			 A last thing that could be done to make this project more usefull would be to consider all the other factor that would be needed in a real space mission, for example, it is known that there are dim dust cloud at the lagrange point L4 and L5 of the lunar orbit (see Kordylewsky dust cloud) and the observations could occurs near these points.
+			 A last thing that could be done to make this project more usefull would be to consider all the other factor that would be needed in a real space mission, for example, it is known that there are dim dust cloud at the lagrange point L4 and L5 of the lunar orbit (see Kordylewsky dust cloud) and the observations could occurs near these points. 
 		\end{document}

@@ -4,13 +4,13 @@
 \contentsline {section}{\numberline {2}travail demandé}{4}{}%
 \contentsline {subsection}{\numberline {2.1}objectif du stage}{4}{}%
 \contentsline {subsection}{\numberline {2.2}tâches}{4}{}%
-\contentsline {section}{\numberline {3}travail effectué}{5}{}%
-\contentsline {subsection}{\numberline {3.1}première observations}{5}{}%
-\contentsline {subsection}{\numberline {3.2}calcul des observations}{5}{}%
-\contentsline {subsection}{\numberline {3.3}contrôle optimal}{8}{}%
-\contentsline {subsection}{\numberline {3.4}analyse de résultat}{9}{}%
-\contentsline {section}{\numberline {4}Conclusion}{10}{}%
-\contentsline {subsection}{\numberline {4.1}compétence acquise}{10}{}%
-\contentsline {subsection}{\numberline {4.2}travail réalisé}{10}{}%
-\contentsline {subsection}{\numberline {4.3}possibilités pour aller plus loin}{10}{}%
+\contentsline {section}{\numberline {3}travail effectué}{6}{}%
+\contentsline {subsection}{\numberline {3.1}première observations}{6}{}%
+\contentsline {subsection}{\numberline {3.2}calcul des observations}{6}{}%
+\contentsline {subsection}{\numberline {3.3}contrôle optimal}{9}{}%
+\contentsline {subsection}{\numberline {3.4}analyse de résultat}{10}{}%
+\contentsline {section}{\numberline {4}Conclusion}{11}{}%
+\contentsline {subsection}{\numberline {4.1}compétence acquise}{11}{}%
+\contentsline {subsection}{\numberline {4.2}travail réalisé}{11}{}%
+\contentsline {subsection}{\numberline {4.3}possibilités pour aller plus loin}{11}{}%
 \contentsline {section}{\numberline {5}Glossaire}{12}{}%

@@ -8,11 +8,11 @@
 \contentsline {section}{\numberline {4}Result}{7}{}%
 \contentsline {subsection}{\numberline {4.1}finding initial guess}{9}{}%
 \contentsline {subsection}{\numberline {4.2}impact of alpha on the observation time}{11}{}%
-\contentsline {section}{\numberline {5}low thrust transfert}{11}{}%
-\contentsline {subsection}{\numberline {5.1}low thrust model}{11}{}%
+\contentsline {section}{\numberline {5}low thrust transfert}{12}{}%
+\contentsline {subsection}{\numberline {5.1}analytic computing}{12}{}%
 \contentsline {section}{\numberline {6}result low thrust}{13}{}%
-\contentsline {subsection}{\numberline {6.1}observation}{13}{}%
-\contentsline {subsection}{\numberline {6.2}scenario with solar sail}{14}{}%
+\contentsline {subsection}{\numberline {6.1}observation}{14}{}%
+\contentsline {subsection}{\numberline {6.2}scenario with solar sail}{15}{}%
 \contentsline {subsection}{\numberline {6.3}scenario with electric propulsion}{15}{}%
 \contentsline {section}{\numberline {7}Conclusion}{16}{}%
 \contentsline {subsection}{\numberline {7.1}Results}{16}{}%
