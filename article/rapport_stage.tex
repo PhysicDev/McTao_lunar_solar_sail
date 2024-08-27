@@ -64,7 +64,7 @@ description={un moteur fusée propulsant de petites quantités de matières à t
 \usepackage{graphicx}
 
 
-
+\usepackage{float}
 
 
 
@@ -85,34 +85,42 @@ description={un moteur fusée propulsant de petites quantités de matières à t
 		\newpage
 		\section{Introduction}
 		
-		\subsection{la problèmatique}
-		Le but de ce stage est de trouver des trajectoires viables de satellite pour observer la \gls{SolCor} en utilisant la Lune comme corps occultant, le tout avec comme système de propulsion une \gls{SolVoil}.
+		\subsection{La problèmatique}
+		Le but de ce stage est de d'étudier une mission spatiale visant à étudier la \gls{SolCor} en utilisant la Lune comme corps occultant. En outre l'objectif est de calculer des trajectoires optimales faisable par des satellite exerçant des poussées faible (par \gls{Elec} ou \gls{SolVoil}).
 		
 		La voile solaire fonctionne de la même manière qu'une voile normale à l'exception qu'elle utilise la quantité de mouvement de la lumière au lieu de la quantité de mouvement de l'air pour changer de vitesse. Les forces générées par des voiles solaires ne peuvent pas être dirigées dans toutes les directions et sont très faibles en comparaison d'autres formes de propulsions les plus utilisés par les véhicules spatiaux mais ont le grand avantage de ne pas dépenser de carburant.
 		
-		L'observation de la couronne solaire est compliqué car elle est bien moins lumineuse que le soleil lui même. Afin d'observer cette couronne, il est donc nécessaire d'occulter le disque solaire. Il est possible d'effectuer de telles observations en utilisant un \gls{Cor}. Cependant plus l'objet utilisé pour occulter le soleil est grand et éloigné, plus l'observation peut être précise. Les planètes, planètes naines et autre astres sphériques opaques sont donc des objets idéaux pour effectuer des mesures car leurs taille excède largement tout objets occultant que l'humanité peut construire à ce jour.
+		La propulsion électrique quand à elle utilise un champ magnétique pour accélérer un gaz ionisé (souvent un gaz noble comme le xénon par exemple), l'idée est de créer une propulsion extrêmement efficace grâce à la vitesses très élevé des particules permettant ainsi de faire gagner une grande vitesse au satellite pour une masse de carburant relativement faible. Le désavantage de cette méthode de propulsion est qu'elle ne permet pas de générer de grandes forces de poussée ce qui signifie qu'elle ne peut pas être utilisée avec des vaisseaux trop lourds ou pour le décollage de fusées.
 		
-		L'objet du système solaire qui semble le plus indiqué pour être utilisé comme astre occultant est la Lune car son absence d'atmosphère significative et sa grande proximité avec la Terre combiné avec sa petite taille permettent d'effectuer des observations à distance relativement faible (environ égale à la distance Terre-Lune) tout en ayant les avantages énoncé plus tôt.
+		La couronne solaire (aussi appelé chromosphère) est en quelque sorte l'atmosphère du soleil, c'est une des parties du soleil qui est la plus mal comprise, on sait que c'est ici que se manifestent des événements violent comme les éruptions solaires ce qui influence la climat terrestre. Essayer de mieux comprendre le fonctionnement de la couronne solaire est donc un objectif assez important des astronomes.
 		
-		Sur Terre il est possible d'effectuer des observations de la couronne solaire durant les éclipses totales où la Lune joue le rôle d'objet occultant. Cependant ces observations ont lieu en moyenne une fois tout les 18 mois et ne permettent des observations de quelques minutes à peine. L'idée serait de placer un satellite sur des trajectoires qui permettent de faire des observations plus souvent et pendant plus longtemps. 
+		L'observation de la couronne solaire est un tâche difficile car elle est bien moins lumineuse que le soleil lui même. Afin d'observer cette couronne, il est donc nécessaire d'occulter le disque solaire.
+		
+		Sur Terre il est possible d'effectuer des observations de la couronne solaire durant les éclipses totales où la Lune joue le rôle d'objet occultant. Cependant ces observations ont lieu en moyenne une fois tout les 18 mois et ne permettent des observations de quelques minutes à peine ce qui n'est pas idéal.
+		
+		une autres méthode pour effectuer d'effectuer de telles observations en utilisant un \gls{Cor} qui utilise un masque pour cacher la partie la plus lumineuse du Soleil. Cependant plus l'objet utilisé pour occulter le Soleil est grand et éloigné, plus l'observation peut être précise. Les planètes, planètes naines et autre astres sphériques opaques sont donc des objets idéaux pour effectuer des mesures car leurs taille excède largement tout objets occultant que l'humanité peut construire à ce jour. De plus, comme c'est souvent le cas en astronomie, l'atmosphère terrestre est souvent un obstacle pour effectuer des observations, particulièrement de jour.
+		
+		L'objet du système solaire qui semble le plus indiqué pour être utilisé comme astre occultant est la Lune car son absence d'atmosphère et sa grande proximité avec la Terre combiné avec sa petite taille permettent d'effectuer des observations à distance relativement faible (environ égale à la distance Terre-Lune) tout en ayant les avantages énoncé plus tôt.
 		 
 		La contrepartie lorsque l'on utilise une planète comme objet occultant est qu'on ne peut contrôler sa trajectoire et que le satellite est contraint de suivre l'objet, ce qui demande de résoudre un certain nombres de problèmes et de se plier à un certain nombre de contraintes.
 		
-		C'est ici l'objectif de mon stage, étudier les possibilités d'effectuer des observations de la couronne solaire en utilisant la Lune comme objet occultant
+		Ainsi l'objectif de mon stage est d'étudier les possibilités d'effectuer des observations de la couronne solaire en utilisant la Lune comme objet occultant.
 		 
 		Dans ce rapport, je vais détailler le travail que j'ai effectué et les conclusions et résultats auxquels je suis arrivé ainsi que les compétence acquise au cours du stage. 
 		 
-		\subsection{Entreprise du stage}
+		\subsection{Institut de recherche}
 		
-		l'Institut national de recherche en informatique et en automatique (INRIA) est un laboratoire publique de recherche. Il est implémenté dans sur nombreux sites comme la région parisienne, Bordeaux, Grenoble, Rennes etc ... J'ai effectué mon stage sur le site de Sophia Antipolis (Alpes Maritimes). Le laboratoire à été fondée en 1967 (il s'appelait alors seulement l'Institut de recherche en informatique et en automatique ou IRIA) dans le cadre de l'initiative du plan Calcul visant à s'assurer que la France conserve une indépendance en innovation informatique.
+		l'Institut national de recherche en informatique et en automatique (INRIA) est un laboratoire publique de recherche. Il est implémenté dans sur nombreux sites :  Bordeaux, Grenoble, Lille, Lyon, Lorraine, Paris, Rennes, Saclay, Côte d'Azur et le Chesnay. J'ai effectué mon stage sur le site de Sophia Antipolis (Alpes Maritimes). Le laboratoire à été fondée en 1967 (il s'appelait alors seulement l'Institut de recherche en informatique et en automatique ou IRIA) dans le cadre de l'initiative du plan Calcul visant à s'assurer que la France conserve une indépendance en innovation informatique.
 		
 		
 		\newpage
-		\section{travail demandé}
-		\subsection{objectif du stage}
-		Le travail qui m'a été demandé durant ce stage regroupait plusieurs tâche : tout d'abord, étudier comment se déplaçait la \gls{Zone} de la Lune au cours du temps ( la zone d'observation étant la région où le soleil est caché par la lune mais où la couronne solaire reste visible). Ensuite il fallait, à partir de ces résultats, d'essayer de trouver des trajectoires qui permettraient de traverser la zone d'observation de manière répété et de rester le plus longtemps possible à l'intérieur de cette zone lorsque l'on la traversait.
+		\section{Travail demandé}
+		\subsection{Objectif du stage}
+		Le travail qui m'a été demandé durant ce stage regroupait plusieurs tâches : tout d'abord, étudier la géométrie de la \gls{Zone} au cours du temps (la zone d'observation étant la région où le soleil est caché par la lune mais où la couronne solaire reste visible). Ensuite il fallait, à partir de ces résultats, essayer de trouver des trajectoires permettant de traverser la zone d'observation de manière répété et ensuite de maximiser le temps d'observation.
 		
-		Étant donné qu'il y aura sans doute de nombreuses forces perturbatrices et qu'une trajectoire passive (un objet sans contrôle qui ne subit que les forces de gravité de la Terre, Lune, Soleil etc ...) ne traversera sans doute pas la zone d'observation très souvent, il est nécessaire d'ajouter au système un contrôle pour corriger la trajectoire du satellite voire de la changer. le système de propulsion qui à été choisi pour accomplir cet objectif est une voile solaire. Il s'agit d'un problème de contrôle optimal ce qui signifie que j'ai du en apprendre plus sur dans ce domaine car je n'ai pas encore suivi les cours sur ce sujet.
+		Plusieurs corps célestes seront considéré dans l'étude de ce problème : Le Soleil, La Terre et la Lune. Il s'agit donc d'un problème à quatre corps (les trois énoncé plus tôt en plus du satellite). Dans ce contexte il est presque impossible de trouver une trajectoire passive (sans \gls{Cont}) permettant de faire des observations répété. Ainsi il est nécessaire d'ajouter un contrôle au système c'est à dire ajouter un système de propulsion au satellite. Il était initialement prévu d'utiliser une \gls{SolVoil} comme méthode de propulsion mais il s'aggrave plus pratique d'utiliser un \gls{Elec}.
+			
+		%Étant donné qu'il y aura sans doute de nombreuses forces perturbatrices et qu'une trajectoire passive (un objet sans contrôle qui ne subit que les forces de gravité de la Terre, Lune, Soleil etc ...) ne traversera sans doute pas la zone d'observation très souvent, il est nécessaire d'ajouter au système un contrôle pour corriger la trajectoire du satellite voire de la changer. le système de propulsion qui à été choisi pour accomplir cet objectif est une voile solaire. Il s'agit d'un problème de contrôle optimal ce qui signifie que j'ai du en apprendre plus sur dans ce domaine car je n'ai pas encore suivi les cours sur ce sujet.
 		
 		Le but final du projet est de présenter un rapport final rapportant tous les résultats et observations faîtes lors du stages ainsi que des programmes capable de calculer différentes valeur utile (zone d'observation, trajectoire de satellite ou contrôle de ce dernier).
 		
@@ -136,19 +144,79 @@ description={un moteur fusée propulsant de petites quantités de matières à t
 		%De plus le modèle utilisé pour résoudre ce problème sera d'abord implémenté dans une version simplifiée : simple trajectoire circulaire de la lune avec vitesse fixe en 2D. Puis gagneras en complexité au fur et à mesure que le projet avanceras jusqu'à être très proche de la réalité (prise en compte de la variation de l'orbite lunaire causé par le soleil par exemple).
 		
 		\newpage
-		\section{travail effectué}
+		\section{Travail effectué}
 		
-		\subsection{première observations}
+		\subsection{Première observations}
 		Avant de commencer à travailler sur le problème, il fallait que j'en apprennent plus sur les notions du projet, j'ai donc lu divers articles sur des projets d'occultation solaire à l'aide de la Terre (utilisée comme astre occultant), une thèses sur les voiles solaires, ainsi qu'un cours sur le contrôle optimal car je n'ai pas encore eu de cours sur ce sujet.
 		
-		J'ai commencé par analyser le déplacement de la \gls{Zone} de la Lune, j'ai utilisé comme base des travaux qui avait déjà été effectué en utilisant la Terre comme objet occultant. J'ai utilisé des notions basiques de géométrie pour déterminer où se trouvait la zone d'observation de la Lune en fonction de sa position, étant donnée que l'opération consistant à vérifier que l'objet se situait dans la zone d'observation était une des opérations qui sera la plus utilisé dans les calculs j'ai également déterminé quel paramètres pouvaient être négligés afin de rendre le calcul plus simple.
+		J'ai commencé par analyser le déplacement de la \gls{Zone} de la Lune, j'ai utilisé comme base des travaux qui avait déjà été effectué en utilisant la Terre comme objet occultant. J'ai utilisé des notions basiques de géométrie pour déterminer où se trouvait la zone d'observation de la Lune en fonction de sa position,
+		
+		La forme de la zone d'observation dépend de la Taille de l'objet occultant (ici la Lune), de la distance entre le Soleil et l'objet (ici environ la distance Terre-Soleil soit environ 150 millions de Km) ainsi que de la précision de l'observation. En effet plus on souhaite observer des partie de la couronne proche du soleil plus la zone d'observation sera réduite car il faudra être plus proche du point où le Soleil est exactement caché par l'astre occultant sans que ce dernier cache la zone périphérique du soleil. Cette valeur est définie par un pourcentage du rayon solaire appelé $\alpha$, une valeur de $\alpha$ de $5\%$ par exemple signifie que l'on tolère de que des parties de la couronne solaire étant à moins de $0.05$ rayon solaire de la surface soir caché par l'astre occultant
+		
+		\begin{figure}[H]
+			\includegraphics[width=1\textwidth]{images/moon_schem.png}
+			\caption{géométrie de la zone d'observation}
+		\end{figure}
+		
+		j'ai obtenu les formules suivantes pour les points $P_1$, $P_2$ et $P_3$ relativement à la Lune quand elle  est à une distance $D$ du Soleil (voir figure 1)
+		
+		$$	
+		P_{1x}=\frac{\bar{D}R_l}{R_s-R_l}
+		$$ 
+		$$	
+		P_{3x}=\frac{\bar{D}R_l}{R_s(\alpha+1)-R_l}
+		$$
+		$$
+		P_{2x}=\frac{P_{1x}tan(\theta_1) + P_{3x}tan(\theta_3)}{tan(\theta_1) + tan(\theta_3)}
+		$$
+		$$
+		P_{2y}=tan(\theta_1)(P_{1x}-P_{2x})
+		$$
+		
+		avec
+		$$
+		\theta_1=\sin^{-1}\left(\frac{R_l}{P_{1x}}\right)
+		$$
+		
+		$$
+		\theta_3=\sin^{-1}\left(\frac{R_l}{P_{3x}}\right)
+		$$
+		
+		à partir de ces valeurs il est possible de déterminer les positions des points $P_1$ et $P_3$ où que soit la Lune à l'aide simple produit en croix.
+		
+		$$
+		\begin{equation}
+			P_3=R_{lt}+\hat{P_{3x}}D^{-1}R_{ls} 
+		\end{equation}
+		$$
+		$$
+		\begin{equation}
+			P_1=R_{lt}+\hat{P_{1x}}D^{-1}R_{ls} 
+		\end{equation}
+		$$
+		
+		la position du point $P_2$ est approximé pour réduire les calculs.J'ai choisi d'utiliser cette méthode approché pour évaluer la zone d'observation pour essayer de réduire le coût de calcul. Cela permettra d'accélérer l'exécution du code car cette opération sera répété extrêmement souvent.
+		
+		En prenant $D$ égal à la distance Terre soleil, j'ai calculé qu'on obtient une erreur de l'ordre de quelques centaines de mètre sur la position du point $P_2$ ce qui est négligeable en comparaison de l'épaisseur de la zone d'observation.
 		
 		Après avoir utilisé des outils graphiques pour visualiser clairement la forme de la \gls{Zone} et avoir déjà calculé à la main des candidats d'\gls{Obs} qui semblait être intéressante j'ai recherché une bonne méthode pour évaluer des trajectoires.
 		
-		Je suis arrivé à la conclusion que chercher à trouver des orbites effectuant plusieurs observations était inefficace en comparaison de chercher des orbites faisant une seule longue observations à cause du fait que la majorité des observations possibles sont courtes contre quelque rares mais très longues observations.
+		Concernant la dynamique du système les états (positions et vitesses) de la Terre et de la Lune sont calculé dans un système à 3 corps avec le Soleil fixé à l'origine. De cette manière on n'aura besoin de calculer les états de la Lune et de la Terre une seule fois au début du calcul. Une fois ce système résolu la dynamique du satellite est calculé avec les équations suivantes dans le référentiel du centre de gravité du système Terre-Lune :
 		
-		\subsection{calcul des observations}
-		Une fois cette étape théorique passé , j'ai implémenté le modèle dans Matlab ainsi qu'une méthode permettant de calculer le temps passé dans la \gls{Zone} en fonction d'une vitesse et position initiale situé dans la zone d'observation. Cette méthode simule la dynamique du système avant et après la position initiale pour déterminer l'instant où l'objet entre dans la zone et l'instant où ce dernier en sort ce qui permet de calculer le temps d'observation.
+		$$
+		\begin{bmatrix}
+			\dot{\overrightarrow{R_{s}}}\\
+			\dot{\overrightarrow{V_{s}}}\\
+		\end{bmatrix} =\begin{bmatrix}
+			\overrightarrow{V_{s}}\\
+			G_{m}(R_s,R_m)+G_{t}(R_s,R_t)
+		\end{bmatrix}
+		$$
+		
+		avec $G_m$ et $G_t$ respectivement la force de gravité lunaire et la force de gravité terrestre. Notez que la gravité solaire ne figure pas dans l'équation car on se place dans le référentiel du système Terre-Lune (bien qu'il faudrait techniquement prendre en compte la très légère variation de la force de gravité solaire au alentour de la Terre). Dans cette équation le satellite n'a pas de contrôle car il ne peut pas à la fois observer et changer sa trajectoire.
+		
+		\subsection{Calcul des observations}
+		Une fois cette étape théorique passé, j'ai implémenté le modèle dans Matlab ainsi qu'une méthode permettant de calculer le temps passé dans la \gls{Zone} en fonction d'une vitesse et position initiale situé dans la zone d'observation. Cette méthode simule la dynamique du système avant et après la position initiale pour déterminer l'instant où l'objet entre dans la zone et l'instant où ce dernier en sort ce qui permet de calculer le temps d'observation. L'objectif du problème est de maximiser le temps passer dans la zone d'observation lors de cette observation uniquement. Ce choix à été fait car j'ai remarqué qu'il y avait quelque points précis qui permettait des temps d'observation extrêmement long (plus de 15 heures) par rapport à la moyenne (quelques minutes) ce qui m'a fait penser qu'il serait sans doute inutile de chercher des orbites permettant plusieurs observations quand une seule de ces longues observations serait meilleure en tout point.
 		\\ \\
 		J'ai pu obtenir de premiers résultat consistant simplement à fixer tout les paramètres sauf un et d'afficher dans un graphe les variations causée. Ces résultats ont permis de mettre en évidence deux points de l'orbite lunaire qui semblait être assez intéressants pour effectuer des observations : ces deux points se situant aux moments où le Soleil, la Terre et la Lune forment un angle d'environs 60 degrés (\gls{AscObs} et \gls{DesObs}). Du point de vue de la Terre cela représente les moments où un tiers de la Lune est illuminé par le Soleil. le satellite se situerais aussi sur l'orbite de la Lune mais 60 degrés plus loin (le Soleil, la Terre et le satellite formerais donc un angle de 120 degrés) mais se déplacerait dans la même direction que la Lune afin d'accompagner la zone d'observation (voir figure 1). Il faut noter cependant que ces résultats sont valables dans un modèle très simplifié (orbite lunaire ronde, soleil fixe, distance de la zone d'observation exactement égale au rayon de l'orbite lunaire etc...), les vrais résultats ont des orbites assez similaires mais de nombreux facteurs font que les valeurs optimales ne correspondent pas exactement à ce qui est énoncé ci dessus.
 		
@@ -183,14 +251,40 @@ description={un moteur fusée propulsant de petites quantités de matières à t
 			\caption{temps d'observation en fonction de l'anomalie vraie de la Lune}
 		\end{figure}
 		
-		\subsection{contrôle optimal}
+		\subsection{Contrôle optimal}
 		
 		L'étape suivante consistait à calculer la trajectoire du satellite pour joindre les différentes observations.
 		pour cela j'ai utilisé une librairie en Julia permettant de résoudre des problème de contrôle optimal, l'idée était de calculer tout les transferts possibles entre différentes observations.
 		
-		J'ai implémenté deux versions du problème, l'une d'entre elle cherche à minimiser l'énergie cinétique lors d'un transfert, tandis que l'autre cherche à minimiser l'accélération maximale lors du transfert
+		On utilise la même méthode que précédemment pour calculer la position de la Terre et de la Lune, cependant on ajoute un contrôle à la dynamique du satellite ainsi qu'un paramètre supplémentaire pour la masse :
 		
-		Après avoir implémenté une version simplifiée du problème des voiles solaires (poussée faible dans n'importe quelle direction), il se trouve que les accélérations demandées semblaient trop élevées pour utiliser une voile solaire, l'option d'utiliser un satellite à poussée faible a donc été sélectionné.
+		$$
+		\begin{bmatrix}
+			\dot{\overrightarrow{R_{s}}}\\
+			\dot{\overrightarrow{V_{s}}}\\
+			\dot{m_{s}}
+		\end{bmatrix} =\begin{bmatrix}
+			\overrightarrow{V_{s}}\\
+			G_{m}(R_s,R_m)+G_{t}(R_s,R_t)+u\frac{M_{t}}{m}\\
+			-Q\|u\|
+		\end{bmatrix}
+		$$
+		
+		L'état initial du satellite est fixé et l'état final l'est également à l'exception de la mass qui est laissé libre (mais contrainte positive). Les temps de départ est d'arrivé sont également fixés.
+		L'objectif est de minimiser l'énergie cinétique lors d'un transfert calculé avec l'équation suivante :
+		
+		$C=\int_{t_0}^{t_f}\frac{1}{2}\|u\|^2dt$
+		
+		Voici ci dessous quelques schéma illustrant les liens entres les orbites de départ et d'arrivé, le transfert entre une observation descendante à ascendante (en haut à droite) demande de trop grand changement d'orbite en un temps trop court (environ 10 jours). Le passage d'une observation descendante à une observation ascendante en sautant un mois (en bas à gauche) est très facile car les orbites se retrouve quasiment alignées. Cependant le transfert inverse (en bas à droite) demande au contraire plus d'énergie car les orbites se sont encore plus éloigné au lieu de se rapprocher. De manière générale les transferts entres deux observation du même type demande une quantité relativement faible d'énergie.
+		\begin{figure}[H]
+			\includegraphics[width=0.5\textwidth]{images/1in2obs.png}
+			\includegraphics[width=0.5\textwidth]{images/odd_to_even.png}
+			\includegraphics[width=0.5\textwidth]{images/1in3_obs.png}
+			\includegraphics[width=0.5\textwidth]{images/1in3_bad.png}
+		\end{figure}
+		
+		De manière générale les accélération maximale nécessaire pour ces transferts se sont avéré trop élevé pour des voiles solaires, c'est à partir de ce moment là que l'option des voiles solaire à été écarté au profit des moteurs ioniques.	
+		%Après avoir implémenté une version simplifiée du problème des voiles solaires (poussée faible dans n'importe quelle direction), il se trouve que les accélérations demandées semblaient trop élevées pour utiliser une voile solaire, l'option d'utiliser un satellite à poussée faible a donc été sélectionné.
 		
 		Concernant les transferts, j'ai effectué une analyse des résultats qui m'ont permis de sélectionner 2 scénarios possible de mission dans lesquels un satellite effectue une observation sur 2 en utilisant une poussée faible.
 		
@@ -201,18 +295,18 @@ description={un moteur fusée propulsant de petites quantités de matières à t
 			\item définir et résoudre un modèle de contrôle optimal de transfert avec bord fixé en minimisant l'énergie dépensée.
 		\end{itemize}
 		
-		\subsection{analyse de résultat}
+		\subsection{Analyse des résultats}
 		
-		A plusieurs moments durant ce stage j'ai du commenter des résultats de calculs, j'ai du rechercher les raisons et les causes qui ont mené à certain résultat inattendus ainsi que de déduire des potentiels calculs supplémentaire ou les prochaines étapes du projet. Pour commencer j'ai utilisé les résultats du solver qui trouvait les plus long temps d'observations pour isoler des les points les plus intéressants  (\gls{AscObs} et \gls{DesObs}) pour faire des observations. Suite à ces analyse j'en ai conclu que ce qui semblait le plus intéressant était d'optimiser les observations indépendamment les unes des autres puis de chercher par la suite des trajectoire de transfert qui permettrait de passer d'une orbite à l'autre.
+		A plusieurs reprises durant ce stage j'ai du commenter des résultats de calculs, j'ai du rechercher les raisons et les causes qui ont mené à certain résultat inattendus ainsi que de déduire des potentiels calculs supplémentaire ou les prochaines étapes du projet. Pour commencer j'ai utilisé les résultats du solver qui trouvait les plus long temps d'observations pour isoler des les points les plus intéressants  (\gls{AscObs} et \gls{DesObs}) pour faire des observations. Suite à ces analyse j'en ai conclu que ce qui semblait le plus intéressant était d'optimiser les observations indépendamment les unes des autres puis de chercher par la suite des trajectoire de transfert qui permettrait de passer d'une orbite à l'autre.
 		
-		J'ai également du faire de choix en fonctions de ces résultat. J'ai par exemple remarqué qu'en prenant une période de révolution plus courte pour le satellite ( de l'ordre de $0.92$ période lunaire au lieu de $1$) les temps d'observation obtenue était plus court. Je pense que la cause de ces résultat vient du fait que la contrainte de vitesse lié à la période fixée du satellite est de trop, cependant donner au satellite la liberté d'avoir n'importe quelle vitesse en partant des optimums trouvé avec le modèle simplifié donne de très mauvais résultat. J'ai donc décidé d'optimiser d'abord avec la norme de vitesse fixé par la période du satellite (fixé à $0.92$) puis de résoudre à nouveau avec un modèle modifié laissant la vitesse libre en prenant comme condition initiale le résultat de l'algorithme précédent. Il est probable qu'il faillent remplacer le modèle simplifié par un autre plus performant. Un qui prendrait en compte le temps d'observation en fixant la vitesse de l'objet à la vitesse de la zone d'observation comme dans la figure 2 par exemple. Mais la forme assez complexe des optimums (deux pics très rapproché) et le fait que les observations des résultats ont rarement montré des trajectoire à vitesse nulle au centre de la zone (les vitesses sont souvent nulles près des bord de la zone) ont fait que je n'ai pas eu le temps d'implémenter un autre modèle.
+		%J'ai également du faire de choix en fonctions de ces résultat. J'ai par exemple remarqué qu'en prenant une période de révolution plus courte pour le satellite ( de l'ordre de $0.92$ période lunaire au lieu de $1$) les temps d'observation obtenue était plus court. Je pense que la cause de ces résultat vient du fait que la contrainte de vitesse lié à la période fixée du satellite est de trop, cependant donner au satellite la liberté d'avoir n'importe quelle vitesse en partant des optimums trouvé avec le modèle simplifié donne de très mauvais résultat. J'ai donc décidé d'optimiser d'abord avec la norme de vitesse fixé par la période du satellite (fixé à $0.92$) puis de résoudre à nouveau avec un modèle modifié laissant la vitesse libre en prenant comme condition initiale le résultat de l'algorithme précédent. Il est probable qu'il faillent remplacer le modèle simplifié par un autre plus performant. Un qui prendrait en compte le temps d'observation en fixant la vitesse de l'objet à la vitesse de la zone d'observation comme dans la figure 2 par exemple. Mais la forme assez complexe des optimums (deux pics très rapproché) et le fait que les observations des résultats ont rarement montré des trajectoire à vitesse nulle au centre de la zone (les vitesses sont souvent nulles près des bord de la zone) ont fait que je n'ai pas eu le temps d'implémenter un autre modèle.
 		
 		Ensuite j'ai du analysé les résultats de mon second code fait en Julia pour essayé de comprendre pourquoi les accélérations maximale des transferts ne diminuait pas même en faisant des transferts sur plus longtemps.
 		Il s'avère que, si l'on considère un modèle simplifié d'une Lune et d'une Terre avec une orbite circulaire sur le même plan, les orbites d'observations sont sensiblement les mêmes avec pour unique différence une rotation autour du vecteur normal au plan écliptique. Cette rotation est proportionnelle aux temps entre deux observation. Cela signifie que plus deux observations sont éloigné plus il faudra faire tourner l'orbite d'observation sur un grand angle ce qui explique que la les accélérations maximales ne diminuaient pas. Effectuer un transfert sur une observation deux fois plus lointaine dans le temps nécessite de faire tourner l'orbite d'observation deux fois plus loin également. C'est cette conclusion suggérant qu'il y a un seuil d'accélérations minimal que doit atteindre le satellite pour effectuer un nombre important d'observations par an qui à mené à l'abandon des voiles solaires au profit d'un moteur à poussée faible.
 		
 		\newpage
 		\section{Conclusion}
-		\subsection{compétence acquise}
+		\subsection{Compétences acquises}
 		Pour conclure ce stage m'a permis d'obtenir de nombreuses compétences.
 		 J'ai eu l'occasion de maîtriser les bases du contrôle optimal. Ce stage m'a également permis de mettre en application ces connaissances en utilisant une librairie permettant de résoudre des problèmes de ce type.
 		
@@ -222,7 +316,7 @@ description={un moteur fusée propulsant de petites quantités de matières à t
 		
 		J'ai eu également l'occasion d'écrire un compte-rendu de projet (qui n'est pas ce rapport de stage) intégralement en Anglais ce qui, en plus de renforcé mes compétences en Anglais, m'a permis de devenir plus doué dans la rédaction de rapports scientifiques en vue de publication.
 		
-		\subsection{travail réalisé}
+		\subsection{Travail réalisé}
 		
 		Durant ce stage j'ai produit de nombreux résultat qui pourront être réutilisé par d'autres personnes à l'avenir. on compte permis ces résultats : 
 		\\ \\
@@ -232,7 +326,7 @@ description={un moteur fusée propulsant de petites quantités de matières à t
 		
 		Ces deux programmes donnent aussi chacun des graphiques et des images qui permettent d'avoir un support visuel des résultats.
 		
-		\subsection{possibilités pour aller plus loin}
+		\subsection{Possibilités pour aller plus loin}
 		Si mon stage avait duré plus longtemps, j'aurais pu continuer à explorer les possibilité pour des missions d'observations de la Lune en essayant d'améliorer mes codes, j'aurais pu aussi étudier des possibilité que j'ai laisser de côte comme la troisième observations qui pourrait peut être fournir des scénario viable avec une voile solaire. J'ai aussi manqué de temps pour vérifier certaines des observations que j'ai durant ce stage, si j'avais eu plus de temps, j'aurais pu faire de nombreux tests, comparatifs et vérification qui permettrons certainement de mieux comprendre les variables importantes du problème, notamment essayer d'expliquer ce qui cause l'existence de ces pics de temps élevé (\gls{AscObs} et \gls{DesObs}) ce qui pourrait permettre de créer un modèle simplifié plus efficace que celui utilisé actuellement.
 		
 		\vfill
@@ -241,6 +335,7 @@ description={un moteur fusée propulsant de petites quantités de matières à t
 		
 		\printglossaries
 		
+		%a placer au bon endrois
 		
 		
 \end{document}

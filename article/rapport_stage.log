@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.25 (MiKTeX 23.10) (preloaded format=pdflatex 2023.10.12)  26 AUG 2024 13:21
+This is pdfTeX, Version 3.141592653-2.6-1.40.25 (MiKTeX 23.10) (preloaded format=pdflatex 2023.10.12)  27 AUG 2024 16:18
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -374,11 +374,20 @@ File: pdftex.def 2022/09/22 v1.2b Graphics/color driver for pdftex
 \Gin@req@height=\dimen169
 \Gin@req@width=\dimen170
 )
+(C:\Users\Vincent Callegari\AppData\Local\Programs\MiKTeX\tex/latex/float\float
+.sty
+Package: float 2001/11/08 v1.3d Float enhancements (AL)
+\c@float@type=\count302
+\float@exts=\toks37
+\float@box=\box59
+\@float@everytoks=\toks38
+\@floatcapt=\box60
+)
 (C:\Users\Vincent Callegari\AppData\Local\Programs\MiKTeX\tex/latex/l3backend\l
 3backend-pdftex.def
 File: l3backend-pdftex.def 2023-04-19 L3 backend support: PDF output (pdfTeX)
-\l__color_backend_stack_int=\count302
-\l__pdf_internal_box=\box59
+\l__color_backend_stack_int=\count303
+\l__pdf_internal_box=\box61
 ) (rapport_stage.aux)
 \openout1 = `rapport_stage.aux'.
 
@@ -435,17 +444,17 @@ LaTeX Font Info:    ... okay on input line 78.
 (C:\Users\Vincent Callegari\AppData\Local\Programs\MiKTeX\tex/context/base/mkii
 \supp-pdf.mkii
 [Loading MPS to PDF converter (version 2006.09.02).]
-\scratchcounter=\count303
+\scratchcounter=\count304
 \scratchdimen=\dimen171
-\scratchbox=\box60
-\nofMPsegments=\count304
-\nofMParguments=\count305
-\everyMPshowfont=\toks37
-\MPscratchCnt=\count306
+\scratchbox=\box62
+\nofMPsegments=\count305
+\nofMParguments=\count306
+\everyMPshowfont=\toks39
+\MPscratchCnt=\count307
 \MPscratchDim=\dimen172
-\MPnumerator=\count307
-\makeMPintoPDFobject=\count308
-\everyMPtoPDFconversion=\toks38
+\MPnumerator=\count308
+\makeMPintoPDFobject=\count309
+\everyMPtoPDFconversion=\toks40
 )
 (C:\Users\Vincent Callegari\AppData\Local\Programs\MiKTeX\tex/latex/epstopdf-pk
 g\epstopdf-base.sty
@@ -502,49 +511,116 @@ Package pdftex.def Info: images/inria.png  used on input line 82.
 \tf@toc=\write5
 \openout5 = `rapport_stage.toc'.
 
- [2] [3]
-Underfull \hbox (badness 10000) in paragraph at lines 128--137
+ [2] [3] [4]
+Underfull \hbox (badness 10000) in paragraph at lines 136--145
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 128--137
+Underfull \hbox (badness 10000) in paragraph at lines 136--145
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 128--137
+Underfull \hbox (badness 10000) in paragraph at lines 136--145
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 128--137
+Underfull \hbox (badness 10000) in paragraph at lines 136--145
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 128--137
+Underfull \hbox (badness 10000) in paragraph at lines 136--145
 
  []
 
-[4] [5]
-Overfull \hbox (13.76483pt too wide) in paragraph at lines 146--147
+[5] [6]
+<images/moon_schem.png, id=31, 1445.4pt x 813.0375pt>
+File: images/moon_schem.png Graphic file (type png)
+<use images/moon_schem.png>
+Package pdftex.def Info: images/moon_schem.png  used on input line 157.
+(pdftex.def)             Requested size: 500.484pt x 281.51553pt.
+ [7 <./images/moon_schem.png>]
+
+! LaTeX Error: Bad math environment delimiter.
+
+See the LaTeX manual or LaTeX Companion for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.188 		\begin{equation}
+                        
+Your command was ignored.
+Type  I <command> <return>  to replace it with another command,
+or  <return>  to continue without it.
+
+! Missing \endgroup inserted.
+<inserted text> 
+                \endgroup 
+l.190 		\end{equation}
+                      
+I've inserted something that you may have forgotten.
+(See the <inserted text> above.)
+With luck, this will get me unwedged. But if you
+really didn't forget anything, try typing `2' now; then
+my insertion and my current dilemma will both disappear.
+
+
+! LaTeX Error: \begin{document} ended by \end{equation}.
+
+See the LaTeX manual or LaTeX Companion for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.190 		\end{equation}
+                      
+Your command was ignored.
+Type  I <command> <return>  to replace it with another command,
+or  <return>  to continue without it.
+
+! Extra \endgroup.
+<recently read> \endgroup 
+                          
+l.190 		\end{equation}
+                      
+Things are pretty mixed up, but I think the worst is over.
+
+! Missing $ inserted.
+<inserted text> 
+                $
+l.197 		
+        
+I've inserted a begin-math/end-math symbol since I think
+you left one out. Proceed, with fingers crossed.
+
+! Display math should end with $$.
+<to be read again> 
+                   \tex_par:D 
+l.197 		
+        
+The `$' that I just saw supposedly matches a previous `$$'.
+So I shall assume that you typed `$$' both times.
+
+
+Overfull \hbox (13.76483pt too wide) in paragraph at lines 202--203
 []\OT1/cmr/m/n/12 Apr^^Res avoir utilis^^Se des out-ils graphiques pour vi-su-a
 liser claire-ment la forme de la []zone d'observation
  []
 
-
-Underfull \hbox (badness 10000) in paragraph at lines 151--154
+[8]
+Underfull \hbox (badness 10000) in paragraph at lines 219--222
 
  []
 
-<images/observations_main.png, id=28, 403.70825pt x 205.568pt>
+<images/observations_main.png, id=46, 403.70825pt x 205.568pt>
 File: images/observations_main.png Graphic file (type png)
 <use images/observations_main.png>
-Package pdftex.def Info: images/observations_main.png  used on input line 157.
+Package pdftex.def Info: images/observations_main.png  used on input line 225.
 (pdftex.def)             Requested size: 512.1496pt x 260.79868pt.
 
-Overfull \hbox (11.6656pt too wide) in paragraph at lines 157--158
+Overfull \hbox (11.6656pt too wide) in paragraph at lines 225--226
 [][] 
  []
 
@@ -558,7 +634,7 @@ See the LaTeX manual or LaTeX Companion for explanation.
 Type  H <return>  for immediate help.
  ...                                              
                                                   
-l.160 		\\ \\
+l.228 		\\ \\
              
 Your command was ignored.
 Type  I <command> <return>  to replace it with another command,
@@ -571,62 +647,101 @@ See the LaTeX manual or LaTeX Companion for explanation.
 Type  H <return>  for immediate help.
  ...                                              
                                                   
-l.161 		J
+l.229 		J
          'ai également amélioré le modèle en prenant en compte de plus e...
 
 Your command was ignored.
 Type  I <command> <return>  to replace it with another command,
 or  <return>  to continue without it.
 
-<images/moon_orbit.jpg, id=29, 1927.2pt x 966.61125pt>
+<images/moon_orbit.jpg, id=47, 1927.2pt x 966.61125pt>
 File: images/moon_orbit.jpg Graphic file (type jpg)
 <use images/moon_orbit.jpg>
-Package pdftex.def Info: images/moon_orbit.jpg  used on input line 163.
+Package pdftex.def Info: images/moon_orbit.jpg  used on input line 231.
 (pdftex.def)             Requested size: 500.484pt x 251.018pt.
-[6]
 
 LaTeX Warning: `h' float specifier changed to `ht'.
 
-[7 <./images/observations_main.png>]
-<images/observation_Obs.png, id=38, 1445.4pt x 724.95844pt>
+[9]
+<images/observation_Obs.png, id=51, 1445.4pt x 724.95844pt>
 File: images/observation_Obs.png Graphic file (type png)
 <use images/observation_Obs.png>
-Package pdftex.def Info: images/observation_Obs.png  used on input line 182.
+Package pdftex.def Info: images/observation_Obs.png  used on input line 250.
 (pdftex.def)             Requested size: 500.484pt x 251.018pt.
-
+ [10 <./images/observations_main.png>]
 
 LaTeX Warning: `h' float specifier changed to `ht'.
 
-[8 <./images/moon_orbit.jpg>] [9 <./images/observation_Obs.png>] [10]
-Underfull \hbox (badness 10000) in paragraph at lines 227--230
+[11 <./images/moon_orbit.jpg>]
+<images/1in2obs.png, id=60, 424.87395pt x 251.56404pt>
+File: images/1in2obs.png Graphic file (type png)
+<use images/1in2obs.png>
+Package pdftex.def Info: images/1in2obs.png  used on input line 280.
+(pdftex.def)             Requested size: 250.24199pt x 148.16814pt.
+<images/odd_to_even.png, id=61, 424.87395pt x 251.56404pt>
+File: images/odd_to_even.png Graphic file (type png)
+<use images/odd_to_even.png>
+Package pdftex.def Info: images/odd_to_even.png  used on input line 281.
+(pdftex.def)             Requested size: 250.24199pt x 148.16814pt.
+<images/1in3_obs.png, id=62, 424.87395pt x 251.56404pt>
+File: images/1in3_obs.png Graphic file (type png)
+<use images/1in3_obs.png>
+Package pdftex.def Info: images/1in3_obs.png  used on input line 282.
+(pdftex.def)             Requested size: 250.24199pt x 148.16814pt.
+<images/1in3_bad.png, id=63, 424.87395pt x 251.56404pt>
+File: images/1in3_bad.png Graphic file (type png)
+<use images/1in3_bad.png>
+Package pdftex.def Info: images/1in3_bad.png  used on input line 283.
+(pdftex.def)             Requested size: 250.24199pt x 148.16814pt.
+
+Overfull \hbox (2.61107pt too wide) in paragraph at lines 280--284
+[][] []
+ []
+
+
+Overfull \hbox (2.61107pt too wide) in paragraph at lines 280--284
+[] [] 
+ []
+
+[12 <./images/observation_Obs.png>] [13 <./images/1in2obs.png> <./images/odd_to
+_even.png> <./images/1in3_obs.png> <./images/1in3_bad.png>] [14]
+Underfull \hbox (badness 10000) in paragraph at lines 321--324
 
  []
 
-[11] (rapport_stage.gls) [12] (rapport_stage.aux)
+[15] (rapport_stage.gls) [16] (rapport_stage.aux)
  ***********
 LaTeX2e <2023-06-01> patch level 1
 L3 programming layer <2023-08-29>
  ***********
  ) 
 Here is how much of TeX's memory you used:
- 7807 strings out of 475247
- 125773 string characters out of 5752091
- 1928785 words of memory out of 5000000
- 29206 multiletter control sequences out of 15000+600000
+ 7917 strings out of 475247
+ 127980 string characters out of 5752091
+ 1929785 words of memory out of 5000000
+ 29312 multiletter control sequences out of 15000+600000
  567169 words of font info for 71 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
- 94i,7n,93p,2334b,281s stack positions out of 10000i,1000n,20000p,200000b,200000s
+ 94i,21n,93p,2334b,285s stack positions out of 10000i,1000n,20000p,200000b,200000s
  <C:\Users\Vincent Callegari\AppData\Local\MiKTeX\fonts/pk/ljfour/jknappen/ec
 /dpi600\tcrm1200.pk><C:/Users/Vincent Callegari/AppData/Local/Programs/MiKTeX/f
 onts/type1/public/amsfonts/cm/cmbx12.pfb><C:/Users/Vincent Callegari/AppData/Lo
-cal/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmmi12.pfb><C:/Users/Vincent
- Callegari/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmmi8.p
-fb><C:/Users/Vincent Callegari/AppData/Local/Programs/MiKTeX/fonts/type1/public
-/amsfonts/cm/cmr12.pfb><C:/Users/Vincent Callegari/AppData/Local/Programs/MiKTe
-X/fonts/type1/public/amsfonts/cm/cmr17.pfb>
-Output written on rapport_stage.pdf (12 pages, 8026403 bytes).
+cal/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmex10.pfb><C:/Users/Vincent
+ Callegari/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmmi12.
+pfb><C:/Users/Vincent Callegari/AppData/Local/Programs/MiKTeX/fonts/type1/publi
+c/amsfonts/cm/cmmi6.pfb><C:/Users/Vincent Callegari/AppData/Local/Programs/MiKT
+eX/fonts/type1/public/amsfonts/cm/cmmi8.pfb><C:/Users/Vincent Callegari/AppData
+/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmr12.pfb><C:/Users/Vince
+nt Callegari/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmr17
+.pfb><C:/Users/Vincent Callegari/AppData/Local/Programs/MiKTeX/fonts/type1/publ
+ic/amsfonts/cm/cmr6.pfb><C:/Users/Vincent Callegari/AppData/Local/Programs/MiKT
+eX/fonts/type1/public/amsfonts/cm/cmr8.pfb><C:/Users/Vincent Callegari/AppData/
+Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmsy10.pfb><C:/Users/Vince
+nt Callegari/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmsy8
+.pfb>
+Output written on rapport_stage.pdf (16 pages, 8898644 bytes).
 PDF statistics:
- 83 PDF objects out of 1000 (max. 8388607)
+ 136 PDF objects out of 1000 (max. 8388607)
  0 named destinations out of 1000 (max. 500000)
- 31 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 56 words of extra memory for PDF output out of 10000 (max. 10000000)
 

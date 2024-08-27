@@ -340,10 +340,11 @@
 			\item the angles $\theta_s$ et $\phi_s$ that defined the intial direction of the object speed.% qui définissent l'orientation de la vitesse de l'objet.
 		\end{itemize}
 		
-		on a donc un espace de dimension 4 :
-		$(\nu,\lambda,\theta_s,\phi_s)=[0,2\pi]\times[0,1]\times[0,2\pi]\times[0,\pi]$
+		%on a donc un espace de dimension 4 :
+		In conclusion we have a space of 4 dimensions :$(t,\lambda,\theta_s,\phi_s)=[0,T_{max}]\times[0,1]\times[0,2\pi]\times[0,\pi]$. This space is constrained but they can be neglected as the optimum is not outside of them (starting outside of the zone won't be an optimum for example). that mean we can consider the space to be equal to $\mathbb{R}^4$.
 		
-		l'espace est contraint mais étant donné que la plupart des dimension sont des angles et qu'il suffit de donner un score de 0 si $\lambda$ est en dehors du domaine on peut considéré que l'espace est égal à $\mathbb{R}^4$ pour avoir un problème sans contrainte.
+		
+		%l'espace est contraint mais étant donné que la plupart des dimension sont des angles et qu'il suffit de donner un score de 0 si $\lambda$ est en dehors du domaine on peut considéré que l'espace est égal à $\mathbb{R}^4$ pour avoir un problème sans contrainte.
 		
 		\section{Result}
 			
@@ -651,13 +652,19 @@
 			
 			\subsection{scenario with electric propulsion}	
 			\\ \\
-			What look like the best scenario at this point would be to put two devices capable of delivering acceleration of the order of $300\mu{m}\cdot\text{s}^2$, one for the descending observation and one for the ascending observation. This would allow to attends every observations which mean that we will be able to observe the solar corona around $2.8\%$ of the mission time with ascending the possibility of observing the sun and the sun corrona at the same time if one device aim at the sun during the observation of the other device.
+			What look like the best scenario at this point would be to put two devices capable of delivering acceleration of the order of $300\mu{m}\cdot\text{s}^2$, one for the descending observation and one for the ascending observation. This would allow to attends every observations which mean that we will be able to observe the solar corona around $2.8\%$ of the mission time with ascending the possibility of observing the sun and the sun corona at the same time if one device aim at the sun during the observation of the other device.
 			
 			To get more data about these scenario i've added the equation of mass to the dynamics of the system. for the next result i've use the following theoretical spacecraft : 
 			
-			the device has $50Kg$ of payload with $40Kg$ of fuel, the engine used is part of the RIT 10 electrics engine series. This engine was used in some real mission like the Smart 1 mission of ESA.
+			The device has $50Kg$ of payload with $40Kg$ of fuel, the engine used is part of the RIT 10 electrics engine series. This engine was used in some real mission like the Smart 1 mission of ESA.
 			
-			with this example a transfert between two ascending or descending observations typically consume 300 grams of fuel. At this rate we could achieve mission of multiple years (around 6 years) if we consider the fuel as the only limiting factor in mission time.
+			With this example a transfert between two ascending or descending observations typically consume 250 grams of fuel. At this rate we could achieve mission of multiple years (around 5 years) if we consider the fuel as the only limiting factor in mission time. This would mean that we made around 160 observations which, with an $alpha$ value of $5\%$ corerespond to around $130$ days of observation of the solar corrona or $261$ days if we do both ascending and descending observation with two devices.
+			
+			The julia code associated with this article compute the trajectories of the two scenario making all ascending or descending observation.
+			
+			\begin{figure}[h]
+				\includegraphics[width=1\textwidth]{images/Transfert.png}
+			\end{figure}
 			 
 			 
 			 \section{Conclusion}
@@ -680,14 +687,8 @@
 			 The Sun,Moon and Earth are simulated like a Three body system with the mass of the Earth-Moon system being neglected compared to the Sun's (ie the sun is fixed at 0,0). The device is simulated in the reference frame of the Earth Moon barycenter wihtout rotating it, the gravity of the Sun on the device is neglected meaning that the device will be attract to the Sun as if it was at the barycenter at all time. 
 			 The observation zone is computed using the method describe in the first part of this article, meaning that there are just an error of less than a killometer on the position of $P_2$.
 			 The algorithm use the method ode45 of Matlab to solve the differential equation.
-			 
 			 \\ \\
 			 The second code is made in Julia using a library of Optimal Control. Its goal is to test transfert from one observation to another one by solving a optimal control problem. The program compute two possible scenario : making every ascending observations and making every descending observations.
-			 
-			 
-			 
-			 
-			 
 			 
 			 \subsection{To continue}
 			 

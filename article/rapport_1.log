@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.25 (MiKTeX 23.10) (preloaded format=pdflatex 2023.10.12)  26 AUG 2024 16:28
+This is pdfTeX, Version 3.141592653-2.6-1.40.25 (MiKTeX 23.10) (preloaded format=pdflatex 2023.10.12)  27 AUG 2024 15:24
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -693,7 +693,7 @@ my insertion and my current dilemma will both disappear.
 
 [7]
 ! Misplaced alignment tab character &.
-l.363 		\sqrt{\frac{2\mu}{R_s}-\frac{\mu}{a_s}}&
+l.366 		\sqrt{\frac{2\mu}{R_s}-\frac{\mu}{a_s}}&
                                                 =\sqrt{\frac{2\mu}{R_l}-\fra...
 I can't figure out why you would want to use a tab mark
 here. If you just want an ampersand, the remedy is
@@ -705,7 +705,7 @@ might try typing `S' now just to see what is salvageable.
 <images/observations_main.png, id=49, 403.70825pt x 205.568pt>
 File: images/observations_main.png Graphic file (type png)
 <use images/observations_main.png>
-Package pdftex.def Info: images/observations_main.png  used on input line 378.
+Package pdftex.def Info: images/observations_main.png  used on input line 381.
 (pdftex.def)             Requested size: 500.484pt x 254.85774pt.
 [8 <./images/observations_main.png>]
 <images/graph.jpg, id=54, 1445.4pt x 724.95844pt>
@@ -713,7 +713,7 @@ Package pdftex.def Info: images/observations_main.png  used on input line 378.
 ! Missing number, treated as zero.
 <to be read again> 
                    \relax 
-l.424 ...ics[width==1\textwidth]{images/graph.jpg}
+l.427 ...ics[width==1\textwidth]{images/graph.jpg}
                                                   
 A number should have been here; I inserted `0'.
 (If you can't figure out why I needed to see a number,
@@ -722,7 +722,7 @@ look up `weird error' in the index to The TeXbook.)
 ! Illegal unit of measure (pt inserted).
 <to be read again> 
                    \relax 
-l.424 ...ics[width==1\textwidth]{images/graph.jpg}
+l.427 ...ics[width==1\textwidth]{images/graph.jpg}
                                                   
 Dimensions can be in units of em, ex, in, pt, pc,
 cm, mm, dd, cc, nd, nc, bp, or sp; but yours is a new one!
@@ -734,7 +734,7 @@ two letters. (See Chapter 27 of The TeXbook.)
 ! Missing number, treated as zero.
 <to be read again> 
                    \relax 
-l.424 ...ics[width==1\textwidth]{images/graph.jpg}
+l.427 ...ics[width==1\textwidth]{images/graph.jpg}
                                                   
 A number should have been here; I inserted `0'.
 (If you can't figure out why I needed to see a number,
@@ -743,7 +743,7 @@ look up `weird error' in the index to The TeXbook.)
 ! Illegal unit of measure (pt inserted).
 <to be read again> 
                    \relax 
-l.424 ...ics[width==1\textwidth]{images/graph.jpg}
+l.427 ...ics[width==1\textwidth]{images/graph.jpg}
                                                   
 Dimensions can be in units of em, ex, in, pt, pc,
 cm, mm, dd, cc, nd, nc, bp, or sp; but yours is a new one!
@@ -754,7 +754,7 @@ two letters. (See Chapter 27 of The TeXbook.)
 
 File: images/graph.jpg Graphic file (type jpg)
 <use images/graph.jpg>
-Package pdftex.def Info: images/graph.jpg  used on input line 424.
+Package pdftex.def Info: images/graph.jpg  used on input line 427.
 (pdftex.def)             Requested size: 0.0pt x 0.0pt.
 [9 <./images/graph.jpg>]
 
@@ -765,7 +765,7 @@ See the amsmath package documentation for explanation.
 Type  H <return>  for immediate help.
  ...                                              
                                                   
-l.449 		\end{align}
+l.452 		\end{align}
                    
 Try typing  <return>  to proceed.
 If that doesn't work, type  X <return>  to quit.
@@ -773,7 +773,7 @@ If that doesn't work, type  X <return>  to quit.
 ! Missing } inserted.
 <inserted text> 
                 }
-l.449 		\end{align}
+l.452 		\end{align}
                    
 I've inserted something that you may have forgotten.
 (See the <inserted text> above.)
@@ -784,7 +784,7 @@ my insertion and my current dilemma will both disappear.
 ! Missing $ inserted.
 <inserted text> 
                 $
-l.449 		\end{align}
+l.452 		\end{align}
                    
 I've inserted a begin-math/end-math symbol since I think
 you left one out. Proceed, with fingers crossed.
@@ -792,7 +792,7 @@ you left one out. Proceed, with fingers crossed.
 ! Missing { inserted.
 <inserted text> 
                 {
-l.449 		\end{align}
+l.452 		\end{align}
                    
 I've put in what seems to be necessary to fix
 the current column of the current alignment.
@@ -801,7 +801,7 @@ Try to go on, since this might almost work.
 ! Missing } inserted.
 <inserted text> 
                 }
-l.449 		\end{align}
+l.452 		\end{align}
                    
 I've inserted something that you may have forgotten.
 (See the <inserted text> above.)
@@ -812,7 +812,7 @@ my insertion and my current dilemma will both disappear.
 ! Missing $ inserted.
 <inserted text> 
                 $
-l.449 		\end{align}
+l.452 		\end{align}
                    
 I've inserted a begin-math/end-math symbol since I think
 you left one out. Proceed, with fingers crossed.
@@ -820,7 +820,7 @@ you left one out. Proceed, with fingers crossed.
 ! Missing { inserted.
 <inserted text> 
                 {
-l.449 		\end{align}
+l.452 		\end{align}
                    
 I've put in what seems to be necessary to fix
 the current column of the current alignment.
@@ -830,16 +830,16 @@ Try to go on, since this might almost work.
 File: images/observation_zone_year_scaled.png Graphic file (type png)
 <use images/observation_zone_year_scaled.png>
 Package pdftex.def Info: images/observation_zone_year_scaled.png  used on input
- line 457.
+ line 460.
 (pdftex.def)             Requested size: 500.484pt x 251.018pt.
 [10 <./images/observation_zone_year_scaled.png>]
 <images/observation_Obs.png, id=63, 1445.4pt x 724.95844pt>
 File: images/observation_Obs.png Graphic file (type png)
 <use images/observation_Obs.png>
-Package pdftex.def Info: images/observation_Obs.png  used on input line 470.
+Package pdftex.def Info: images/observation_Obs.png  used on input line 473.
 (pdftex.def)             Requested size: 500.484pt x 251.018pt.
  [11 <./images/observation_Obs.png>]
-Underfull \hbox (badness 10000) in paragraph at lines 522--523
+Underfull \hbox (badness 10000) in paragraph at lines 525--526
 
  []
 
@@ -852,7 +852,7 @@ See the amsmath package documentation for explanation.
 Type  H <return>  for immediate help.
  ...                                              
                                                   
-l.576 			\end{align}
+l.579 			\end{align}
                     
 Try typing  <return>  to proceed.
 If that doesn't work, type  X <return>  to quit.
@@ -865,7 +865,7 @@ See the amsmath package documentation for explanation.
 Type  H <return>  for immediate help.
  ...                                              
                                                   
-l.584 			\end{align}
+l.587 			\end{align}
                     
 Try typing  <return>  to proceed.
 If that doesn't work, type  X <return>  to quit.
@@ -877,7 +877,7 @@ See the LaTeX manual or LaTeX Companion for explanation.
 Type  H <return>  for immediate help.
  ...                                              
                                                   
-l.608 			t
+l.611 			t
           o compute the solution, i've used the julia library : OptimalControl,
 
 Your command was ignored.
@@ -885,42 +885,42 @@ Type  I <command> <return>  to replace it with another command,
 or  <return>  to continue without it.
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 617--620
+Underfull \hbox (badness 10000) in paragraph at lines 620--623
 
  []
 
 [13]
-Underfull \hbox (badness 10000) in paragraph at lines 621--624
+Underfull \hbox (badness 10000) in paragraph at lines 624--627
 
  []
 
 <images/1in2obs.png, id=75, 424.87395pt x 251.56404pt>
 File: images/1in2obs.png Graphic file (type png)
 <use images/1in2obs.png>
-Package pdftex.def Info: images/1in2obs.png  used on input line 632.
+Package pdftex.def Info: images/1in2obs.png  used on input line 635.
 (pdftex.def)             Requested size: 250.24199pt x 148.16814pt.
 <images/odd_to_even.png, id=76, 424.87395pt x 251.56404pt>
 File: images/odd_to_even.png Graphic file (type png)
 <use images/odd_to_even.png>
-Package pdftex.def Info: images/odd_to_even.png  used on input line 633.
+Package pdftex.def Info: images/odd_to_even.png  used on input line 636.
 (pdftex.def)             Requested size: 250.24199pt x 148.16814pt.
 <images/1in3_obs.png, id=77, 424.87395pt x 251.56404pt>
 File: images/1in3_obs.png Graphic file (type png)
 <use images/1in3_obs.png>
-Package pdftex.def Info: images/1in3_obs.png  used on input line 634.
+Package pdftex.def Info: images/1in3_obs.png  used on input line 637.
 (pdftex.def)             Requested size: 250.24199pt x 148.16814pt.
 <images/1in3_bad.png, id=78, 424.87395pt x 251.56404pt>
 File: images/1in3_bad.png Graphic file (type png)
 <use images/1in3_bad.png>
-Package pdftex.def Info: images/1in3_bad.png  used on input line 635.
+Package pdftex.def Info: images/1in3_bad.png  used on input line 638.
 (pdftex.def)             Requested size: 250.24199pt x 148.16814pt.
 
-Overfull \hbox (2.43332pt too wide) in paragraph at lines 632--636
+Overfull \hbox (2.43332pt too wide) in paragraph at lines 635--639
 [][] []
  []
 
 
-Overfull \hbox (2.43332pt too wide) in paragraph at lines 632--636
+Overfull \hbox (2.43332pt too wide) in paragraph at lines 635--639
 [] [] 
  []
 
@@ -935,7 +935,7 @@ See the LaTeX manual or LaTeX Companion for explanation.
 Type  H <return>  for immediate help.
  ...                                              
                                                   
-l.653 			\\ \\
+l.656 			\\ \\
               
 Your command was ignored.
 Type  I <command> <return>  to replace it with another command,
@@ -948,7 +948,7 @@ See the LaTeX manual or LaTeX Companion for explanation.
 Type  H <return>  for immediate help.
  ...                                              
                                                   
-l.654 			W
+l.657 			W
           hat look like the best scenario at this point would be to put two ...
 
 Your command was ignored.
@@ -957,48 +957,32 @@ or  <return>  to continue without it.
 
 [15 <./images/1in2obs.png> <./images/odd_to_even.png> <./images/1in3_obs.png> <
 ./images/1in3_bad.png>]
-Underfull \hbox (badness 10000) in paragraph at lines 673--676
+<images/Transfert.png, id=89, 963.6pt x 542.025pt>
+File: images/Transfert.png Graphic file (type png)
+<use images/Transfert.png>
+Package pdftex.def Info: images/Transfert.png  used on input line 668.
+(pdftex.def)             Requested size: 500.484pt x 281.51552pt.
+
+Underfull \hbox (badness 10000) in paragraph at lines 682--685
 
  []
 
+[16 <./images/Transfert.png>]
+Underfull \hbox (badness 10000) in paragraph at lines 689--694
 
-! LaTeX Error: There's no line here to end.
+ []
 
-See the LaTeX manual or LaTeX Companion for explanation.
-Type  H <return>  for immediate help.
- ...                                              
-                                                  
-l.684 			 \\ \\
-               
-Your command was ignored.
-Type  I <command> <return>  to replace it with another command,
-or  <return>  to continue without it.
-
-
-! LaTeX Error: There's no line here to end.
-
-See the LaTeX manual or LaTeX Companion for explanation.
-Type  H <return>  for immediate help.
- ...                                              
-                                                  
-l.685 			 T
-           he second code is made in Julia using a library of Optimal Contro...
-
-Your command was ignored.
-Type  I <command> <return>  to replace it with another command,
-or  <return>  to continue without it.
-
-[16] [17] (rapport_1.aux)
+[17] [18] (rapport_1.aux)
  ***********
 LaTeX2e <2023-06-01> patch level 1
 L3 programming layer <2023-08-29>
  ***********
  ) 
 Here is how much of TeX's memory you used:
- 3199 strings out of 475247
- 49540 string characters out of 5752091
+ 3203 strings out of 475247
+ 49704 string characters out of 5752091
  1935785 words of memory out of 5000000
- 24709 multiletter control sequences out of 15000+600000
+ 24713 multiletter control sequences out of 15000+600000
  566122 words of font info for 66 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
  57i,21n,65p,1098b,228s stack positions out of 10000i,1000n,20000p,200000b,200000s
@@ -1023,9 +1007,9 @@ s/MiKTeX/fonts/type1/public/amsfonts/cm/cmsy10.pfb><C:/Users/Vincent Callegari/
 AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmsy8.pfb><C:/User
 s/Vincent Callegari/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/s
 ymbols/msbm10.pfb>
-Output written on rapport_1.pdf (17 pages, 9496309 bytes).
+Output written on rapport_1.pdf (18 pages, 9549102 bytes).
 PDF statistics:
- 161 PDF objects out of 1000 (max. 8388607)
+ 165 PDF objects out of 1000 (max. 8388607)
  0 named destinations out of 1000 (max. 500000)
- 61 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 66 words of extra memory for PDF output out of 10000 (max. 10000000)
 
