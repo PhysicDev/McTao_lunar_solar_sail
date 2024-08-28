@@ -480,7 +480,7 @@ CSV.write("mass.csv",  Tables.table(mass), writeheader=false)
 mini=0
 maxi=0
 scatter([0],[0],[0],label="Earth",size=(1920, 1080))
-for j in range(1,21,step=2)
+for j in range(1,N-2,step=2)
     states=sols[j,j+2]
     
     X=[x[1] for x in states]
@@ -499,7 +499,7 @@ savefig(string("All_transfert_odd_",startPoint,"_",endPoint,".png"));
 mini=0
 maxi=0
 scatter([0],[0],[0],label="Earth",size=(1920, 1080))
-for j in range(2,22,step=2)
+for j in range(2,N-2,step=2)
     states=sols[j,j+2]
     
     X=[x[1] for x in states]

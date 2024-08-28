@@ -304,6 +304,15 @@ description={un moteur fusée propulsant de petites quantités de matières à t
 		Ensuite j'ai du analysé les résultats de mon second code fait en Julia pour essayé de comprendre pourquoi les accélérations maximale des transferts ne diminuait pas même en faisant des transferts sur plus longtemps.
 		Il s'avère que, si l'on considère un modèle simplifié d'une Lune et d'une Terre avec une orbite circulaire sur le même plan, les orbites d'observations sont sensiblement les mêmes avec pour unique différence une rotation autour du vecteur normal au plan écliptique. Cette rotation est proportionnelle aux temps entre deux observation. Cela signifie que plus deux observations sont éloigné plus il faudra faire tourner l'orbite d'observation sur un grand angle ce qui explique que la les accélérations maximales ne diminuaient pas. Effectuer un transfert sur une observation deux fois plus lointaine dans le temps nécessite de faire tourner l'orbite d'observation deux fois plus loin également. C'est cette conclusion suggérant qu'il y a un seuil d'accélérations minimal que doit atteindre le satellite pour effectuer un nombre important d'observations par an qui à mené à l'abandon des voiles solaires au profit d'un moteur à poussée faible.
 		
+		\begin{figure}[H]
+			\centering
+			\includegraphics[width=0.9\linewidth]{images/Transfert_23_25}
+			\caption{trajectoire typique suivie par le satellite lors d'un transfert}
+		\end{figure}
+		\begin{figure}[H]
+			\includegraphics[width=0.9\linewidth]{images/All_transfert_odd_48_50}
+			\caption{tous les transferts du premier scénario de la première année mis les uns à la suite des autres, on peut voir que l'orbite tourne sur elle même en quelque sorte}
+		\end{figure}
 		\newpage
 		\section{Conclusion}
 		\subsection{Compétences acquises}
