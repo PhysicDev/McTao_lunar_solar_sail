@@ -195,8 +195,8 @@ end
 # jusqu'à l'entrée de la zone d'observation d'arrivée
 #
 
-startPoint=3 #starting observation ID
-endPoint=5 #ending observation ID
+startPoint=7 #starting observation ID
+endPoint=9 #ending observation ID
 
 ENDOBS=startObservation[!,endPoint]
 STARTOBS=endObservation[!,startPoint]
@@ -277,7 +277,7 @@ end
 
             
 #sampling range
-sampling=[50,100,200];
+sampling=[50,100,200,300];
 
 #solution and initial condition
 sol=nothing
@@ -306,17 +306,16 @@ trueX0(t)=x0(t);
 
 trueX0(t)=vcat((sat1(t+tstart-time0)*(tend-t+tstart-time0)+sat2(t+tstart-time0)*(t-time0))/(tend-tstart),[Mi])
 initg = (state=trueX0, control=u0)
-#initg=nothing
 println("    ");
 println("solve time pb");#solving problem
-
 #solving process
 for samp in sampling 
+    global initg,sol
     println(string("grid size : ",samp));
     if(isnothing(initg))#if there are no initial condition do nothing
-        sol = solve(ocp,display=false,grid_size=samp,max_iter=3000)
+        sol = solve(ocp,display=false,grid_size=samp,max_iter=5000)
     else
-        sol = solve(ocp,display=false,grid_size=samp,init=initg)
+        sol = solve(ocp,display=false,grid_size=samp,init=initg,max_iter=5000)
     end
     if(0==cmp(sol.message,"Solve_Succeeded"))#if we solve we set the new intitial solution then we continue
         println(string("solved in ",sol.iterations," iterations || fuel used : ",Mi-sol.state(tend)[7] , "Kg : ",(Mi-sol.state(tend)[7])/FuelMass*100," %"))
@@ -353,14 +352,13 @@ X=[x[1] for x in states]
 Y=[x[2] for x in states]
 Z=[x[3] for x in states]
 
-mini=min(minimum(X),minimum(Y),minimum(Z))*1.5
-maxi=max(maximum(X),maximum(Y),maximum(Z))*1.5
+miniside=max(maximum(X)-minimum(X),maximum(Y)-minimum(Y),maximum(Z)-minimum(Z))*1.2
 
 massDat=[x[7] for x in states]
 plot(Tvec,massDat,title="fuel tank");
 savefig(string("mass_progress_",startPoint,"_",endPoint,".png"));
 
-plot(X,Y,Z,label="trajectory",title=string("transfert from observation ",startPoint," to observation ",endPoint),xlim=(mini, maxi),ylim=(mini, maxi),zlim=(mini, maxi),size=(1920/2,1080/2),color=:blue);
+plot(X,Y,Z,label="trajectory",title=string("transfert from observation ",startPoint," to observation ",endPoint),xlim=((maximum(X)-miniside+minimum(X))/2, (maximum(X)+miniside+minimum(X))/2),ylim=((maximum(Y)-miniside+minimum(Y))/2, (maximum(Y)+miniside+minimum(Y))/2),zlim=((maximum(Z)-miniside+minimum(Z))/2, (maximum(Z))+miniside+minimum(Z)/2),size=(1920/2,1080/2),color=:blue);
             
 for t in LowTvec
    St=sol.state(t);
@@ -369,7 +367,7 @@ for t in LowTvec
 end
 scatter!([STARTOBS[1]],[STARTOBS[2]],[STARTOBS[3]],label="starting point")
 scatter!([ENDOBS[1]],[ENDOBS[2]],[ENDOBS[3]],label="final point")
-scatter!([0],[0],[0],label="Earth")
+scatter!([0],[0],[0],label="Earth Moon barycenter")
 
 
 #ploting start and end orbit:
@@ -382,39 +380,23 @@ plot!(sat2,vars=(1,2,3),label="ending obrit",color=:orange)
 savefig(string("Transfert_",startPoint,"_",endPoint,".png"));
 
 plot(sol, size=(1200, 1800))
-savefig(string("solGraph/Transfert_",startPoint,"_",endPoint,".png"));
+savefig(string("solution_",startPoint,"_",endPoint,".png"));
 
-controlVal=[sol.control(t)*sol.objective for t in Tvec];
+controlVal=[sol.control(t) for t in Tvec];
             
 Xc=[x[1] for x in controlVal]
-Xc=[x[2] for x in controlVal]
+Yc=[x[2] for x in controlVal]
 Zc=[x[3] for x in controlVal]
 
-newX=[(states[i][4]*Xc[i]+states[i][5]*Yc[i]+states[i][6]*Zc[i])/sqrt(sum(states[i][4:6].^2)) for i in range(1,length(states))];
-Xax=[x[2]*x[6]-x[3]*x[5] for x in states]
-Yax=[x[3]*x[4]-x[1]*x[6] for x in states]
-Zax=[x[1]*x[5]-x[2]*x[4] for x in states]
-newZ=[(Xax[i]*Xc[i]+Yax[i]*Yc[i]+Zax[6]*Zc[i])/sqrt(Xax[i]^2+Yax[i]^2+Zax[i]^2) for i in range(1,length(states))];
-
-Xaxy=[Yax[i]*states[i][6]-Zax[i]*states[i][5]  for i in range(1,length(states))]
-Yaxy=[Zax[i]*states[i][4]-Xax[i]*states[i][6]  for i in range(1,length(states))]
-Zaxy=[Xax[i]*states[i][5]-Yax[i]*states[i][2]  for i in range(1,length(states))]
-            
-newY=[(Xaxy[i]*Xc[i]+Yaxy[i]*Yc[i]+Zaxy[6]*Zc[i])/sqrt(Xaxy[i]^2+Yaxy[i]^2+Zaxy[i]^2) for i in range(1,length(states))];
 #newY=[sqrt(sum( ([Xc[i],Yc[i],Zc[i]] - newZ[i]*[Xax[i],Xax[i],Yax[i]]/sqrt(Xax[i]^2+Yax[i]^2+Zax[i]^2) - newX[i]*states[i][4:6]/sqrt(sum(states[i][4:6].^2))).^2 )) for i in range(1,length(states))];
-mini=-sol.objective*1.1;
-maxi=-mini;
+mini=-1.1;
+maxi=1.1;
 #println(newY)
-plot(newX,newY,newZ,label="control trajectory",xlim=(mini, maxi),ylim=(mini, maxi),zlim=(mini, maxi))
+plot(Xc,Yc,Zc,label="control trajectory",xlim=(mini, maxi),ylim=(mini, maxi),zlim=(mini, maxi))
 #println([newX[1]],[newY[1]],[newZ[1]])
-scatter!([newX[1]],[newY[1]],[newZ[1]],label="initial point")
-scatter!([newX[end]],[newY[end]],[newZ[end]],label="end point")
+scatter!([Xc[1]],[Yc[1]],[Zc[1]],label="initial point")
+scatter!([Xc[end]],[Yc[end]],[Zc[end]],label="end point")
 savefig(string("control_",startPoint,"_",endPoint,".png"));
-            
-controlVal=[sqrt(sum(sol.control(t).^2))*sol.objective for t in sol.times];
-plot(controlVal,ylim=(0,11));
-savefig(string("control/NORM_Transfert__",startPoint,"_",endPoint,".png"));
-
             
 println("finished !!");
 gui()

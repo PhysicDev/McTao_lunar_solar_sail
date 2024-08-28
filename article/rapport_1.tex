@@ -35,6 +35,8 @@
 		
 		A point is in the observation zone if the sun is totally hidden and the crown is visible around the occulting body. This zone has the shape of a double cone that we can represent by the rotation of a triangle.
 		
+		There is only one point point that verify theses condition because the crown start directly at the sun surface. In order to get an observation zone and not just a point, we consider a tolerance value $\alpha$, these value mean that we tolerate to not be able to observe part of the solar crown that are close to the sun surface. For example an $\alpha$ value of $5\%$ mean that we tolerate that part of the crown at less than $0.05$ solar radius of the surface of the sun are hidden by the Moon.
+		
 		%un point est dans la zone d'observation quand le %soleil est totalement masqué et que la couronne %est visible autour de l'astre occultant. Cette %zone à la forme d'un double cône que l'on peut %représenter comme la rotation d'un losange %mettre un schéma pour être plus clair.
 		
 		The triangle could be defined by its three points
@@ -53,7 +55,7 @@
 		P_{3x}=\frac{\bar{D}R_l}{R_s(\alpha+1)-R_l}
 		$$
 		
-		Where $\bar{D}$ is the Solar-Moon distance, $R_s$ the Solar Radius ,$R_l$ the Lunar radius and $\alpha$ is the solar crown's added size in solar radius (the more $alpha$ is near of zero the more the solar crown's radius is near of the solar radius meaning that we will observe part of the crown near of the solar surface)
+		Where $\bar{D}$ is the Solar-Moon distance, $R_s$ the Solar Radius and $R_l$ the Lunar radius.
 		%où $\bar{D}$ est la distance Soleil-lune, $R_s$ le rayon solaire ,$R_l$ le rayon lunaire et $\alpha$ est la taille supplémentaire de la couronne solaire par rapport au rayon solaire( plus $alpha$ est proche de 0 plus on observera des parties de la couronne proche de la surface du soleil).
 		
 		We can then compute the position of $P_2$ by computing the intersection of the lines linking the surface of the Moon and the points $P_1$ and $P_3$

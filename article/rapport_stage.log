@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.25 (MiKTeX 23.10) (preloaded format=pdflatex 2023.10.12)  28 AUG 2024 09:51
+This is pdfTeX, Version 3.141592653-2.6-1.40.25 (MiKTeX 23.10) (preloaded format=pdflatex 2023.10.12)  28 AUG 2024 16:21
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -540,9 +540,9 @@ Underfull \hbox (badness 10000) in paragraph at lines 136--145
 <images/moon_schem.png, id=31, 1445.4pt x 813.0375pt>
 File: images/moon_schem.png Graphic file (type png)
 <use images/moon_schem.png>
-Package pdftex.def Info: images/moon_schem.png  used on input line 157.
+Package pdftex.def Info: images/moon_schem.png  used on input line 159.
 (pdftex.def)             Requested size: 500.484pt x 281.51553pt.
- [7 <./images/moon_schem.png>]
+ [7]
 
 ! LaTeX Error: Bad math environment delimiter.
 
@@ -550,7 +550,7 @@ See the LaTeX manual or LaTeX Companion for explanation.
 Type  H <return>  for immediate help.
  ...                                              
                                                   
-l.188 		\begin{equation}
+l.190 		\begin{equation}
                         
 Your command was ignored.
 Type  I <command> <return>  to replace it with another command,
@@ -559,7 +559,7 @@ or  <return>  to continue without it.
 ! Missing \endgroup inserted.
 <inserted text> 
                 \endgroup 
-l.190 		\end{equation}
+l.192 		\end{equation}
                       
 I've inserted something that you may have forgotten.
 (See the <inserted text> above.)
@@ -574,7 +574,7 @@ See the LaTeX manual or LaTeX Companion for explanation.
 Type  H <return>  for immediate help.
  ...                                              
                                                   
-l.190 		\end{equation}
+l.192 		\end{equation}
                       
 Your command was ignored.
 Type  I <command> <return>  to replace it with another command,
@@ -583,14 +583,15 @@ or  <return>  to continue without it.
 ! Extra \endgroup.
 <recently read> \endgroup 
                           
-l.190 		\end{equation}
+l.192 		\end{equation}
                       
 Things are pretty mixed up, but I think the worst is over.
 
+[8 <./images/moon_schem.png>]
 ! Missing $ inserted.
 <inserted text> 
                 $
-l.197 		
+l.199 		
         
 I've inserted a begin-math/end-math symbol since I think
 you left one out. Proceed, with fingers crossed.
@@ -598,34 +599,32 @@ you left one out. Proceed, with fingers crossed.
 ! Display math should end with $$.
 <to be read again> 
                    \tex_par:D 
-l.197 		
+l.199 		
         
 The `$' that I just saw supposedly matches a previous `$$'.
 So I shall assume that you typed `$$' both times.
 
 
-Overfull \hbox (13.76483pt too wide) in paragraph at lines 202--203
+Overfull \hbox (13.76483pt too wide) in paragraph at lines 206--207
 []\OT1/cmr/m/n/12 Apr^^Res avoir utilis^^Se des out-ils graphiques pour vi-su-a
 liser claire-ment la forme de la []zone d'observation
  []
 
-[8]
-Underfull \hbox (badness 10000) in paragraph at lines 219--222
+
+Underfull \hbox (badness 10000) in paragraph at lines 223--226
 
  []
 
-<images/observations_main.png, id=46, 403.70825pt x 205.568pt>
+[9]
+<images/observations_main.png, id=49, 403.70825pt x 205.568pt>
 File: images/observations_main.png Graphic file (type png)
 <use images/observations_main.png>
-Package pdftex.def Info: images/observations_main.png  used on input line 225.
+Package pdftex.def Info: images/observations_main.png  used on input line 229.
 (pdftex.def)             Requested size: 512.1496pt x 260.79868pt.
 
-Overfull \hbox (11.6656pt too wide) in paragraph at lines 225--226
+Overfull \hbox (11.6656pt too wide) in paragraph at lines 229--230
 [][] 
  []
-
-
-LaTeX Warning: `h' float specifier changed to `ht'.
 
 
 ! LaTeX Error: There's no line here to end.
@@ -634,7 +633,7 @@ See the LaTeX manual or LaTeX Companion for explanation.
 Type  H <return>  for immediate help.
  ...                                              
                                                   
-l.228 		\\ \\
+l.232 		\\ \\
              
 Your command was ignored.
 Type  I <command> <return>  to replace it with another command,
@@ -647,78 +646,74 @@ See the LaTeX manual or LaTeX Companion for explanation.
 Type  H <return>  for immediate help.
  ...                                              
                                                   
-l.229 		J
-         'ai également amélioré le modèle en prenant en compte de plus e...
+l.233 		A
+         u fur et à mesure que le projet à avancé ,j'ai amélioré le mod...
 
 Your command was ignored.
 Type  I <command> <return>  to replace it with another command,
 or  <return>  to continue without it.
 
-<images/moon_orbit.jpg, id=47, 1927.2pt x 966.61125pt>
+<images/moon_orbit.jpg, id=50, 1927.2pt x 966.61125pt>
 File: images/moon_orbit.jpg Graphic file (type jpg)
 <use images/moon_orbit.jpg>
-Package pdftex.def Info: images/moon_orbit.jpg  used on input line 231.
+Package pdftex.def Info: images/moon_orbit.jpg  used on input line 235.
 (pdftex.def)             Requested size: 500.484pt x 251.018pt.
 
 LaTeX Warning: `h' float specifier changed to `ht'.
 
-[9]
-<images/observation_Obs.png, id=51, 1445.4pt x 724.95844pt>
+[10 <./images/observations_main.png>]
+<images/observation_Obs.png, id=55, 1445.4pt x 724.95844pt>
 File: images/observation_Obs.png Graphic file (type png)
 <use images/observation_Obs.png>
-Package pdftex.def Info: images/observation_Obs.png  used on input line 250.
+Package pdftex.def Info: images/observation_Obs.png  used on input line 254.
 (pdftex.def)             Requested size: 500.484pt x 251.018pt.
- [10 <./images/observations_main.png>]
-
-LaTeX Warning: `h' float specifier changed to `ht'.
-
-[11 <./images/moon_orbit.jpg>]
-<images/1in2obs.png, id=60, 424.87395pt x 251.56404pt>
+ [11 <./images/moon_orbit.jpg>] [12 <./images/observation_Obs.png>]
+<images/1in2obs.png, id=63, 424.87395pt x 251.56404pt>
 File: images/1in2obs.png Graphic file (type png)
 <use images/1in2obs.png>
-Package pdftex.def Info: images/1in2obs.png  used on input line 280.
+Package pdftex.def Info: images/1in2obs.png  used on input line 284.
 (pdftex.def)             Requested size: 250.24199pt x 148.16814pt.
-<images/odd_to_even.png, id=61, 424.87395pt x 251.56404pt>
+<images/odd_to_even.png, id=64, 424.87395pt x 251.56404pt>
 File: images/odd_to_even.png Graphic file (type png)
 <use images/odd_to_even.png>
-Package pdftex.def Info: images/odd_to_even.png  used on input line 281.
+Package pdftex.def Info: images/odd_to_even.png  used on input line 285.
 (pdftex.def)             Requested size: 250.24199pt x 148.16814pt.
-<images/1in3_obs.png, id=62, 424.87395pt x 251.56404pt>
+<images/1in3_obs.png, id=65, 424.87395pt x 251.56404pt>
 File: images/1in3_obs.png Graphic file (type png)
 <use images/1in3_obs.png>
-Package pdftex.def Info: images/1in3_obs.png  used on input line 282.
+Package pdftex.def Info: images/1in3_obs.png  used on input line 286.
 (pdftex.def)             Requested size: 250.24199pt x 148.16814pt.
-<images/1in3_bad.png, id=63, 424.87395pt x 251.56404pt>
+<images/1in3_bad.png, id=66, 424.87395pt x 251.56404pt>
 File: images/1in3_bad.png Graphic file (type png)
 <use images/1in3_bad.png>
-Package pdftex.def Info: images/1in3_bad.png  used on input line 283.
+Package pdftex.def Info: images/1in3_bad.png  used on input line 287.
 (pdftex.def)             Requested size: 250.24199pt x 148.16814pt.
 
-Overfull \hbox (2.61107pt too wide) in paragraph at lines 280--284
+Overfull \hbox (2.61107pt too wide) in paragraph at lines 284--288
 [][] []
  []
 
 
-Overfull \hbox (2.61107pt too wide) in paragraph at lines 280--284
+Overfull \hbox (2.61107pt too wide) in paragraph at lines 284--288
 [] [] 
  []
 
-[12 <./images/observation_Obs.png>] [13 <./images/1in2obs.png> <./images/odd_to
-_even.png> <./images/1in3_obs.png> <./images/1in3_bad.png>]
+[13 <./images/1in2obs.png> <./images/odd_to_even.png> <./images/1in3_obs.png> <
+./images/1in3_bad.png>]
 <images/Transfert_23_25.png, id=77, 963.6pt x 542.025pt>
 File: images/Transfert_23_25.png Graphic file (type png)
 <use images/Transfert_23_25.png>
-Package pdftex.def Info: images/Transfert_23_25.png  used on input line 309.
+Package pdftex.def Info: images/Transfert_23_25.png  used on input line 314.
 (pdftex.def)             Requested size: 450.43253pt x 253.3623pt.
 <images/All_transfert_odd_48_50.png, id=78, 1927.2pt x 1084.05pt>
 File: images/All_transfert_odd_48_50.png Graphic file (type png)
 <use images/All_transfert_odd_48_50.png>
 Package pdftex.def Info: images/All_transfert_odd_48_50.png  used on input line
- 313.
+ 318.
 (pdftex.def)             Requested size: 450.43253pt x 253.36232pt.
- [14 <./images/Transfert_23_25.png>] [15 <./images/All_transfert_odd_48_50.png>
+ [14] [15 <./images/Transfert_23_25.png> <./images/All_transfert_odd_48_50.png>
 ]
-Underfull \hbox (badness 10000) in paragraph at lines 330--333
+Underfull \hbox (badness 10000) in paragraph at lines 335--338
 
  []
 
@@ -731,7 +726,7 @@ L3 programming layer <2023-08-29>
 Here is how much of TeX's memory you used:
  7939 strings out of 475247
  128768 string characters out of 5752091
- 1929785 words of memory out of 5000000
+ 1932785 words of memory out of 5000000
  29334 multiletter control sequences out of 15000+600000
  567169 words of font info for 71 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
@@ -752,7 +747,7 @@ eX/fonts/type1/public/amsfonts/cm/cmr8.pfb><C:/Users/Vincent Callegari/AppData/
 Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmsy10.pfb><C:/Users/Vince
 nt Callegari/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmsy8
 .pfb>
-Output written on rapport_stage.pdf (17 pages, 9085364 bytes).
+Output written on rapport_stage.pdf (17 pages, 9086400 bytes).
 PDF statistics:
  141 PDF objects out of 1000 (max. 8388607)
  0 named destinations out of 1000 (max. 500000)

@@ -7,8 +7,8 @@
 \contentsline {section}{\numberline {3}Travail effectué}{7}{}%
 \contentsline {subsection}{\numberline {3.1}Première observations}{7}{}%
 \contentsline {subsection}{\numberline {3.2}Calcul des observations}{9}{}%
-\contentsline {subsection}{\numberline {3.3}Contrôle optimal}{11}{}%
-\contentsline {subsection}{\numberline {3.4}Analyse des résultats}{13}{}%
+\contentsline {subsection}{\numberline {3.3}Contrôle optimal}{12}{}%
+\contentsline {subsection}{\numberline {3.4}Analyse des résultats}{14}{}%
 \contentsline {section}{\numberline {4}Conclusion}{16}{}%
 \contentsline {subsection}{\numberline {4.1}Compétences acquises}{16}{}%
 \contentsline {subsection}{\numberline {4.2}Travail réalisé}{16}{}%
