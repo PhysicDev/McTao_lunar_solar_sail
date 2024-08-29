@@ -366,7 +366,8 @@ if(resolve)
             println(string("founded solution max acceleration ",sol.objective));
 
             
-            fun(t)=sqrt(sum((sol.control(t)).^2))/sol.state(t)[7];
+            fun(t)=sqrt(sum((sol.control(t)).^2))/sol.state(t)[7];#pas sur de faire la bonne formule de delta V ici ... 
+             #formule utilisée : integrale(norm(controle)/masse * poussée)
             tempDV=integral(fun,time0,timef,10000)*NormThrust;
             println(string("delta V :",tempDV))
             deltas_V[i,j]=tempDV;
