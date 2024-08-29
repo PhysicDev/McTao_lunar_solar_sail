@@ -21,6 +21,7 @@ using OptimalControl
 using Plots
 using CSV
 using DataFrames
+println("using nlp model here")
 using NLPModelsIpopt
 using Base.Filesystem
 using JLD2, JSON3
@@ -292,7 +293,7 @@ if(resolve)
                 -100 ≤ vy(t) ≤ 100,      (4)
                 -10 ≤ ry(t) ≤ 10,      (5)
                 -100 ≤ vy(t) ≤ 100,      (6)
-                Mass ≤ m(t) ≤ Mi,      (7)
+                Mass ≤ m(t) ≤ Mi*1.01,      (7)
 
 
                 ẋ(t) == vcat( [vx(t),vy(t),vz(t)] #position derivative
@@ -345,15 +346,18 @@ if(resolve)
             for samp in sampling 
                 println(string("grid size : ",samp));
                 if(isnothing(initg))#if there are no initial condition do nothing
-                    sol = solve(ocp,display=false,grid_size=samp,max_iter=3000)
+                    sol = solve(ocp,display=false,grid_size=samp,max_iter=5000)
                 else
-                    sol = solve(ocp,display=false,grid_size=samp,init=initg)
+                    sol = solve(ocp,display=false,grid_size=samp,init=initg,max_iter=5000)
                 end
                 if(0==cmp(sol.message,"Solve_Succeeded"))#if we solve we set the new intitial solution then we continue
                     println(string("solved in ",sol.iterations," iterations || fuel used : ",Mi-sol.state(tend)[7] , "Kg : ",(Mi-sol.state(tend)[7])/FuelMass*100," %"))
                     initg=(state=sol.state, control=sol.control, variable=sol.variable)#we update the initial condition for the next solving iteration
                 else#if we don't solve we do nothing
                     println("not solved :(")
+                    if(samp==200)#last try with 300 if everything failed :
+                        sol = solve(ocp,display=false,grid_size=300,init=initg,max_iter=5000)
+                    end
                 end
             end
 
@@ -391,8 +395,7 @@ if(resolve)
             Y=[x[2] for x in states]
             Z=[x[3] for x in states]
 
-            mini=min(minimum(X),minimum(Y),minimum(Z))*1.5
-            maxi=max(maximum(X),maximum(Y),maximum(Z))*1.5
+            miniside=max(maximum(X)-minimum(X),maximum(Y)-minimum(Y),maximum(Z)-minimum(Z))*1.2
 
             massDat=[x[7] for x in states]
             plot(Tvec,massDat,title="fuel tank");
@@ -400,7 +403,7 @@ if(resolve)
             #gui();
             #wait = readline()
 
-            plot(X,Y,Z,label="trajectory",title=string("transfert from observation ",startPoint," to observation ",endPoint),xlim=(mini, maxi),ylim=(mini, maxi),zlim=(mini, maxi),size=(1920/2,1080/2));
+            plot(X,Y,Z,label="trajectory",title=string("transfert from observation ",startPoint," to observation ",endPoint),xlim=((maximum(X)-miniside+minimum(X))/2, (maximum(X)+miniside+minimum(X))/2),ylim=((maximum(Y)-miniside+minimum(Y))/2, (maximum(Y)+miniside+minimum(Y))/2),zlim=((maximum(Z)-miniside+minimum(Z))/2, (maximum(Z))+miniside+minimum(Z)/2),size=(1920/2,1080/2),color=:blue);
             
             for t in LowTvec
                 St=sol.state(t);
@@ -409,7 +412,7 @@ if(resolve)
             end
             scatter!([STARTOBS[1]],[STARTOBS[2]],[STARTOBS[3]],label="starting point")
             scatter!([ENDOBS[1]],[ENDOBS[2]],[ENDOBS[3]],label="final point")
-            scatter!([0],[0],[0],label="Earth")
+            scatter!([0],[0],[0],label="Earth Moon barycenter")
 
 
             #ploting start and end orbit:
@@ -424,49 +427,25 @@ if(resolve)
             plot(sol, size=(1200, 1800))
             savefig(string("solGraph/Transfert_",startPoint,"_",endPoint,".png"));
 
-            controlVal=[sol.control(t)*sol.objective for t in Tvec];
+            controlVal=[sol.control(t) for t in Tvec];
             
             Xc=[x[1] for x in controlVal]
             Yc=[x[2] for x in controlVal]
             Zc=[x[3] for x in controlVal]
-
-            newX=[(states[i][4]*Xc[i]+states[i][5]*Yc[i]+states[i][6]*Zc[i])/sqrt(sum(states[i][4:6].^2)) for i in range(1,length(states))];
-            Xax=[x[2]*x[6]-x[3]*x[5] for x in states]
-            Yax=[x[3]*x[4]-x[1]*x[6] for x in states]
-            Zax=[x[1]*x[5]-x[2]*x[4] for x in states]
-            newZ=[(Xax[i]*Xc[i]+Yax[i]*Yc[i]+Zax[6]*Zc[i])/sqrt(Xax[i]^2+Yax[i]^2+Zax[i]^2) for i in range(1,length(states))];
-
-            Xaxy=[Yax[i]*states[i][6]-Zax[i]*states[i][5]  for i in range(1,length(states))]
-            Yaxy=[Zax[i]*states[i][4]-Xax[i]*states[i][6]  for i in range(1,length(states))]
-            Zaxy=[Xax[i]*states[i][5]-Yax[i]*states[i][2]  for i in range(1,length(states))]
             
-            newY=[(Xaxy[i]*Xc[i]+Yaxy[i]*Yc[i]+Zaxy[6]*Zc[i])/sqrt(Xaxy[i]^2+Yaxy[i]^2+Zaxy[i]^2) for i in range(1,length(states))];
             #newY=[sqrt(sum( ([Xc[i],Yc[i],Zc[i]] - newZ[i]*[Xax[i],Xax[i],Yax[i]]/sqrt(Xax[i]^2+Yax[i]^2+Zax[i]^2) - newX[i]*states[i][4:6]/sqrt(sum(states[i][4:6].^2))).^2 )) for i in range(1,length(states))];
-            mini=-sol.objective*1.1;
-            maxi=-mini;
+            mini=-1.1;
+            maxi=1.1;
             #println(newY)
-            plot(newX,newY,newZ,label="control trajectory",xlim=(mini, maxi),ylim=(mini, maxi),zlim=(mini, maxi))
+            plot(Xc,Yc,Zc,label="control trajectory",xlim=(mini, maxi),ylim=(mini, maxi),zlim=(mini, maxi))
             #println([newX[1]],[newY[1]],[newZ[1]])
-            scatter!([newX[1]],[newY[1]],[newZ[1]],label="initial point")
-            scatter!([newX[end]],[newY[end]],[newZ[end]],label="end point")
-            savefig(string("control/Transfert_",startPoint,"_",endPoint,".png"));
+            scatter!([Xc[1]],[Yc[1]],[Zc[1]],label="initial point")
+            scatter!([Xc[end]],[Yc[end]],[Zc[end]],label="end point")
+            savefig(string("control_",startPoint,"_",endPoint,".png"));
 
-            # Create a 3-row, 1-column layout
-            plot_layout = @layout [a; b; c]
-
-            # Create the plots
-            p1 = plot(Tvec, newX, title="tangent speed", xlabel="T", ylabel="X", legend=false)
-            p2 = plot(Tvec, newY, title="orthogonal speed on ecliptic plane of device", xlabel="T", ylabel="Y", legend=false)
-            p3 = plot(Tvec, newZ, title="orthogonal speed", xlabel="T", ylabel="Z", legend=false)
-
-            # Combine the plots into a single window
-            plot(p1, p2, p3, layout=plot_layout)
-            savefig(string("control/Transfert_2D_",startPoint,"_",endPoint,".png"));
-
-            
-            controlVal=[sqrt(sum(sol.control(t).^2))*sol.objective for t in sol.times];
-            plot(controlVal,ylim=(0,11));
-            savefig(string("control/NORM_Transfert__",startPoint,"_",endPoint,".png"));
+            #controlVal=[sqrt(sum(sol.control(t).^2))*sol.objective for t in sol.times];
+            #plot(controlVal,ylim=(0,11));
+            #savefig(string("control/NORM_Transfert__",startPoint,"_",endPoint,".png"));
 
             
         end
