@@ -19,7 +19,8 @@
 		\newpage
 		\tableofcontents
 		\newpage
-		\section{introduction}%flemme de faire cette partie pour l'instant
+		\section{introduction}
+		%à faire
 		\section{observation zone}
 		\subsection{computing the position of the observation zone}
 		
@@ -104,12 +105,12 @@
 		
 		$$
 		\begin{equation}
-			P_3=R_{lt}+\hat{P_{3x}}D^{-1}R_{ls} 
+			P_3=R_l+\hat{P_{3x}}D^{-1}R_{ls} 
 		\end{equation}
 		$$
 		$$
 		\begin{equation}
-			P_1=R_{lt}+\hat{P_{1x}}D^{-1}R_{ls} 
+			P_1=R_l+\hat{P_{1x}}D^{-1}R_{ls} 
 		\end{equation}
 		$$
 		
@@ -293,11 +294,11 @@
 		
 		$$
 		\begin{bmatrix}
-			\dot{\overrightarrow{R_{s}}}\\
-			\dot{\overrightarrow{V_{s}}}\\
+			\dot{\overrightarrow{r_{s}}}\\
+			\dot{\overrightarrow{v_{s}}}\\
 		\end{bmatrix} =\begin{bmatrix}
-			\overrightarrow{V_{s}}\\
-			\frac{-\mu_l }{||R_{s}-R_{l} ||^{3}}(\overrightarrow{R_{s}}-\overrightarrow{R_{l}}) + \frac{-\mu_t }{||R_{s}-R_{t} ||^{3}}(\overrightarrow{R_{s}}-\overrightarrow{R_{t}})\\
+			\overrightarrow{v_{s}}\\
+			\frac{-\mu_l }{||r_{s}-R_{l} ||^{3}}(\overrightarrow{r_{s}}-\overrightarrow{R_{l}}) + \frac{-\mu_t }{||r_{s}-R_{t} ||^{3}}(\overrightarrow{r_{s}}-\overrightarrow{R_{t}})\\
 		\end{bmatrix}
 		$$
 		
@@ -349,32 +350,20 @@
 		%l'espace est contraint mais étant donné que la plupart des dimension sont des angles et qu'il suffit de donner un score de 0 si $\lambda$ est en dehors du domaine on peut considéré que l'espace est égal à $\mathbb{R}^4$ pour avoir un problème sans contrainte.
 		
 		\section{Result}
+		
+		working with the simplified 2D problem with the moon orbit being simplified as a perfect circle, the Sun being fixed and the observation zone distance from the Moon being fixed at the Earth Moon distance. we can get an observation that can give very long observation time :
+		
+		as most of the possible solution give observation time of a few minutes, there are two point where we can obtain observations time up to 
+		hours. these point happen when the observation zone cross the lunar orbit. these observation time are very high because of the fixed period of the device, this mean that the speed of the device match the speed of the Moon when they are at the same altitude, meaning that we can cross the observation zone with a relative speed of zero.
+		
+		Observations of the trajectory show that the satellite describe a loop inside the observation zone, meaning that it is possible to get two fairly long observation very near to each other if the tip of the loop is outside of the observation zone. ascending if there is a good chance that these solutions are less efficient that a solution with the entire loop inside the observation zone, it could be usefull to improve the objective function to detect when the object reenter the observation zone after a short time.
 			
-		When we are working with a simple 2D problem with circular Moon orbit , there are an optimum near the value $(2\pi/3,0.5,38/45\pi,0)$ that give observation time of almost 20h.
+		For the model implemented, i've intentionally kept high value of $\alpha$ to ensure that the loop stayed in the observation zone.
 		
-		We managed to get observation time this long because the speed of the object and the observation Zone are equivalent. Meaning that the device can stay in the observation zone for a long time. As the Observation Zone velocity are nearly the same as the Moon, we can simplify for now by saying that the device must have the same speed as the Moon.
+		theses observation happen when the moon is between its first crescent and first quarter, the same way, the observation can happen when the Moon is between its last quarter and last crescent.
+		%When we are working with a simple 2D problem with circular Moon orbit and the Sun fixed, there are an optimum near the value $(2\pi/3,0.5,38/45\pi,0)$ that give observation time of almost 20h.
 		
-		The satellite describe a loop inside the observation zone, meaning that it is possible to get two fairly long observation very near to each other if the tip of the loop is outside of the observation zone. ascending if there is a good chance that these solutions are less efficient that a solution with the entire loop inside the observation zone, it could be usefull to improve the objective function to detect when the object reenter the observation zone after a short time.
-		
-		For the model implemented, i've intentionally kept high value of $\alpha$ to ensure that the loop stayed in the observation zone.		
-		
-		we can easily determine that there are two point in the lunar orbit where we can obtain very long observation time:
-		
-		The satellite can have the same speed vector as the moon only if the following equation is verified : 
-		
-		$$
-		\sqrt{\frac{2\mu}{R_s}-\frac{\mu}{a_s}}&=\sqrt{\frac{2\mu}{R_l}-\frac{\mu}{a_l}}
-		$$
-		
-		Considering that the moon's speed is constant (because of its small eccentricity) and that the period of the device is the same as the moon (ie $a_s=a_l$), we get the relation :
-		
-		$$
-		R_s=R_l
-		$$
-		
-		as the satellite is in the obsevation zone, the region in which the satelite can cross the observation zone and at the same speed as the moon is the intersection between the possible observation zone space (which is in this simplified case simplified by an ellipse) and a sphere of radius $R$ with $R=R_l$ in this case.
-		
-		There are two point in the orbit that satisfy these condition.
+		%We managed to get observation time this long because the speed of the object and the observation Zone are equivalent. Meaning that the device can stay in the observation zone for a long time. As the Observation Zone velocity are nearly the same as the Moon, we can simplify for now by saying that the device must have the same speed as the Moon.
 		
 		
 		\begin{figure}[h]

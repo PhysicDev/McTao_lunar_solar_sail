@@ -3,11 +3,11 @@
 \contentsline {subsection}{\numberline {1.2}Institut de recherche}{4}{}%
 \contentsline {section}{\numberline {2}Travail demandé}{4}{}%
 \contentsline {subsection}{\numberline {2.1}Objectif du stage}{4}{}%
-\contentsline {subsection}{\numberline {2.2}tâches}{5}{}%
+\contentsline {subsection}{\numberline {2.2}Tâches}{5}{}%
 \contentsline {section}{\numberline {3}Travail effectué}{6}{}%
-\contentsline {subsection}{\numberline {3.1}Première observations}{6}{}%
+\contentsline {subsection}{\numberline {3.1}Analyse de la zone d'observation}{6}{}%
 \contentsline {subsection}{\numberline {3.2}Calcul des observations}{8}{}%
-\contentsline {subsection}{\numberline {3.3}Contrôle optimal}{10}{}%
+\contentsline {subsection}{\numberline {3.3}Contrôle optimal}{11}{}%
 \contentsline {subsection}{\numberline {3.4}Analyse des résultats}{13}{}%
 \contentsline {section}{\numberline {4}Conclusion}{15}{}%
 \contentsline {subsection}{\numberline {4.1}Compétences acquises}{15}{}%
